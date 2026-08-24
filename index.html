@@ -1585,7 +1585,7 @@ function init() {
   setupAutoSave();
   setupMetaListeners();
   updateMetaDisplay();
-  initSlotTotals();
+  if (typeof initSlotTotals === "function") initSlotTotals();
 }
 
 // ════════════════════════════════════════════════════
@@ -1831,7 +1831,7 @@ function fillFields() {
   // Mettre à jour l'affichage lecture seule dans Identité
   updateMetaDisplay();
   // Recalculer les totaux de slots
-  initSlotTotals();
+  if (typeof initSlotTotals === "function") initSlotTotals();
 }
 
 function collectFields() {
@@ -2842,6 +2842,85 @@ function djmApplyData(parsed, raw) {
   if (typeof updateMetaDisplay  === 'function') updateMetaDisplay();
   if (typeof initSlotTotals     === 'function') initSlotTotals();
   saveStorage();
+}
+
+
+// ── Calcul des totaux de slots ────────────────────────────────────
+function calcSlotTotal(sid) {
+  var baseEl = document.getElementById(sid);
+  var modEl  = document.getElementById(sid + '_mod');
+  var totEl  = document.getElementById(sid + '_tot');
+  if (!baseEl || !totEl) return;
+  var base  = parseInt(baseEl.value, 10) || 0;
+  var mod   = parseInt(modEl ? modEl.value : 0, 10) || 0;
+  var total = base + mod;
+  totEl.textContent = total;
+  totEl.style.color = total < 0 ? 'var(--red)' : 'var(--gold)';
+}
+
+function initSlotTotals() {
+  ['slot_bg','slot_jg','slot_to','slot_te','slot_bd','slot_jd'].forEach(function(sid) {
+    calcSlotTotal(sid);
+  });
+}
+
+
+// ── Illustrations multiples ───────────────────────────────────────
+function buildIllList() {
+  var container = document.getElementById('ill-list');
+  if (!container) return;
+  container.innerHTML = '';
+  if (!D.illustrations) D.illustrations = [];
+  D.illustrations.forEach(function(ill, i) {
+    var row = document.createElement('div');
+    row.style.cssText = 'background:var(--bg3);border:1px solid var(--bd);padding:8px;display:flex;flex-direction:column;gap:6px;margin-bottom:6px';
+    var labelRow = document.createElement('div');
+    labelRow.style.cssText = 'display:flex;gap:6px;align-items:center';
+    var inp = document.createElement('input');
+    inp.type = 'text'; inp.placeholder = 'Legende (ex: En armure, Civil...)';
+    inp.value = ill.label || '';
+    inp.style.cssText = 'flex:1;background:var(--bg);border:1px solid var(--bd);color:var(--txt);font-family:var(--mono);font-size:10px;padding:5px 8px;outline:none';
+    inp.oninput = (function(idx){ return function(){ D.illustrations[idx].label = this.value; markUnsaved(); }; })(i);
+    var rmBtn = document.createElement('button');
+    rmBtn.className = 'btn btn-d'; rmBtn.style.cssText = 'font-size:9px;padding:3px 8px;flex-shrink:0';
+    rmBtn.textContent = 'x';
+    rmBtn.onclick = (function(idx){ return function(){ D.illustrations.splice(idx,1); buildIllList(); markUnsaved(); }; })(i);
+    labelRow.appendChild(inp); labelRow.appendChild(rmBtn);
+    var zone = document.createElement('div');
+    zone.className = 'drop-zone';
+    zone.style.cssText = 'height:100px;aspect-ratio:3/4;width:100%';
+    var icon = document.createElement('div'); icon.className = 'dz-icon'; icon.textContent = 'image';
+    var lbl  = document.createElement('div'); lbl.className = 'dz-lbl'; lbl.textContent = 'Cliquer pour choisir';
+    zone.appendChild(icon); zone.appendChild(lbl);
+    if (ill.data || ill.driveId) {
+      var img = document.createElement('img');
+      img.className = 'dz-img';
+      img.src = ill.data || (ill.driveId && typeof driveImgUrls === 'function' ? driveImgUrls(ill.driveId)[0] : '');
+      zone.appendChild(img);
+      icon.style.display = 'none'; lbl.style.display = 'none';
+    }
+    zone.onclick = (function(idx){ return function(e){
+      if (e.target.tagName === 'BUTTON') return;
+      var fi = document.createElement('input');
+      fi.type = 'file'; fi.accept = 'image/*';
+      fi.onchange = function(ev) {
+        var file = ev.target.files[0]; if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function(re2) { D.illustrations[idx].data = re2.target.result; buildIllList(); markUnsaved(); };
+        reader.readAsDataURL(file);
+      };
+      fi.click();
+    }; })(i);
+    row.appendChild(labelRow); row.appendChild(zone);
+    container.appendChild(row);
+  });
+}
+
+function addIllustration() {
+  if (!D.illustrations) D.illustrations = [];
+  D.illustrations.push({ label:'', data:null, driveUrl:'', driveId:null });
+  buildIllList();
+  markUnsaved();
 }
 
 // ════════════════════════════════════════════════════
