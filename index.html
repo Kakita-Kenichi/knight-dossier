@@ -106,7 +106,6 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
 .mb16 { margin-bottom: 15px; }
 
 /* LUMIERE OMBRE */
-.lo-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 .lo-label { font-family: var(--mono); font-size: 14px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 6px; }
 .lo-lum { color: #f0c040; }
 .lo-omb { color: #8060b0; }
@@ -120,12 +119,11 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
 .hbox.on { background: var(--gold); }
 .cbox { width: 14px; height: 14px; border: 1px solid var(--bd2); border-radius: 50%; cursor: pointer; }
 .cbox.on { background: var(--gold); }
-.tracker-row { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
 .tracker-lbl { font-family: var(--mono); font-size: 14px; letter-spacing: 1px; text-transform: uppercase; color: var(--txt3); min-width: 50px; }
 
 /* IMAGE ZONES */
 .img-block { margin-bottom: 14px; }
-.img-lbl { font-family: var(--mono); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--txt3); margin-bottom: 5px; }
+.img-lbl { font-family: var(--mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--txt3); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .drop-zone { border: 2px dashed var(--bd2); background: var(--bg3); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 6px; cursor: pointer; position: relative; overflow: hidden; }
 .drop-zone:hover { border-color: var(--gold); }
 .drop-zone.over { border-color: var(--gold2); background: rgba(200,168,75,.06); }
@@ -135,27 +133,25 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
 .dz-rm   { position: absolute; top: 4px; right: 4px; display: none; z-index: 10; }
 .drop-zone:hover .dz-rm { display: block; }
 .dz-badge { position: absolute; bottom: 4px; left: 4px; background: rgba(0,0,0,.8); color: var(--gold); font-family: var(--mono); font-size: 14px; padding: 2px 14px; border: 1px solid var(--gold); pointer-events: none; z-index: 5; }
-.drive-url-row { display: flex; gap: 6px; margin-top: 5px; }
+.drive-url-row { display: flex; gap: 4px; margin-top: 4px; min-width: 0; }
 .drive-url-row input { flex: 1; background: var(--bg); border: 1px solid var(--bd); color: var(--txt); font-family: var(--mono); font-size: 14px; padding: 5px 14px; outline: none; }
 .drive-url-row input:focus { border-color: var(--gold); }
 .drive-url-row input.url-ok  { border-color: var(--green); }
 .drive-url-row input.url-err { border-color: var(--red); }
-.drive-url-hint { font-family: var(--mono); font-size: 14px; color: var(--txt3); margin-top: 3px; line-height: 1.5; }
 
 /* ASPECTS */
 /* ASPECTS */
-.asp-card { background: var(--bg3); border: 1px solid var(--bd); padding: 14px; }
 /* Ligne titre : Nom | Max [case] */
-.asp-header-row { display: flex; align-items: center; gap: 5px; border-bottom: 2px solid var(--gold); padding-bottom: 6px; margin-bottom: 6px; }
+.asp-header-row { display: flex; align-items: center; gap: 8px; background: var(--bg3); border-left: 3px solid var(--gold); padding: 7px 12px; margin-bottom: 0; }
 .asp-name-txt { font-family: var(--mono); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); flex: 1; }
 .asp-max-label { font-family: var(--mono); font-size: 14px; letter-spacing: 1px; text-transform: uppercase; color: var(--txt3); white-space: nowrap; }
 .asp-max-inp { width: 44px; background: var(--bg); border: 1px solid var(--gold); color: var(--gold); font-family: var(--mono); font-size: 14px; font-weight: bold; padding: 3px 4px; outline: none; text-align: center; }
 .asp-max-inp:focus { border-color: var(--gold2); }
 /* Ligne sous-aspect : Nom | Val [case] OD [case] */
-.sub-header-row { display: flex; align-items: center; gap: 4px; background: rgba(200,168,75,.07); padding: 3px 4px; margin: 5px 0 3px; }
-.sub-name-txt { font-family: var(--mono); font-size: 14px; letter-spacing: 1px; text-transform: uppercase; color: var(--txt2); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.sub-score-lbl { font-family: var(--mono); font-size: 14px; letter-spacing: 1px; text-transform: uppercase; color: var(--txt3); white-space: nowrap; }
-.sub-score-inp { width: 38px; flex-shrink: 0; background: var(--bg); border: 1px solid var(--bd); color: var(--txt); font-family: var(--mono); font-size: 14px; padding: 3px 4px; outline: none; text-align: center; }
+.sub-header-row { display: flex; align-items: center; gap: 8px; background: rgba(200,168,75,.08); border-left: 3px solid var(--gold); border-top: 1px solid var(--bd); padding: 8px 12px; margin: 0; }
+.sub-name-txt { font-family: var(--mono); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold2); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: bold; }
+.sub-score-lbl { font-family: var(--mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--txt2); white-space: nowrap; }
+.sub-score-inp { width: 42px; flex-shrink: 0; background: var(--bg); border: 1px solid var(--bd2); color: var(--gold2); font-family: var(--mono); font-size: 15px; font-weight: bold; padding: 4px 4px; outline: none; text-align: center; }
 .sub-score-inp:focus { border-color: var(--gold); }
 .rank-row { display: flex; gap: 5px; font-size: 14px; color: var(--txt2); padding: 2px 0; line-height: 1.3; }
 .rank-n { font-family: var(--mono); color: var(--gold); font-size: 14px; font-weight: bold; min-width: 14px; margin-top: 1px; flex-shrink: 0; }
@@ -175,7 +171,7 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
 .cs-item.on .cs-d { color: var(--txt2); }
 
 /* META MODULES */
-.mod-card { background: var(--bg3); border: 1px solid var(--bd); padding: 14px; margin-bottom: 14px; }
+.mod-card { background: var(--bg3); border: 1px solid var(--bd); padding: 8px; margin-bottom: 10px; }
 .mod-title { font-family: var(--mono); font-size: 14px; letter-spacing: 2px; color: var(--gold); margin-bottom: 14px; text-transform: uppercase; }
 
 /* DOSSIER VIEW */
@@ -192,9 +188,7 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
 .d-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .dm-lbl { font-family: var(--mono); font-size: 14px; letter-spacing: 2px; color: var(--txt3); text-transform: uppercase; margin-bottom: 2px; }
 .dm-val { font-family: var(--mono); font-size: 14px; color: var(--txt); border-bottom: 1px solid var(--bd); padding-bottom: 2px; min-height: 15px; }
-.d-body { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .d-slbl { font-family: var(--mono); font-size: 14px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 14px; padding-bottom: 3px; border-bottom: 1px solid var(--bd); }
-.d-asp-row { display: grid; grid-template-columns: repeat(5,1fr); gap: 4px; margin-bottom: 14px; }
 .d-asp-block { background: var(--bg3); border: 1px solid var(--bd); padding: 6px; margin-bottom: 14px; }
 .d-asp-header { display: flex; align-items: center; gap: 6px; border-bottom: 1px solid var(--gold); padding-bottom: 4px; margin-bottom: 6px; }
 .d-asp-n { font-family: var(--mono); font-size: 14px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; flex: 1; }
@@ -205,16 +199,7 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
 .d-sub-name { font-family: var(--mono); font-size: 14px; color: var(--txt2); flex: 1; text-transform: uppercase; letter-spacing: 1px; }
 .d-sub-lbl { font-family: var(--mono); font-size: 14px; color: var(--txt3); letter-spacing: 1px; white-space: nowrap; }
 .d-sub-val { font-family: var(--mono); font-size: 14px; font-weight: bold; color: var(--txt); min-width: 20px; text-align: center; }
-.d-lo { display: flex; gap: 14px; margin-top: 14px; }
-.d-lo-b { flex: 1; text-align: center; background: var(--bg3); border: 1px solid var(--bd); padding: 14px; }
-.d-lo-l { font-family: var(--mono); font-size: 14px; letter-spacing: 2px; color: var(--txt3); text-transform: uppercase; }
-.d-lo-v { font-size: 18px; font-weight: bold; margin-top: 3px; }
-.d-lo-b.lum .d-lo-v { color: #f0c040; }
-.d-lo-b.omb .d-lo-v { color: #8060b0; }
-.d-ill { width: 100%; aspect-ratio: 1024/1580; border: 1px solid var(--bd); background: var(--bg3); overflow: hidden; display: flex; align-items: center; justify-content: center; }
-.d-ill img { width: 100%; height: 100%; object-fit: cover; }
-.d-voeu { background: rgba(200,168,75,.05); border: 1px solid rgba(200,168,75,.2); padding: 14px; font-family: var(--mono); font-size: 14px; color: var(--gold2); font-style: italic; text-align: center; margin-top: 14px; }
-.d-bio { background: var(--bg3); border: 1px solid var(--bd); padding: 14px; font-size: 14px; line-height: 1.6; color: var(--txt2); min-height: 50px; white-space: pre-wrap; }
+.d-lo-b.lum .d-lo-b.omb .d-ill img { width: 100%; height: 100%; object-fit: cover; }
 .d-ars th { font-family: var(--mono); font-size: 14px; letter-spacing: 1px; color: var(--txt3); text-transform: uppercase; padding: 3px 4px; border-bottom: 1px solid var(--bd); text-align: left; }
 .d-ars td { font-family: var(--mono); font-size: 14px; padding: 3px 4px; border-bottom: 1px solid var(--bd); color: var(--txt); }
 .d-bla-img { width: 130px; height: 170px; border: 1px solid var(--bd); background: var(--bg3); overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
@@ -224,25 +209,13 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
 #djm-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.78); z-index: 1000; align-items: center; justify-content: center; }
 #djm-overlay.on { display: flex; }
 #djm-box { background: var(--bg2); border: 1px solid var(--gold); width: 520px; max-width: 94vw; font-family: var(--mono); }
-.djm-hdr { background: var(--bg3); border-bottom: 1px solid var(--bd); padding: 14px 14px; display: flex; align-items: center; justify-content: space-between; }
 .djm-hdr h3 { font-size: 14px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin: 0; }
-.djm-body { padding: 15px; display: flex; flex-direction: column; gap: 14px; }
-.djm-slbl { font-size: 14px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; margin-bottom: 5px; }
-.djm-note { font-size: 14px; line-height: 1.6; color: var(--txt2); padding: 14px; background: rgba(200,168,75,.04); border: 1px solid rgba(200,168,75,.14); }
-.djm-step { display: flex; gap: 14px; align-items: flex-start; font-size: 14px; color: var(--txt2); padding: 5px 0; border-bottom: 1px solid var(--bd); }
 .djm-step:last-of-type { border-bottom: none; }
-.djm-n { min-width: 15px; height: 15px; background: var(--gold); color: var(--bg); font-size: 14px; font-weight: bold; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-.djm-sep { border: none; border-top: 1px solid var(--bd); }
-.djm-row { display: flex; gap: 6px; }
 .djm-row input { flex: 1; background: var(--bg); border: 1px solid var(--bd); color: var(--txt); font-family: var(--mono); font-size: 14px; padding: 6px 14px; outline: none; }
 .djm-row input:focus { border-color: var(--gold); }
-.djm-st { font-size: 14px; padding: 6px 14px; border: 1px solid var(--bd); color: var(--txt3); background: var(--bg3); min-height: 27px; }
 .djm-st.ok  { color: var(--green); border-color: var(--green); }
 .djm-st.err { color: var(--red); border-color: var(--red); }
 .djm-st.inf { color: var(--gold); border-color: var(--gold); }
-.djm-saved { display: none; padding: 6px 14px; background: var(--bg3); border: 1px solid var(--bd); }
-.djm-saved-lbl { font-size: 14px; letter-spacing: 1px; color: var(--txt3); text-transform: uppercase; margin-bottom: 3px; }
-.djm-saved-url { font-size: 14px; color: var(--gold); word-break: break-all; }
 
 /* SCROLLBAR */
 ::-webkit-scrollbar { width: 5px; }
@@ -280,10 +253,7 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
 .d-mod-name { font-family:var(--mono); font-size:14px; color:var(--gold); font-weight:bold; }
 .d-mod-stats { font-family:var(--mono); font-size:14px; color:var(--txt3); }
 .d-mod-effets { font-family:var(--mono); font-size:14px; color:var(--txt2); line-height:1.4; margin-top:2px; }
-.d-ill-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:14px; margin-top:6px; }
-.d-ill-item { border:1px solid var(--bd); background:var(--bg3); overflow:hidden; }
 .d-ill-item img { width:100%; aspect-ratio:3/4; object-fit:cover; display:block; }
-.d-ill-cap { font-family:var(--mono); font-size:14px; color:var(--txt3); padding:4px 6px; letter-spacing:1px; text-transform:uppercase; }
 .d-notes-meta { font-family:var(--mono); font-size:14px; color:var(--txt2); line-height:1.6; background:var(--bg3); border:1px solid var(--bd); padding:14px; white-space:pre-wrap; }
 
 /* ── GUIDE MODAL ── */
@@ -350,61 +320,13 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
 .g-table td b { color:var(--txt); }
 
 /* GUIDE */
-.guide-wrap { max-width: 820px; margin: 0 auto; }
-.guide-section { background: var(--bg2); border: 1px solid var(--bd); margin-bottom: 15px; }
-.guide-section-title {
-  font-family: var(--mono); font-size: 14px; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--gold); padding: 14px 15px; background: var(--bg3);
-  border-bottom: 1px solid var(--bd); display: flex; align-items: center; gap: 14px;
-  cursor: pointer; user-select: none;
-}
 .guide-section-title::after { content: '▾'; margin-left: auto; transition: transform .2s; }
 .guide-section-title.collapsed::after { transform: rotate(-90deg); }
-.guide-section-body { padding: 15px; display: flex; flex-direction: column; gap: 14px; }
 .guide-section-body.hidden { display: none; }
-.guide-step {
-  display: flex; gap: 14px; align-items: flex-start;
-  padding: 14px 14px; background: var(--bg3); border: 1px solid var(--bd);
-}
-.guide-step-num {
-  min-width: 22px; height: 22px; background: var(--gold); color: var(--bg);
-  font-family: var(--mono); font-size: 14px; font-weight: bold;
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-}
-.guide-step-body { flex: 1; }
-.guide-step-title { font-family: var(--mono); font-size: 14px; color: var(--gold2); margin-bottom: 4px; }
-.guide-step-desc { font-size: 14px; color: var(--txt2); line-height: 1.6; }
 .guide-step-desc b { color: var(--txt); }
-.guide-note {
-  padding: 14px 14px; border-left: 3px solid var(--gold);
-  background: rgba(200,168,75,.05); font-size: 14px; color: var(--txt2); line-height: 1.6;
-}
 .guide-note.tip { border-color: var(--green); background: rgba(39,174,96,.05); }
 .guide-note.warn { border-color: var(--red); background: rgba(192,57,43,.05); }
-.guide-code {
-  font-family: var(--mono); font-size: 14px; background: var(--bg);
-  border: 1px solid var(--bd); padding: 6px 14px; color: var(--gold2);
-  display: inline-block; margin: 2px 0; word-break: break-all;
-}
-.guide-badge {
-  display: inline-block; font-family: var(--mono); font-size: 14px; letter-spacing: 1px;
-  padding: 2px 14px; border: 1px solid var(--gold); color: var(--gold);
-  background: rgba(200,168,75,.08); vertical-align: middle; margin: 0 2px;
-}
 .guide-badge.green { border-color: var(--green); color: var(--green); background: rgba(39,174,96,.08); }
-.guide-header {
-  background: linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);
-  border: 1px solid var(--gold); padding: 18px 22px; margin-bottom: 18px;
-  display: flex; align-items: flex-start; gap: 15px;
-}
-.guide-header-icon { font-size: 32px; flex-shrink: 0; margin-top: 2px; }
-.guide-header-title { font-family: var(--mono); font-size: 15px; color: var(--gold); letter-spacing: 2px; margin-bottom: 4px; }
-.guide-header-sub { font-family: var(--mono); font-size: 14px; color: var(--txt3); letter-spacing: 2px; }
-.guide-toc { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
-.guide-toc-item {
-  font-family: var(--mono); font-size: 14px; letter-spacing: 1px; padding: 4px 14px;
-  border: 1px solid var(--bd); color: var(--txt3); cursor: pointer; text-transform: uppercase;
-}
 .guide-toc-item:hover { border-color: var(--gold); color: var(--gold); }
 
 /* ── DRIVE PANEL ── */
@@ -508,6 +430,52 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
 .theme-opt:last-child { border-bottom: none; }
 .theme-opt:hover { background: var(--bg3); color: var(--gold); }
 .theme-opt.active { color: var(--gold); font-weight: bold; }
+
+.mod-card .f label { font-size: 9px; margin-bottom: 2px; }
+.mod-card .f input, .mod-card .f textarea { font-size: 11px; padding: 3px 5px; }
+
+/* ── CARROUSEL ILLUSTRATIONS ── */
+#carousel-overlay {
+  display:none; position:fixed; inset:0; background:rgba(0,0,0,.92);
+  z-index:4000; align-items:center; justify-content:center;
+}
+#carousel-overlay.on { display:flex; }
+#carousel-box {
+  position:relative; max-width:90vw; max-height:90vh;
+  display:flex; flex-direction:column; align-items:center; gap:12px;
+}
+#carousel-img {
+  max-width:80vw; max-height:78vh; object-fit:contain;
+  border:2px solid var(--gold); background:var(--bg3);
+}
+#carousel-img.empty {
+  width:300px; height:420px; display:flex; align-items:center;
+  justify-content:center; font-family:var(--mono); font-size:11px;
+  color:var(--txt3); letter-spacing:2px;
+}
+.carousel-nav {
+  display:flex; gap:16px; align-items:center;
+}
+.carousel-arrow {
+  background:var(--bg3); border:1px solid var(--gold); color:var(--gold);
+  font-family:var(--mono); font-size:18px; padding:6px 16px; cursor:pointer;
+}
+.carousel-arrow:hover { background:var(--gold); color:var(--bg); }
+.carousel-dots { display:flex; gap:8px; }
+.carousel-dot {
+  width:8px; height:8px; border-radius:50%;
+  background:var(--bd2); cursor:pointer; transition:background .15s;
+}
+.carousel-dot.on { background:var(--gold); }
+#carousel-lbl {
+  font-family:var(--mono); font-size:10px; letter-spacing:2px;
+  color:var(--txt3); text-transform:uppercase;
+}
+#carousel-close {
+  position:absolute; top:-36px; right:0;
+  background:transparent; border:none; color:var(--gold);
+  font-family:var(--mono); font-size:18px; cursor:pointer;
+}
 </style>
 </head>
 <body>
@@ -553,10 +521,8 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
 
 <!-- ════════════════════ IDENTITÉ ════════════════════ -->
 <div id="p-identite" class="panel">
-  <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px">
-    <div>
 
-      <div class="blk">
+<div class="blk">
         <div class="blk-title">▸ Identité du Chevalier</div>
         <div class="blk-body">
           <div class="grid2 mb12">
@@ -660,68 +626,85 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
         </div>
       </div>
 
-    </div><!-- /left col -->
-
-    <!-- IMAGES -->
-    <div>
-      <div class="blk">
+      <!-- IMAGES : 5 colonnes -->
+      <div class="blk" style="margin-top:14px">
         <div class="blk-title">▸ Images</div>
-        <div class="blk-body" style="display:flex;flex-direction:column;gap:12px">
-
-          <div class="img-block">
-            <div class="img-lbl">Portrait</div>
-            <div class="drop-zone" id="dz-portrait" style="height:240px;aspect-ratio:3/4;width:100%" onclick="dzClick('portrait')">
-              <div class="dz-icon">⬆</div>
-              <div class="dz-lbl">Glisser / cliquer</div>
-              <button class="btn btn-d dz-rm" onclick="dzRemove('portrait',event)" style="font-size:9px;padding:3px 8px">✕</button>
-            </div>
-            <input type="file" id="fi-portrait" accept="image/*" style="display:none" onchange="dzLoad('portrait',event)">
-            <div class="drive-url-row">
-              <input type="text" id="drv-portrait" placeholder="Lien Google Drive…" oninput="dzDriveUrl('portrait',this)">
-              <button class="btn" style="font-size:9px;padding:4px 10px;flex-shrink:0" onclick="dzDriveClear('portrait')">✕</button>
-            </div>
-            <div class="drive-url-hint">Sur Drive : Partager → "Tout le monde avec le lien" → Copier</div>
+        <div class="blk-body">
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;min-width:0">
+              <div style="min-width:0;overflow:hidden">
+                <div class="img-lbl">Portrait</div>
+                <div class="drop-zone" id="dz-portrait" style="width:100%;aspect-ratio:1/1.414;max-height:none" onclick="dzClick('portrait')">
+                  <div class="dz-icon">⬆</div>
+                  <div class="dz-lbl">Glisser / cliquer</div>
+                  <button class="btn btn-d dz-rm" onclick="dzRemove('portrait',event)" style="font-size:9px;padding:3px 8px">✕</button>
+                </div>
+                <input type="file" id="fi-portrait" accept="image/*" style="display:none" onchange="dzLoad('portrait',event)">
+                <div class="drive-url-row">
+                  <input type="text" id="drv-portrait" placeholder="Lien Google Drive…" oninput="dzDriveUrl('portrait',this)">
+                  <button class="btn" style="font-size:9px;padding:4px 10px;flex-shrink:0" onclick="dzDriveClear('portrait')">✕</button>
+                </div>
+              </div>
+              <div style="min-width:0;overflow:hidden">
+                <div class="img-lbl">Illustration 1</div>
+                <div class="drop-zone" id="dz-illustration" style="width:100%;aspect-ratio:1/1.414;max-height:none" onclick="dzClick('illustration')">
+                  <div class="dz-icon">⬆</div>
+                  <div class="dz-lbl">Glisser / cliquer</div>
+                  <button class="btn btn-d dz-rm" onclick="dzRemove('illustration',event)" style="font-size:9px;padding:3px 8px">✕</button>
+                </div>
+                <input type="file" id="fi-illustration" accept="image/*" style="display:none" onchange="dzLoad('illustration',event)">
+                <div class="drive-url-row">
+                  <input type="text" id="drv-illustration" placeholder="Lien Google Drive…" oninput="dzDriveUrl('illustration',this)">
+                  <button class="btn" style="font-size:9px;padding:4px 10px;flex-shrink:0" onclick="dzDriveClear('illustration')">✕</button>
+                </div>
+              </div>
+              <div style="min-width:0;overflow:hidden">
+                <div class="img-lbl">Illustration 2</div>
+                <div class="drop-zone" id="dz-illustration2" style="width:100%;aspect-ratio:1/1.414;max-height:none" onclick="dzClick('illustration2')">
+                  <div class="dz-icon">⬆</div>
+                  <div class="dz-lbl">Glisser / cliquer</div>
+                  <button class="btn btn-d dz-rm" onclick="dzRemove('illustration2',event)" style="font-size:9px;padding:3px 8px">✕</button>
+                </div>
+                <input type="file" id="fi-illustration2" accept="image/*" style="display:none" onchange="dzLoad('illustration2',event)">
+                <div class="drive-url-row">
+                  <input type="text" id="drv-illustration2" placeholder="Lien Google Drive…" oninput="dzDriveUrl('illustration2',this)">
+                  <button class="btn" style="font-size:9px;padding:4px 10px;flex-shrink:0" onclick="dzDriveClear('illustration2')">✕</button>
+                </div>
+              </div>
+              <div style="min-width:0;overflow:hidden">
+                <div class="img-lbl">Illustration 3</div>
+                <div class="drop-zone" id="dz-illustration3" style="width:100%;aspect-ratio:1/1.414;max-height:none" onclick="dzClick('illustration3')">
+                  <div class="dz-icon">⬆</div>
+                  <div class="dz-lbl">Glisser / cliquer</div>
+                  <button class="btn btn-d dz-rm" onclick="dzRemove('illustration3',event)" style="font-size:9px;padding:3px 8px">✕</button>
+                </div>
+                <input type="file" id="fi-illustration3" accept="image/*" style="display:none" onchange="dzLoad('illustration3',event)">
+                <div class="drive-url-row">
+                  <input type="text" id="drv-illustration3" placeholder="Lien Google Drive…" oninput="dzDriveUrl('illustration3',this)">
+                  <button class="btn" style="font-size:9px;padding:4px 10px;flex-shrink:0" onclick="dzDriveClear('illustration3')">✕</button>
+                </div>
+              </div>
+              <div style="min-width:0;overflow:hidden">
+                <div class="img-lbl">Blason</div>
+                <div class="drop-zone" id="dz-blason" style="width:100%;aspect-ratio:1/1.414;max-height:none" onclick="dzClick('blason')">
+                  <div class="dz-icon">⬆</div>
+                  <div class="dz-lbl">Glisser / cliquer</div>
+                  <button class="btn btn-d dz-rm" onclick="dzRemove('blason',event)" style="font-size:9px;padding:3px 8px">✕</button>
+                </div>
+                <input type="file" id="fi-blason" accept="image/*" style="display:none" onchange="dzLoad('blason',event)">
+                <div class="drive-url-row">
+                  <input type="text" id="drv-blason" placeholder="Lien Google Drive…" oninput="dzDriveUrl('blason',this)">
+                  <button class="btn" style="font-size:9px;padding:4px 10px;flex-shrink:0" onclick="dzDriveClear('blason')">✕</button>
+                </div>
+              </div>
           </div>
-
-          <div class="img-block">
-            <div class="img-lbl">Illustration</div>
-            <div class="drop-zone" id="dz-illustration" style="height:280px;aspect-ratio:3/4;width:100%" onclick="dzClick('illustration')">
-              <div class="dz-icon">⬆</div>
-              <div class="dz-lbl">Glisser / cliquer</div>
-              <button class="btn btn-d dz-rm" onclick="dzRemove('illustration',event)" style="font-size:9px;padding:3px 8px">✕</button>
-            </div>
-            <input type="file" id="fi-illustration" accept="image/*" style="display:none" onchange="dzLoad('illustration',event)">
-            <div class="drive-url-row">
-              <input type="text" id="drv-illustration" placeholder="Lien Google Drive…" oninput="dzDriveUrl('illustration',this)">
-              <button class="btn" style="font-size:9px;padding:4px 10px;flex-shrink:0" onclick="dzDriveClear('illustration')">✕</button>
-            </div>
-            <div class="drive-url-hint">Sur Drive : Partager → "Tout le monde avec le lien" → Copier</div>
-          </div>
-
-          <div class="img-block">
-            <div class="img-lbl">Blason</div>
-            <div class="drop-zone" id="dz-blason" style="height:180px;aspect-ratio:3/4;width:100%" onclick="dzClick('blason')">
-              <div class="dz-icon">⬆</div>
-              <div class="dz-lbl">Glisser / cliquer</div>
-              <button class="btn btn-d dz-rm" onclick="dzRemove('blason',event)" style="font-size:9px;padding:3px 8px">✕</button>
-            </div>
-            <input type="file" id="fi-blason" accept="image/*" style="display:none" onchange="dzLoad('blason',event)">
-            <div class="drive-url-row">
-              <input type="text" id="drv-blason" placeholder="Lien Google Drive…" oninput="dzDriveUrl('blason',this)">
-              <button class="btn" style="font-size:9px;padding:4px 10px;flex-shrink:0" onclick="dzDriveClear('blason')">✕</button>
-            </div>
-            <div class="drive-url-hint">Sur Drive : Partager → "Tout le monde avec le lien" → Copier</div>
-          </div>
-
         </div>
       </div>
-    </div><!-- /right col -->
-  </div>
+
 </div><!-- /p-identite -->
 
 <!-- ════════════════════ ASPECTS ════════════════════ -->
 <div id="p-aspects" class="panel">
-  <div class="grid5" id="asp-container"></div>
+  <div id="asp-container"></div>
 </div>
 
 <!-- ════════════════════ COMBAT ════════════════════ -->
@@ -733,11 +716,11 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
     <div style="overflow-x:auto">
       <table class="tbl" id="arsenal-tbl">
         <thead><tr>
-          <th style="width:22%">Arme</th>
-          <th style="width:13%">Dégâts</th>
-          <th style="width:11%">Violence</th>
-          <th style="width:11%">Portée</th>
-          <th style="width:10%">Munition</th>
+          <th style="width:18%">Arme</th>
+          <th style="width:11%">Dégâts</th>
+          <th style="width:9%">Violence</th>
+          <th style="width:16%">Portée</th>
+          <th style="width:9%">Munition</th>
           <th>Effets / Modes</th>
           <th style="width:30px"></th>
         </tr></thead>
@@ -926,9 +909,9 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
     <div class="d-stamp">CONFIDENTIEL</div>
 
     <!-- EN-TÊTE : Portrait | Identité | Blason -->
-    <div style="display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:start;border-bottom:2px solid var(--gold);padding-bottom:18px;margin-bottom:18px">
+    <div style="display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;border-bottom:2px solid var(--gold);padding-bottom:18px;margin-bottom:18px">
       <!-- Portrait gauche -->
-      <div class="d-portrait" id="d-portrait-el"><div class="d-no-img">PORTRAIT<br>NON FOURNI</div></div>
+      <div class="d-portrait" id="d-portrait-el" style="cursor:pointer" title="Cliquer pour voir les illustrations" onclick="openCarousel()"><div class="d-no-img">PORTRAIT<br>NON FOURNI</div></div>
       <!-- Identité centre -->
       <div class="d-id">
         <div class="d-code">KNIGHT // DOSSIER AGENT // TABLE RONDE</div>
@@ -965,55 +948,45 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
     <div class="d-slbl" style="margin-bottom:8px">Profil — Aspects</div>
     <div id="d-aspects"></div>
 
-    <!-- CORPS : Illustration (gauche) | Valeurs + Méta (droite) -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:14px;margin-bottom:18px">
-
-      <!-- Colonne gauche : Illustration pleine hauteur -->
-      <div>
-        <div class="d-slbl" style="margin-bottom:8px">Illustration</div>
-        <div id="d-ill-el" style="width:100%;aspect-ratio:1024/1580;border:1px solid var(--bd);background:var(--bg3);overflow:hidden;display:flex;align-items:center;justify-content:center">
-          <div style="font-family:var(--mono);font-size:9px;color:var(--txt3);letter-spacing:2px">ILLUSTRATION NON FOURNIE</div>
-        </div>
+    <!-- VALEURS DÉRIVÉES pleine largeur -->
+    <div class="d-slbl" style="margin-bottom:8px;margin-top:14px">Valeurs Dérivées</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px">
+      <div class="d-val-block"><div class="d-val-lbl">Défense</div><div class="d-val-v big" id="d-defense">—</div></div>
+      <div class="d-val-block"><div class="d-val-lbl">Réaction</div><div class="d-val-v big" id="d-reaction">—</div></div>
+      <div class="d-val-block"><div class="d-val-lbl">Initiative</div><div class="d-val-v big" id="d-initiative">—</div></div>
+      <div class="d-val-block"><div class="d-val-lbl">PS</div><div class="d-val-v big" id="d-ps-val">—</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px">
+      <div class="d-val-block" style="display:flex;gap:10px;align-items:center">
+        <div><div class="d-val-lbl">◇ Lumière</div><div class="d-val-v big" style="color:#f0c040" id="d-lum">—</div></div>
+        <div style="color:var(--txt3);font-family:var(--mono)">/</div>
+        <div><div class="d-val-lbl">Max</div><div class="d-val-v" id="d-lum-max">—</div></div>
       </div>
-
-      <!-- Colonne droite : Valeurs dérivées + Méta-Armure -->
-      <div>
-        <div class="d-slbl" style="margin-bottom:8px">Valeurs Dérivées</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-bottom:12px">
-          <div class="d-val-block"><div class="d-val-lbl">Défense</div><div class="d-val-v big" id="d-defense">—</div></div>
-          <div class="d-val-block"><div class="d-val-lbl">Réaction</div><div class="d-val-v big" id="d-reaction">—</div></div>
-          <div class="d-val-block"><div class="d-val-lbl">Initiative</div><div class="d-val-v big" id="d-initiative">—</div></div>
-          <div class="d-val-block"><div class="d-val-lbl">PS</div><div class="d-val-v big" id="d-ps-val">—</div></div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px">
-          <div class="d-val-block" style="display:flex;gap:10px;align-items:center">
-            <div><div class="d-val-lbl">◇ Lumière</div><div class="d-val-v big" style="color:#f0c040" id="d-lum">—</div></div>
-            <div style="color:var(--txt3);font-family:var(--mono)">/</div>
-            <div><div class="d-val-lbl">Max</div><div class="d-val-v" id="d-lum-max">—</div></div>
-          </div>
-          <div class="d-val-block" style="display:flex;gap:10px;align-items:center">
-            <div><div class="d-val-lbl">◆ Ombre</div><div class="d-val-v big" style="color:#8060b0" id="d-omb">—</div></div>
-            <div style="color:var(--txt3);font-family:var(--mono)">/</div>
-            <div><div class="d-val-lbl">Max</div><div class="d-val-v" id="d-omb-max">—</div></div>
-          </div>
-        </div>
-        <div class="d-val-block" style="margin-bottom:12px">
-          <div class="d-val-lbl" style="margin-bottom:5px">Héroïsme</div>
-          <div id="d-heroisme" style="display:flex;gap:3px"></div>
-        </div>
-        <div class="d-slbl" style="margin-bottom:8px">Méta-Armure</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px">
-          <div class="d-val-block"><div class="d-val-lbl">PA</div><div class="d-val-v big" id="d-meta-pa">—</div></div>
-          <div class="d-val-block"><div class="d-val-lbl">PE</div><div class="d-val-v big" id="d-meta-pe">—</div></div>
-          <div class="d-val-block"><div class="d-val-lbl">CdF</div><div class="d-val-v big" id="d-meta-cdf">—</div></div>
-        </div>
-        <div class="d-slbl" style="margin-bottom:6px;margin-top:10px">Slots</div>
-        <div class="d-slots-grid" id="d-slots"></div>
-        <div id="d-modules-wrap" style="margin-top:12px;display:none">
-          <div class="d-slbl" style="margin-bottom:6px">Modules</div>
-          <div id="d-modules-list"></div>
-        </div>
+      <div class="d-val-block" style="display:flex;gap:10px;align-items:center">
+        <div><div class="d-val-lbl">◆ Ombre</div><div class="d-val-v big" style="color:#8060b0" id="d-omb">—</div></div>
+        <div style="color:var(--txt3);font-family:var(--mono)">/</div>
+        <div><div class="d-val-lbl">Max</div><div class="d-val-v" id="d-omb-max">—</div></div>
       </div>
+      <div class="d-val-block">
+        <div class="d-val-lbl" style="margin-bottom:5px">Héroïsme</div>
+        <div id="d-heroisme" style="display:flex;gap:3px;flex-wrap:wrap"></div>
+      </div>
+    </div>
+
+    <!-- MÉTA-ARMURE pleine largeur -->
+    <div class="d-slbl" style="margin-bottom:8px">Méta-Armure</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px">
+      <div class="d-val-block"><div class="d-val-lbl">PA</div><div class="d-val-v big" id="d-meta-pa">—</div></div>
+      <div class="d-val-block"><div class="d-val-lbl">PE</div><div class="d-val-v big" id="d-meta-pe">—</div></div>
+      <div class="d-val-block"><div class="d-val-lbl">CdF</div><div class="d-val-v big" id="d-meta-cdf">—</div></div>
+    </div>
+
+    <!-- SLOTS pleine largeur -->
+    <div class="d-slbl" style="margin-bottom:6px">Slots</div>
+    <div class="d-slots-grid" id="d-slots" style="margin-bottom:10px"></div>
+    <div id="d-modules-wrap" style="margin-top:12px;display:none">
+      <div class="d-slbl" style="margin-bottom:6px">Modules</div>
+      <div id="d-modules-list"></div>
     </div>
 
     <!-- ARSENAL pleine largeur -->
@@ -1207,7 +1180,7 @@ let D = {
   heroisme: Array(6).fill(false),
   nods: { sante:Array(3).fill(false), armure:Array(3).fill(false), energie:Array(3).fill(false) },
   grenades: { count:Array(6).fill(false), types:{} },
-  images: { portrait:null, illustration:null, blason:null },
+  images: { portrait:null, illustration:null, illustration2:null, illustration3:null, blason:null },
   driveIds: {},
   driveUrls: {},
 };
@@ -1255,14 +1228,15 @@ function buildAspects() {
   c.innerHTML = '';
   ASPECTS.forEach(function(asp) {
     var amx = (D.aspects[asp.id] || {}).max || '';
-    var block = document.createElement('div');
-    block.style.cssText = 'background:var(--bg3);border:1px solid var(--bd);margin-bottom:8px;';
+
+    var card = document.createElement('div');
+    card.style.cssText = 'background:var(--bg3);border:1px solid var(--bd);margin-bottom:10px;';
 
     // En-tête aspect
     var hdr = document.createElement('div');
     hdr.className = 'asp-header-row';
     var ntxt = document.createElement('span');
-    ntxt.className = 'asp-name-txt'; ntxt.textContent = asp.name;
+    ntxt.className = 'asp-name-txt'; ntxt.textContent = '▸ ' + asp.name;
     var mlbl = document.createElement('span');
     mlbl.className = 'asp-max-label'; mlbl.textContent = 'Max';
     var minp = document.createElement('input');
@@ -1271,52 +1245,59 @@ function buildAspects() {
     minp.id = 'amx-' + asp.id;
     minp.oninput = (function(aid){ return function(){ saveAsp(aid,'max',this.value); }; })(asp.id);
     hdr.appendChild(ntxt); hdr.appendChild(mlbl); hdr.appendChild(minp);
-    block.appendChild(hdr);
+    card.appendChild(hdr);
 
-    // Grille sous-aspects horizontale
+    // Grille 3 colonnes pour les sous-aspects
     var grid = document.createElement('div');
-    grid.style.cssText = 'display:grid;grid-template-columns:repeat(' + asp.subs.length + ',1fr);border-top:1px solid var(--bd);';
+    grid.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--bd);';
 
     asp.subs.forEach(function(sub, si) {
       var sv = (D.aspects[sub.id] || {}).val || '';
       var so = (D.aspects[sub.id] || {}).od  || '';
+
       var col = document.createElement('div');
-      col.style.cssText = 'padding:6px 4px 8px;display:flex;flex-direction:column;gap:3px;'
-        + (si < asp.subs.length-1 ? 'border-right:1px solid var(--bd);' : '');
+      // Bordure droite sauf dernière colonne de chaque ligne
+      var borderR = (si % 3 !== 2) ? '1px solid var(--bd)' : 'none';
+      // Bordure en haut pour les lignes 2+
+      var borderT = (si >= 3) ? '1px solid var(--bd)' : 'none';
+      col.style.cssText = 'padding:8px 10px;border-right:' + borderR + ';border-top:' + borderT + ';';
 
       // Nom sous-aspect
       var snm = document.createElement('div');
-      snm.style.cssText = 'font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--txt2);text-align:center;margin-bottom:3px;';
+      snm.className = 'sub-name-txt';
+      snm.style.marginBottom = '6px';
       snm.textContent = sub.name;
       col.appendChild(snm);
 
-      // Val + OD
+      // Val + OD sur une ligne
+      var scores = document.createElement('div');
+      scores.style.cssText = 'display:flex;align-items:center;gap:8px;margin-bottom:6px;';
+
       ['val','od'].forEach(function(type) {
         var val = type === 'val' ? sv : so;
-        var row = document.createElement('div');
-        row.style.cssText = 'display:flex;align-items:center;gap:3px;justify-content:center;';
+        var pair = document.createElement('div');
+        pair.style.cssText = 'display:flex;align-items:center;gap:4px;';
         var lbl = document.createElement('span');
-        lbl.style.cssText = 'font-family:var(--mono);font-size:9px;color:var(--txt3);min-width:18px;';
-        lbl.textContent = type === 'val' ? 'Val' : 'OD';
+        lbl.className = 'sub-score-lbl'; lbl.textContent = type === 'val' ? 'Val' : 'OD';
         var inp = document.createElement('input');
         inp.type = 'number';
         if (type === 'val') { inp.min = '1'; inp.max = '5'; }
+        inp.className = 'sub-score-inp';
         inp.id = (type === 'val' ? 'av-' : 'ao-') + sub.id;
         inp.value = val;
-        inp.style.cssText = 'width:40px;background:var(--bg);border:1px solid var(--bd);color:var(--txt);font-family:var(--mono);font-size:13px;padding:3px 2px;text-align:center;outline:none;box-sizing:border-box;';
         inp.oninput = (function(sid,t){ return function(){ saveAsp(sid,t,this.value); }; })(sub.id, type);
-        row.appendChild(lbl); row.appendChild(inp);
-        col.appendChild(row);
+        pair.appendChild(lbl); pair.appendChild(inp);
+        scores.appendChild(pair);
       });
+      col.appendChild(scores);
 
       // Capacités de rang
       sub.ab.forEach(function(a, i) {
         if (a && a !== '—') {
           var rrow = document.createElement('div');
-          rrow.style.cssText = 'display:flex;gap:3px;font-size:10px;color:var(--txt2);padding-top:3px;border-top:1px solid var(--bd);margin-top:2px;line-height:1.3;';
+          rrow.className = 'rank-row';
           var rn = document.createElement('span');
-          rn.style.cssText = 'font-family:var(--mono);color:var(--gold);font-size:9px;font-weight:bold;flex-shrink:0;';
-          rn.textContent = (i+1);
+          rn.className = 'rank-n'; rn.textContent = (i+1);
           var rt = document.createElement('span');
           rt.textContent = a;
           rrow.appendChild(rn); rrow.appendChild(rt);
@@ -1326,8 +1307,9 @@ function buildAspects() {
 
       grid.appendChild(col);
     });
-    block.appendChild(grid);
-    c.appendChild(block);
+
+    card.appendChild(grid);
+    c.appendChild(card);
   });
 }
 
@@ -1359,16 +1341,67 @@ function buildArsenal() {
   body.innerHTML = '';
   if (D.arsenal.length === 0) D.arsenal.push({nom:'',degats:'',violence:'',portee:'',munition:'',effets:''});
   D.arsenal.forEach(function(row, i) { appendArsenalRow(row, i); });
+
 }
 
 function appendArsenalRow(row, i) {
   var tr = document.createElement('tr');
   var fields = ['nom','degats','violence','portee','munition','effets'];
-  var html = fields.map(function(f) {
-    return '<td><input type="text" value="' + (row[f]||'').replace(/"/g,'&quot;') + '" oninput="D.arsenal[' + i + '][\'' + f + '\']=this.value;markUnsaved()"></td>';
-  }).join('');
-  html += '<td style="text-align:center;vertical-align:middle"><button class="btn btn-d" style="padding:2px 7px;font-size:9px" onclick="removeArsenal(' + i + ')">✕</button></td>';
-  tr.innerHTML = html;
+  var multiline = ['portee','effets'];
+  var STYLE_DIV = [
+    'min-height:30px',
+    'padding:5px 14px',
+    'font-family:var(--mono)',
+    'font-size:14px',
+    'color:var(--txt)',
+    'outline:none',
+    'white-space:pre-wrap',
+    'word-break:break-word',
+    'line-height:1.5',
+    'cursor:text'
+  ].join(';');
+
+  fields.forEach(function(f) {
+    var td = document.createElement('td');
+    td.style.cssText = 'padding:0;vertical-align:top';
+    if (multiline.indexOf(f) >= 0) {
+      var div = document.createElement('div');
+      div.contentEditable = 'true';
+      div.style.cssText = STYLE_DIV;
+      div.textContent = row[f] || '';
+      div.oninput = (function(field){ return function(){
+        D.arsenal[i][field] = this.innerText;
+        markUnsaved();
+      }; })(f);
+      // Empêcher le collage de HTML
+      div.addEventListener('paste', function(e) {
+        e.preventDefault();
+        var text = (e.clipboardData || window.clipboardData).getData('text');
+        document.execCommand('insertText', false, text);
+      });
+      td.appendChild(div);
+    } else {
+      var inp = document.createElement('input');
+      inp.type = 'text';
+      inp.value = row[f] || '';
+      inp.oninput = (function(field){ return function(){
+        D.arsenal[i][field] = this.value;
+        markUnsaved();
+      }; })(f);
+      td.appendChild(inp);
+    }
+    tr.appendChild(td);
+  });
+
+  var tdDel = document.createElement('td');
+  tdDel.style.cssText = 'text-align:center;vertical-align:middle;width:30px';
+  var btn = document.createElement('button');
+  btn.className = 'btn btn-d';
+  btn.style.cssText = 'padding:2px 7px;font-size:9px';
+  btn.textContent = 'x';
+  btn.onclick = (function(idx){ return function(){ removeArsenal(idx); }; })(i);
+  tdDel.appendChild(btn);
+  tr.appendChild(tdDel);
   document.getElementById('arsenal-body').appendChild(tr);
 }
 
@@ -1400,7 +1433,7 @@ function buildCapHtml(i, d) {
     + '<div class="f"><label>Nom</label><input type="text" value="' + (d.nom||'') + '" oninput="D.caps[' + i + '].nom=this.value;markUnsaved()"></div>'
     + '<div class="f"><label>Énergie</label><input type="number" value="' + (d.energie||'') + '" oninput="D.caps[' + i + '].energie=this.value;markUnsaved()"></div>'
     + '</div>'
-    + '<div class="grid3 mb8">'
+    + '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:6px">'
     + '<div class="f"><label>Dégâts</label><input type="text" value="' + (d.degats||'') + '" oninput="D.caps[' + i + '].degats=this.value;markUnsaved()"></div>'
     + '<div class="f"><label>Violence</label><input type="text" value="' + (d.violence||'') + '" oninput="D.caps[' + i + '].violence=this.value;markUnsaved()"></div>'
     + '<div class="f"><label>Portée</label><input type="text" value="' + (d.portee||'') + '" oninput="D.caps[' + i + '].portee=this.value;markUnsaved()"></div>'
@@ -1425,14 +1458,14 @@ function buildMods() {
 function buildModHtml(i, d) {
   return '<div class="mod-card">'
     + '<div class="mod-title">Module ' + (i+1) + '</div>'
-    + '<div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:6px;margin-bottom:8px">'
+    + '<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:6px">'
     + '<div class="f"><label>Nom</label><input type="text" value="' + (d.nom||'') + '" oninput="D.mods[' + i + '].nom=this.value;markUnsaved()"></div>'
     + '<div class="f"><label>Niv.</label><input type="number" value="' + (d.niveau||'') + '" oninput="D.mods[' + i + '].niveau=this.value;markUnsaved()"></div>'
     + '<div class="f"><label>Dégâts</label><input type="text" value="' + (d.degats||'') + '" oninput="D.mods[' + i + '].degats=this.value;markUnsaved()"></div>'
     + '<div class="f"><label>Viol.</label><input type="text" value="' + (d.violence||'') + '" oninput="D.mods[' + i + '].violence=this.value;markUnsaved()"></div>'
     + '<div class="f"><label>Portée</label><input type="text" value="' + (d.portee||'') + '" oninput="D.mods[' + i + '].portee=this.value;markUnsaved()"></div>'
     + '</div>'
-    + '<div class="grid3 mb8">'
+    + '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:6px">'
     + '<div class="f"><label>Activation</label><input type="text" value="' + (d.activation||'') + '" oninput="D.mods[' + i + '].activation=this.value;markUnsaved()"></div>'
     + '<div class="f"><label>Durée</label><input type="text" value="' + (d.duree||'') + '" oninput="D.mods[' + i + '].duree=this.value;markUnsaved()"></div>'
     + '<div class="f"><label>Énergie/Slot</label><input type="text" value="' + (d.energie||'') + '" oninput="D.mods[' + i + '].energie=this.value;markUnsaved()"></div>'
@@ -1652,7 +1685,7 @@ function dzDriveClear(type) {
 }
 
 function fillImages() {
-  ['portrait','illustration','blason'].forEach(function(type) {
+  ['portrait','illustration','illustration2','illustration3','blason'].forEach(function(type) {
     if (D.images[type]) {
       showImgInZone(type, D.images[type], false);
     } else if (D.driveIds[type]) {
@@ -1667,7 +1700,7 @@ function fillImages() {
 //  DRAG & DROP
 // ════════════════════════════════════════════════════
 function setupDragDrop() {
-  ['portrait','illustration','blason'].forEach(function(type) {
+  ['portrait','illustration','illustration2','illustration3','blason'].forEach(function(type) {
     var zone = document.getElementById('dz-' + type);
     if (!zone) return;
     zone.addEventListener('dragover', function(e) { e.preventDefault(); zone.classList.add('over'); });
@@ -1801,16 +1834,6 @@ function buildDossier() {
     portEl.innerHTML = '<div class="d-no-img">PORTRAIT<br>NON FOURNI</div>';
   }
 
-  // Illustration
-  var illEl = document.getElementById('d-ill-el');
-  if (D.images.illustration) {
-    illEl.innerHTML = '<img src="' + D.images.illustration + '" style="width:100%;height:100%;object-fit:cover">';
-  } else if (di.illustration) {
-    var iu = driveImgUrls(di.illustration);
-    illEl.innerHTML = '<img src="' + iu[0] + '" style="width:100%;height:100%;object-fit:cover" onerror="this.src=\'' + iu[2] + '\'">';
-  } else {
-    illEl.innerHTML = '<div style="font-family:var(--mono);font-size:9px;color:var(--txt3);letter-spacing:2px">ILLUSTRATION NON FOURNIE</div>';
-  }
 
   // Blason
   var blaEl = document.getElementById('d-bla-img');
@@ -1895,7 +1918,7 @@ function loadStorage() {
       D.heroisme = parsed.heroisme || Array(6).fill(false);
       D.nods     = parsed.nods     || {sante:Array(3).fill(false),armure:Array(3).fill(false),energie:Array(3).fill(false)};
       D.grenades = parsed.grenades || {count:Array(6).fill(false),types:{}};
-      D.images   = parsed.images   || {portrait:null,illustration:null,blason:null};
+      D.images   = parsed.images   || {portrait:null,illustration:null,illustration2:null,illustration3:null,blason:null};
       D.driveIds = parsed.driveIds || {};
       D.driveUrls= parsed.driveUrls|| {};
     }
@@ -1946,7 +1969,7 @@ function cleanDataForExport() {
     heroisme:      (D.heroisme     || []).slice(0,6),
     nods:          D.nods          || {sante:[false,false,false],armure:[false,false,false],energie:[false,false,false]},
     grenades:      D.grenades      || {count:Array(6).fill(false),types:{}},
-    images:        D.images        || {portrait:null,illustration:null,blason:null},
+    images:        D.images        || {portrait:null,illustration:null,illustration2:null,illustration3:null,blason:null},
     illustrations: D.illustrations || [],
     driveIds:      D.driveIds      || {},
     driveUrls:     D.driveUrls     || {}
@@ -1980,7 +2003,7 @@ function importJSON(event) {
       D.heroisme = parsed.heroisme || Array(9).fill(false);
       D.nods     = parsed.nods     || {sante:Array(3).fill(false),armure:Array(3).fill(false),energie:Array(3).fill(false)};
       D.grenades = parsed.grenades || {count:Array(6).fill(false),types:{}};
-      D.images   = parsed.images   || {portrait:null,illustration:null,blason:null};
+      D.images   = parsed.images   || {portrait:null,illustration:null,illustration2:null,illustration3:null,blason:null};
       D.driveIds = parsed.driveIds || {};
       D.driveUrls= parsed.driveUrls|| {};
       buildAspects(); buildCS(); buildArsenal(); buildCaps(); buildMods();
@@ -2001,7 +2024,7 @@ function clearAll() {
     heroisme:Array(6).fill(false),
     nods:{sante:Array(3).fill(false),armure:Array(3).fill(false),energie:Array(3).fill(false)},
     grenades:{count:Array(6).fill(false),types:{}},
-    images:{portrait:null,illustration:null,blason:null},
+    images:{portrait:null,illustration:null,illustration2:null,illustration3:null,blason:null},
     driveIds:{}, driveUrls:{},
   };
   buildAspects(); buildCS(); buildArsenal(); buildCaps(); buildMods();
@@ -2700,6 +2723,83 @@ document.addEventListener('click', function(e) {
   if (saved) setTheme(saved);
 })();
 
+
+// ── Auto-resize textarea ─────────────────────────────────────────
+function autoResizeTa(el) {
+  el.style.height = '0';
+  el.style.height = el.scrollHeight + 'px';
+}
+
+
+// ── Carrousel illustrations ───────────────────────────────────────
+var carouselSlides = [];
+var carouselIdx = 0;
+
+function openCarousel() {
+  // Construire la liste des slides depuis D.images + D.driveIds
+  carouselSlides = [];
+  var imgKeys = [
+    { key:'illustration',  label:'Illustration 1' },
+    { key:'illustration2', label:'Illustration 2' },
+    { key:'illustration3', label:'Illustration 3' },
+  ];
+  imgKeys.forEach(function(ik) {
+    var src = '';
+    if (D.images[ik.key]) {
+      src = D.images[ik.key];
+    } else if (D.driveIds[ik.key]) {
+      var urls = driveImgUrls(D.driveIds[ik.key]);
+      src = urls[0];
+    }
+    if (src) carouselSlides.push({ src: src, label: ik.label });
+  });
+  if (!carouselSlides.length) {
+    carouselSlides = [{ src: '', label: 'Aucune illustration' }];
+  }
+  carouselIdx = 0;
+  carouselRender();
+  document.getElementById('carousel-overlay').classList.add('on');
+}
+
+function closeCarousel() {
+  document.getElementById('carousel-overlay').classList.remove('on');
+}
+
+function carouselMove(dir) {
+  carouselIdx = (carouselIdx + dir + carouselSlides.length) % carouselSlides.length;
+  carouselRender();
+}
+
+function carouselRender() {
+  var slide = carouselSlides[carouselIdx];
+  var img = document.getElementById('carousel-img');
+  var lbl = document.getElementById('carousel-lbl');
+  var dots = document.getElementById('carousel-dots');
+  if (slide.src) {
+    img.src = slide.src;
+    img.style.display = 'block';
+  } else {
+    img.src = '';
+    img.style.display = 'none';
+  }
+  lbl.textContent = slide.label;
+  dots.innerHTML = '';
+  carouselSlides.forEach(function(_, i) {
+    var d = document.createElement('div');
+    d.className = 'carousel-dot' + (i === carouselIdx ? ' on' : '');
+    d.onclick = (function(idx){ return function(){ carouselIdx=idx; carouselRender(); }; })(i);
+    dots.appendChild(d);
+  });
+}
+
+document.addEventListener('keydown', function(e) {
+  var ov = document.getElementById('carousel-overlay');
+  if (!ov || !ov.classList.contains('on')) return;
+  if (e.key === 'ArrowLeft')  carouselMove(-1);
+  if (e.key === 'ArrowRight') carouselMove(1);
+  if (e.key === 'Escape')     closeCarousel();
+});
+
 // ════════════════════════════════════════════════════
 //  BOOT
 // ════════════════════════════════════════════════════
@@ -2897,6 +2997,20 @@ window.addEventListener('DOMContentLoaded', init);
   </div>
 </div><!-- /drive-overlay -->
 
+
+<!-- ── CARROUSEL ILLUSTRATIONS ── -->
+<div id="carousel-overlay" onclick="if(event.target===this)closeCarousel()">
+  <div id="carousel-box">
+    <button id="carousel-close" onclick="closeCarousel()">✕</button>
+    <img id="carousel-img" src="" alt="">
+    <div id="carousel-lbl">—</div>
+    <div class="carousel-nav">
+      <button class="carousel-arrow" onclick="carouselMove(-1)">◀</button>
+      <div class="carousel-dots" id="carousel-dots"></div>
+      <button class="carousel-arrow" onclick="carouselMove(1)">▶</button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
