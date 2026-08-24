@@ -674,28 +674,10 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
 </header>
 <!-- ══ MENU MOBILE DÉROULANT ══ -->
 <div id="mobile-menu">
-  <button class="mmenu-item" onclick="saveAction();closeMobileMenu()">
-    <span class="mmenu-icon">💾</span> Sauvegarder
-  </button>
-  <button class="mmenu-item" onclick="openDrivePanel();closeMobileMenu()">
-    <span class="mmenu-icon">☁️</span> Google Drive
-  </button>
-  <button class="mmenu-item" onclick="exportJSON();closeMobileMenu()">
-    <span class="mmenu-icon">⬇️</span> Export JSON
-  </button>
-  <label class="mmenu-item">
-    <span class="mmenu-icon">⬆️</span> Importer JSON
-    <input type="file" accept=".json" onchange="importJSON(event);closeMobileMenu()" style="display:none">
-  </label>
-  <button class="mmenu-item" onclick="toggleThemePanel();closeMobileMenu()">
-    <span class="mmenu-icon">🎨</span> Thème
-  </button>
-  <button class="mmenu-item" onclick="openGuide();closeMobileMenu()">
-    <span class="mmenu-icon">❓</span> Aide
-  </button>
-  <button class="mmenu-item" onclick="clearAll();closeMobileMenu()">
-    <span class="mmenu-icon">🗑️</span> Réinitialiser
-  </button>
+  <button class="mmenu-item" onclick="exportJSON();closeMobileMenu()"><span class="mmenu-icon">⬇️</span>Export JSON</button>
+  <label class="mmenu-item"><span class="mmenu-icon">⬆️</span>Importer JSON<input type="file" accept=".json" onchange="importJSON(event);closeMobileMenu()" style="display:none"></label>
+  <button class="mmenu-item" onclick="openGuide();closeMobileMenu()"><span class="mmenu-icon">❓</span>Aide</button>
+  <button class="mmenu-item" onclick="clearAll();closeMobileMenu()"><span class="mmenu-icon">🗑️</span>Réinitialiser</button>
 </div>
 <!-- TABS -->
 <nav id="tabs">
