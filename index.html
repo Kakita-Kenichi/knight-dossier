@@ -275,7 +275,7 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
 }
 .guide-tab:hover { color:var(--txt2); }
 .guide-tab.on { color:var(--gold); border-bottom-color:var(--gold); }
-.guide-panel { display:none; padding:18px 20px 24px; }
+.guide-panel { display:none; padding:18px 20px 24px; font-size:13px; }
 .guide-panel.on { display:block; }
 .g-section {
   font-size:8px; letter-spacing:3px; color:var(--gold); text-transform:uppercase;
@@ -284,7 +284,7 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
 .g-section:first-child { margin-top:0; }
 .g-step {
   display:flex; gap:10px; align-items:flex-start;
-  padding:7px 0; border-bottom:1px solid var(--bd); font-size:11px; color:var(--txt2); line-height:1.5;
+  padding:7px 0; border-bottom:1px solid var(--bd); font-size:13px; color:var(--txt2); line-height:1.5;
 }
 .g-step:last-of-type { border-bottom:none; }
 .g-num {
@@ -294,23 +294,23 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
 }
 .g-note {
   background:rgba(200,168,75,.06); border:1px solid rgba(200,168,75,.2);
-  padding:9px 12px; font-size:10px; color:var(--txt2); line-height:1.6; margin:8px 0;
+  padding:9px 12px; font-size:13px; color:var(--txt2); line-height:1.6; margin:8px 0;
 }
 .g-note b { color:var(--gold2); }
 .g-warn {
   background:rgba(192,57,43,.06); border:1px solid rgba(192,57,43,.25);
-  padding:9px 12px; font-size:10px; color:#e07060; line-height:1.6; margin:8px 0;
+  padding:9px 12px; font-size:13px; color:#e07060; line-height:1.6; margin:8px 0;
 }
 .g-code {
   display:inline-block; background:var(--bg); border:1px solid var(--bd);
   color:var(--gold2); font-family:var(--mono); font-size:10px; padding:1px 6px;
 }
-.g-table { width:100%; border-collapse:collapse; font-size:10px; margin:8px 0; }
+.g-table { width:100%; border-collapse:collapse; font-size:12px; margin:8px 0; }
 .g-table th {
   background:var(--bg3); color:var(--txt3); font-size:8px; letter-spacing:1px;
   text-transform:uppercase; padding:5px 8px; text-align:left; border:1px solid var(--bd);
 }
-.g-table td { border:1px solid var(--bd); padding:6px 8px; color:var(--txt2); }
+.g-table td { border:1px solid var(--bd); padding:7px 10px; color:var(--txt2); }
 .g-table td b { color:var(--txt); }
 
 /* GUIDE */
@@ -452,7 +452,7 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
     <button class="btn" onclick="exportJSON()">⬇ Export JSON</button>
     <label class="btn" style="cursor:pointer">⬆ Importer<input type="file" accept=".json" onchange="importJSON(event)" style="display:none"></label>
     <button class="btn btn-d" onclick="clearAll()">✕ Reset</button>
-    <button class="btn" onclick="openGuide()" title="Guide d'utilisation">? Guide</button>
+    <button class="btn" onclick="openGuide()" title="Aide">? Aide</button>
   </div>
 </header>
 
@@ -464,7 +464,6 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
   <button class="tab"     onclick="goTab('combat',this)">Combat & Arsenal</button>
   <button class="tab"     onclick="goTab('meta',this)">Méta-Armure</button>
   <button class="tab"     onclick="goTab('fiche',this)">📋 Feuille de Perso</button>
-  <button class="tab"     onclick="goTab('aide',this)">? Aide</button>
 </nav>
 
 <main id="main">
@@ -1103,401 +1102,6 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
 </div><!-- /p-fiche -->
 
 <!-- ════════════════════ AIDE ════════════════════ -->
-<div id="p-aide" class="panel">
-<div class="guide-wrap">
-
-  <!-- En-tête -->
-  <div class="guide-header">
-    <div class="guide-header-icon">📖</div>
-    <div>
-      <div class="guide-header-title">GUIDE D'UTILISATION</div>
-      <div class="guide-header-sub">Knight — Dossier Agent // Marmoul Édition</div>
-    </div>
-  </div>
-
-  <!-- Table des matières -->
-  <div class="guide-toc">
-    <div class="guide-toc-item" onclick="scrollGuide('g-general')">⊞ Généralités</div>
-    <div class="guide-toc-item" onclick="scrollGuide('g-sauvegarde')">💾 Sauvegarde</div>
-    <div class="guide-toc-item" onclick="scrollGuide('g-drive-json')">☁ Drive — JSON</div>
-    <div class="guide-toc-item" onclick="scrollGuide('g-drive-images')">☁ Drive — Images</div>
-    <div class="guide-toc-item" onclick="scrollGuide('g-onglets')">⊞ Onglets</div>
-    <div class="guide-toc-item" onclick="scrollGuide('g-dossier')">◈ Dossier</div>
-    <div class="guide-toc-item" onclick="scrollGuide('g-faq')">? FAQ</div>
-  </div>
-
-  <!-- ── GÉNÉRALITÉS ── -->
-  <div class="guide-section" id="g-general">
-    <div class="guide-section-title" onclick="toggleGuide(this)">⊞ Généralités</div>
-    <div class="guide-section-body">
-      <div class="guide-note">
-        Ce fichier HTML fonctionne <b>100% hors-ligne</b> — aucune installation, aucun serveur.
-        Il suffit de double-cliquer dessus pour l'ouvrir dans ton navigateur.
-        Toutes les données sont stockées localement dans ton navigateur (localStorage).
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">1</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Fichier unique</div>
-          <div class="guide-step-desc">Tout est dans un seul fichier <b>Knight_Dossier_Agent.html</b>.
-          Tu peux le copier, le renommer, l'archiver. Chaque copie est indépendante avec ses propres données.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">2</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Navigation par onglets</div>
-          <div class="guide-step-desc">
-            <span class="guide-badge">◈ Dossier</span> Vue synthèse du personnage<br>
-            <span class="guide-badge">Identité</span> Infos, images, Lumière/Ombre<br>
-            <span class="guide-badge">Aspects</span> Les 5 aspects et sous-aspects<br>
-            <span class="guide-badge">Combat & Arsenal</span> Armes, styles, grenades, NODS<br>
-            <span class="guide-badge">Méta-Armure</span> Armure, slots, capacités, modules<br>
-            <span class="guide-badge">📋 Feuille de Perso</span> Fiche complète à imprimer
-          </div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">3</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Saisie des données</div>
-          <div class="guide-step-desc">Tous les champs sont éditables directement. Les données sont
-          <b>sauvegardées automatiquement</b> 1,2 seconde après la dernière frappe.
-          L'indicateur en haut à droite confirme : <span class="guide-badge green">✓ SAUVEGARDÉ</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── SAUVEGARDE ── -->
-  <div class="guide-section" id="g-sauvegarde">
-    <div class="guide-section-title" onclick="toggleGuide(this)">💾 Sauvegarde locale</div>
-    <div class="guide-section-body">
-      <div class="guide-note">
-        Les données sont sauvegardées automatiquement dans le <b>localStorage</b> de ton navigateur —
-        elles persistent entre les sessions tant que tu utilises le même navigateur sur le même ordinateur.
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">⬇</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Exporter en JSON</div>
-          <div class="guide-step-desc">Bouton <span class="guide-badge">⬇ JSON</span> dans la barre du haut.
-          Télécharge un fichier <b>.json</b> contenant toutes les données du personnage (stats, arsenal, modules,
-          liens images Drive). <b>Recommandé comme sauvegarde de secours</b> avant chaque session.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">⬆</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Importer un JSON</div>
-          <div class="guide-step-desc">Bouton <span class="guide-badge">⬆ Importer</span>.
-          Charge un fichier .json précédemment exporté. Remplace toutes les données actuelles.
-          Utile pour changer d'ordinateur ou récupérer une sauvegarde.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">!</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Réinitialiser</div>
-          <div class="guide-step-desc">Bouton <span class="guide-badge">✕ Reset</span> — efface
-          <b>toutes les données</b> définitivement. Une confirmation est demandée.
-          Pense à exporter ton JSON avant.</div>
-        </div>
-      </div>
-      <div class="guide-note warn">
-        ⚠ Le localStorage est lié au navigateur et au profil. Si tu changes de navigateur,
-        d'ordinateur ou vides le cache, les données disparaissent. Exporte régulièrement en JSON
-        ou utilise la synchronisation Drive.
-      </div>
-    </div>
-  </div>
-
-  <!-- ── DRIVE JSON ── -->
-  <div class="guide-section" id="g-drive-json">
-    <div class="guide-section-title" onclick="toggleGuide(this)">☁ Google Drive — Synchronisation JSON</div>
-    <div class="guide-section-body">
-      <div class="guide-note">
-        Le bouton <span class="guide-badge">☁ Drive JSON</span> permet de sauvegarder et charger
-        le dossier depuis Google Drive, sans installation ni compte développeur.
-      </div>
-
-      <div class="guide-step">
-        <div class="guide-step-num">1</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Sauvegarder sur Drive</div>
-          <div class="guide-step-desc">
-            1. Clique <span class="guide-badge">☁ Drive JSON</span> → section <b>Sauvegarder</b><br>
-            2. Ajuste le nom du fichier si besoin (ex: <code style="font-family:var(--mono);font-size:10px;color:var(--gold2)">dipa_dossier.json</code>)<br>
-            3. Clique <span class="guide-badge">⬇ Télécharger</span> — le fichier se télécharge localement<br>
-            4. Va sur <b>drive.google.com</b> et glisse-dépose le fichier dans ton Drive<br>
-            5. Clic droit sur le fichier → <b>Partager</b> → "Tout le monde avec le lien peut <b>voir</b>"<br>
-            6. <b>Copie le lien</b> → colle-le dans le champ "Charger depuis Drive" ci-dessous
-          </div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">2</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Charger depuis Drive</div>
-          <div class="guide-step-desc">
-            1. Ouvre le modal <span class="guide-badge">☁ Drive JSON</span><br>
-            2. Colle l'URL de partage Drive dans le champ<br>
-            3. Clique <span class="guide-badge">⬆ Charger</span><br>
-            4. Le lien est <b>mémorisé</b> dans le navigateur pour les prochaines sessions
-          </div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">3</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Mettre à jour le fichier Drive</div>
-          <div class="guide-step-desc">
-            Drive ne permet pas l'écriture directe sans OAuth. Le flux de mise à jour est :<br>
-            1. <span class="guide-badge">⬇ Télécharger</span> le nouveau JSON<br>
-            2. Sur Drive, clic droit sur l'ancien fichier → <b>Gérer les versions</b> → <b>Importer une nouvelle version</b><br>
-            → Le lien reste le même, les données sont mises à jour.
-          </div>
-        </div>
-      </div>
-      <div class="guide-note tip">
-        💡 <b>Astuce</b> : utilise <b>Gérer les versions</b> pour conserver un historique des sauvegardes
-        sans multiplier les fichiers sur Drive.
-      </div>
-      <div class="guide-note warn">
-        ⚠ Le fichier Drive doit être partagé en <b>"Tout le monde avec le lien peut voir"</b>.
-        Sans ce partage, le chargement échoue avec une erreur HTML.
-      </div>
-    </div>
-  </div>
-
-  <!-- ── DRIVE IMAGES ── -->
-  <div class="guide-section" id="g-drive-images">
-    <div class="guide-section-title" onclick="toggleGuide(this)">☁ Google Drive — Images</div>
-    <div class="guide-section-body">
-      <div class="guide-note">
-        Les images (Portrait, Illustration, Blason) peuvent être liées depuis Drive.
-        L'avantage : le JSON reste léger (pas de base64), et les images sont centralisées sur Drive.
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">1</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Préparer l'image sur Drive</div>
-          <div class="guide-step-desc">
-            1. Upload ton image sur Drive (PNG, JPG, WEBP…)<br>
-            2. Clic droit → <b>Partager</b> → "Tout le monde avec le lien peut voir"<br>
-            3. Clique <b>Copier le lien</b> — tu obtiens quelque chose comme :<br>
-            <span class="guide-code">https://drive.google.com/file/d/1aBcDeFgHiJ.../view?usp=sharing</span>
-          </div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">2</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Coller dans l'app</div>
-          <div class="guide-step-desc">
-            Dans l'onglet <span class="guide-badge">Identité</span>, sous chaque zone image,
-            il y a un champ texte. <b>Colle le lien Drive</b> dedans.<br>
-            → Le champ devient <span class="guide-badge green">vert</span> si l'ID est reconnu<br>
-            → L'image tente de se charger avec 3 formats d'URL différents en fallback automatique<br>
-            → Un badge <span class="guide-badge">☁ DRIVE</span> confirme que l'image vient de Drive
-          </div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">3</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Formats de lien acceptés</div>
-          <div class="guide-step-desc">
-            L'app reconnaît automatiquement ces formats :<br>
-            <span class="guide-code">https://drive.google.com/file/d/ID/view?usp=sharing</span>
-            <span class="guide-code">https://drive.google.com/open?id=ID</span>
-            <span class="guide-code">https://drive.google.com/uc?id=ID</span>
-            <span class="guide-code">ID seul (20+ caractères alphanumériques)</span>
-          </div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">4</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Images locales vs Drive</div>
-          <div class="guide-step-desc">
-            <b>Image locale</b> (glisser-déposer / cliquer) : stockée en base64 dans le JSON → fonctionne
-            sans connexion internet mais alourdit le fichier.<br>
-            <b>Image Drive</b> (lien) : seul l'ID est stocké dans le JSON → fichier léger
-            mais nécessite une connexion et que le fichier Drive reste partagé.
-          </div>
-        </div>
-      </div>
-      <div class="guide-note warn">
-        ⚠ Si l'image ne s'affiche pas après avoir collé le lien, vérifie que le fichier Drive
-        est bien partagé en <b>"Tout le monde avec le lien"</b>. Certains navigateurs (Firefox)
-        bloquent aussi les images cross-origin — Chrome est recommandé.
-      </div>
-    </div>
-  </div>
-
-  <!-- ── ONGLETS ── -->
-  <div class="guide-section" id="g-onglets">
-    <div class="guide-section-title" onclick="toggleGuide(this)">⊞ Guide des onglets</div>
-    <div class="guide-section-body">
-      <div class="guide-step">
-        <div class="guide-step-num">ID</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Identité</div>
-          <div class="guide-step-desc">
-            Informations de base du chevalier, valeurs dérivées, Méta-Armure (lecture seule — saisie dans l'onglet Méta-Armure),
-            Lumière & Ombre, Héroïsme, images (Portrait / Illustration / Blason + galerie d'illustrations multiples).
-          </div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">ASP</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Aspects</div>
-          <div class="guide-step-desc">
-            5 aspects : <b>Corps, Puissance, Esprit, Grâce, Subterfuge</b>. Chaque aspect a un <b>Maximum</b>.
-            Chaque sous-aspect (Endurance, Force, Déplacement…) a une <b>Val</b> et un <b>OD</b>.
-            Les capacités de chaque rang sont affichées en dessous à titre de référence.
-          </div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">COM</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Combat & Arsenal</div>
-          <div class="guide-step-desc">
-            <b>Arsenal</b> : tableau d'armes avec Dégâts, Violence, Portée, Munition, Effets. Bouton <b>+ Ajouter</b>.<br>
-            <b>Styles de combat</b> : clic pour activer/désactiver.<br>
-            <b>Grenades</b> : cases à cocher pour le nombre et les types.<br>
-            <b>NODS</b> : cases Santé / Armure / Énergie.<br>
-            <b>Portées</b> : tableau de référence.
-          </div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">MÉT</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Méta-Armure</div>
-          <div class="guide-step-desc">
-            <b>Données armure</b> : Nom, PA, PE, CdF, IA — affichées en lecture seule dans l'onglet Identité.<br>
-            <b>Slots</b> : chaque emplacement (Bras G., Jambe G., Torse, Tête, Bras D., Jambe D.) a une valeur,
-            un modificateur (peut être négatif) et un total calculé automatiquement.<br>
-            <b>Capacités</b> et <b>Modules</b> : remplis les noms pour qu'ils apparaissent dans le Dossier.
-          </div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">FP</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Feuille de Perso</div>
-          <div class="guide-step-desc">
-            Vue complète du personnage : Aspects, Valeurs, Méta-Armure, Slots, Combat, Arsenal, Grenades, NODS, Blason.
-            Se met à jour automatiquement à chaque visite depuis les données saisies dans les autres onglets.
-            Bouton <span class="guide-badge">🖨 Imprimer</span> disponible.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── DOSSIER ── -->
-  <div class="guide-section" id="g-dossier">
-    <div class="guide-section-title" onclick="toggleGuide(this)">◈ Dossier — Vue rapide</div>
-    <div class="guide-section-body">
-      <div class="guide-note">
-        Le Dossier est la vue de synthèse rapide. Il se met à jour automatiquement
-        à chaque ouverture de l'onglet.
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">↑</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">En-tête</div>
-          <div class="guide-step-desc">Portrait (gauche) · Identité et PG/PX (centre) · Blason (droite)</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">↔</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Corps en 2 colonnes</div>
-          <div class="guide-step-desc">
-            <b>Gauche</b> : Illustration au format portrait.<br>
-            <b>Droite</b> : Défense / Réaction / Initiative / PS · Lumière & Ombre · Héroïsme · PA / PE / CdF · Slots · Modules remplis.
-          </div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">↓</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Arsenal pleine largeur</div>
-          <div class="guide-step-desc">Toutes les armes renseignées avec Dégâts, Violence, Portée, Munition et Effets.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── FAQ ── -->
-  <div class="guide-section" id="g-faq">
-    <div class="guide-section-title" onclick="toggleGuide(this)">? FAQ</div>
-    <div class="guide-section-body">
-      <div class="guide-step">
-        <div class="guide-step-num">?</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Mon image Drive ne s'affiche pas</div>
-          <div class="guide-step-desc">
-            1. Vérifie que le fichier est partagé <b>"Tout le monde avec le lien peut voir"</b><br>
-            2. Essaie avec Chrome plutôt que Firefox<br>
-            3. Si l'image est très grande (&gt;10 Mo), Drive peut bloquer le chargement direct → compresse l'image
-          </div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">?</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Mes données ont disparu</div>
-          <div class="guide-step-desc">
-            Le localStorage a probablement été vidé (nettoyage du cache, navigation privée, autre navigateur).
-            → Importe ton dernier JSON de sauvegarde avec <span class="guide-badge">⬆ Importer</span><br>
-            → Ou charge depuis Drive avec <span class="guide-badge">☁ Drive JSON</span>
-          </div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">?</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">La Feuille de Perso ne se met pas à jour</div>
-          <div class="guide-step-desc">
-            La mise à jour se déclenche à chaque visite de l'onglet.
-            Si les données semblent obsolètes, clique sur un autre onglet puis reviens sur Feuille de Perso.
-          </div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">?</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Le chargement Drive retourne une erreur HTML</div>
-          <div class="guide-step-desc">
-            Drive affiche une page d'avertissement pour les fichiers volumineux.
-            → Essaie de <b>réduire la taille du JSON</b> en utilisant des liens Drive pour les images
-            plutôt que des images en base64.
-          </div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">?</div>
-        <div class="guide-step-body">
-          <div class="guide-step-title">Méta-Armure dans Identité ne se met pas à jour</div>
-          <div class="guide-step-desc">
-            Les données Méta-Armure (PA, PE, CdF, IA, Nom armure) se saisissent dans l'onglet <span class="guide-badge">Méta-Armure</span>
-            et s'affichent en lecture seule dans Identité. La mise à jour est en temps réel pendant la saisie,
-            et au retour sur l'onglet Identité.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-</div><!-- /p-aide -->
 
 </main><!-- /main -->
 
@@ -3015,7 +2619,7 @@ window.addEventListener('DOMContentLoaded', init);
 <div id="guide-overlay">
   <div id="guide-box">
     <div class="guide-hdr">
-      <h2>? Guide — Knight Dossier Agent</h2>
+      <h2>? Aide — Knight Dossier Agent</h2>
       <button class="btn" onclick="closeGuide()">✕ Fermer</button>
     </div>
     <div class="guide-tabs">
@@ -3039,11 +2643,12 @@ window.addEventListener('DOMContentLoaded', init);
       <div class="g-section">Boutons du header</div>
       <table class="g-table">
         <tr><th>Bouton</th><th>Action</th></tr>
-        <tr><td><b>☁ Drive JSON</b></td><td>Sauvegarder / charger depuis Google Drive</td></tr>
-        <tr><td><b>⬇ JSON</b></td><td>Exporter toutes les données en fichier .json local</td></tr>
-        <tr><td><b>⬆ Importer</b></td><td>Charger un fichier .json exporté</td></tr>
-        <tr><td><b>📋 Feuille de Perso</b></td><td>Ouvrir la vue fiche complète</td></tr>
-        <tr><td><b>✕ Reset</b></td><td>Effacer toutes les données (confirmation)</td></tr>
+        <tr><td><b>💾 Sauvegarder</b></td><td>Sauvegarde sur Drive si connecté, sinon dans le cache</td></tr>
+        <tr><td><b>☁ Drive</b></td><td>Ouvrir le panneau Drive (connexion, sauvegarde, chargement)</td></tr>
+        <tr><td><b>⬇ Export JSON</b></td><td>Exporter toutes les données en fichier .json local</td></tr>
+        <tr><td><b>⬆ Importer</b></td><td>Charger un fichier .json exporté précédemment</td></tr>
+        <tr><td><b>✕ Reset</b></td><td>Effacer toutes les données (confirmation requise)</td></tr>
+        <tr><td><b>? Aide</b></td><td>Cette fenêtre d'aide</td></tr>
       </table>
     </div>
 
@@ -3090,19 +2695,19 @@ window.addEventListener('DOMContentLoaded', init);
     <!-- GOOGLE DRIVE -->
     <div id="guide-drive" class="guide-panel">
       <div class="g-section">Sauvegarder le dossier sur Drive</div>
-      <div class="g-step"><div class="g-num">1</div><div>Clique sur <span class="g-code">☁ Drive JSON</span> dans le header.</div></div>
+      <div class="g-step"><div class="g-num">1</div><div>Clique sur <span class="g-code">☁ Drive</span> dans le header.</div></div>
       <div class="g-step"><div class="g-num">2</div><div>Modifie le nom du fichier si besoin, clique <span class="g-code">⬇ Télécharger</span> — le JSON se télécharge dans tes Téléchargements.</div></div>
       <div class="g-step"><div class="g-num">3</div><div>Ouvre <b>drive.google.com</b> → glisse le fichier JSON dans Drive <b>ou</b> <b>+ Nouveau → Importer un fichier</b>.</div></div>
       <div class="g-step"><div class="g-num">4</div><div>Clic droit sur le fichier JSON dans Drive → <b>Partager</b> → "Tout le monde avec le lien peut voir" → Copier le lien.</div></div>
       <div class="g-step"><div class="g-num">5</div><div>Colle ce lien dans le champ <b>Charger depuis Drive</b> du modal et clique <span class="g-code">⬆ Charger</span>. Le lien est mémorisé pour les prochaines sessions.</div></div>
       <div class="g-section">Charger depuis Drive (sessions suivantes)</div>
-      <div class="g-step"><div class="g-num">1</div><div>Clique sur <span class="g-code">☁ Drive JSON</span>.</div></div>
+      <div class="g-step"><div class="g-num">1</div><div>Clique sur <span class="g-code">☁ Drive</span>.</div></div>
       <div class="g-step"><div class="g-num">2</div><div>Le lien mémorisé apparaît — clique directement sur <span class="g-code">⬆ Charger</span>.</div></div>
       <div class="g-warn">⚠ Si Drive retourne une page HTML au lieu du JSON : le fichier n'est pas partagé correctement. Refais l'étape 4 ci-dessus.</div>
       <div class="g-section">Workflow recommandé</div>
       <div class="g-note">
-        <b>Début de session :</b> Ouvre le HTML → ☁ Drive JSON → Charger.<br>
-        <b>Fin de session :</b> ☁ Drive JSON → Télécharger → glisser dans Drive (remplace l'ancien fichier).<br><br>
+        <b>Début de session :</b> Ouvre le HTML → ☁ Drive → Charger.<br>
+        <b>Fin de session :</b> ☁ Drive → Télécharger → glisser dans Drive (remplace l'ancien fichier).<br><br>
         <b>Conseil :</b> Garde le fichier <span class="g-code">.html</span> et le <span class="g-code">.json</span> dans le même dossier Drive. Tu peux tout télécharger et utiliser sur n'importe quel ordinateur.
       </div>
     </div>
@@ -3123,7 +2728,7 @@ window.addEventListener('DOMContentLoaded', init);
         <tr><td>Même machine, même navigateur</td><td>Automatique via localStorage</td></tr>
         <tr><td>Machine différente</td><td>Export JSON → Drive ou clé USB → Import</td></tr>
         <tr><td>Partage avec le MJ</td><td>Export JSON → envoyer → Import sur sa machine</td></tr>
-        <tr><td>Sauvegarde cloud</td><td>☁ Drive JSON (voir onglet Google Drive)</td></tr>
+        <tr><td>Sauvegarde cloud</td><td>☁ Drive (voir onglet Google Drive)</td></tr>
       </table>
       <div class="g-section">Synchronisation entre onglets</div>
       <div class="g-note">
