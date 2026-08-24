@@ -610,17 +610,17 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
   .d-slots-grid { grid-template-columns: repeat(2,1fr) !important; }
 }
 
-/* Forcer portrait sur mobile */
-@media screen and (max-width: 1024px) and (orientation: landscape) {
+/* Forcer paysage sur mobile */
+@media screen and (max-width: 1024px) and (orientation: portrait) {
   html {
-    transform: rotate(-90deg);
+    transform: rotate(90deg);
     transform-origin: left top;
     width: 100vh;
     height: 100vw;
     overflow-x: hidden;
     position: absolute;
-    top: 100%;
-    left: 0;
+    top: 0;
+    left: 100%;
   }
 }
 </style>
@@ -3011,19 +3011,18 @@ document.addEventListener('click', function(e) {
 });
 
 
-// ── Forcer l'orientation portrait sur mobile ─────────────────────
+// ── Forcer l'orientation paysage sur mobile ─────────────────────
 (function() {
-  // Screen Orientation API (Chrome Android, Safari 16.4+)
+  // Screen Orientation API
   if (screen.orientation && screen.orientation.lock) {
-    screen.orientation.lock('portrait').catch(function(){});
+    screen.orientation.lock('landscape').catch(function(){});
   }
-  // Fallback : détection et message utilisateur si paysage
   function checkOrientation() {
-    var isMobile = window.innerWidth <= 1024 || 
+    var isMobile = window.innerWidth <= 1024 ||
                    ('ontouchstart' in window && window.innerWidth < 1200);
     if (!isMobile) return;
-    if (window.innerWidth > window.innerHeight) {
-      // Paysage sur mobile : afficher un message
+    if (window.innerHeight > window.innerWidth) {
+      // Portrait sur mobile : afficher message
       var existing = document.getElementById('rotate-overlay');
       if (!existing) {
         var ov = document.createElement('div');
@@ -3034,10 +3033,10 @@ document.addEventListener('click', function(e) {
           'align-items:center','justify-content:center','gap:16px',
           'font-family:var(--mono)','color:var(--txt)'
         ].join(';');
-        ov.innerHTML = '<div style="font-size:48px">↩️</div>'
+        ov.innerHTML = '<div style="font-size:48px">↪️</div>'
           + '<div style="font-size:14px;letter-spacing:2px;text-align:center">'
-          + 'RETOURNE TON TÉLÉPHONE<br>'
-          + '<span style="color:var(--txt3);font-size:11px;letter-spacing:1px">Mode portrait recommandé</span>'
+          + 'TOURNE TON TÉLÉPHONE<br>'
+          + '<span style="color:var(--txt3);font-size:11px;letter-spacing:1px">Mode paysage recommandé</span>'
           + '</div>';
         document.body.appendChild(ov);
       }
@@ -3052,6 +3051,7 @@ document.addEventListener('click', function(e) {
   window.addEventListener('resize', checkOrientation);
   document.addEventListener('DOMContentLoaded', checkOrientation);
 })();
+
 
 // ════════════════════════════════════════════════════
 //  BOOT
