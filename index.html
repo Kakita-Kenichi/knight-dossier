@@ -2679,32 +2679,31 @@ async function driveApiGet(url) {
 }
 
 async function driveGetOrCreateFolder(name, parentId) {
-  // Recherche insensible a la casse : on recupere tous les dossiers
-  // du parent et on filtre cote JS
-  var qParts = [
-    "mimeType='application/vnd.google-apps.folder'",
-    "trashed=false"
-  ];
-  if (parentId) qParts.push("'" + parentId + "' in parents");
-  var q = qParts.join(' and ');
+  // parentId null = chercher dans 'root' explicitement
+  var parent = parentId || 'root';
+
+  // Chercher le dossier par nom exact ET parent exact
+  var q = "mimeType='application/vnd.google-apps.folder'"
+        + " and name='" + name.replace(/'/g, "\'") + "'"
+        + " and '" + parent + "' in parents"
+        + " and trashed=false";
 
   var url = new URL('https://www.googleapis.com/drive/v3/files');
   url.searchParams.set('q', q);
   url.searchParams.set('fields', 'files(id,name)');
   url.searchParams.set('spaces', 'drive');
-  url.searchParams.set('pageSize', '200');
 
   var data = await driveApiGet(url.toString());
-  // Comparaison insensible a la casse
-  var nameLower = name.trim().toLowerCase();
-  var existing = (data.files || []).find(function(f) {
-    return f.name.trim().toLowerCase() === nameLower;
-  });
-  if (existing) return existing.id;
+  if (data.files && data.files.length > 0) {
+    return data.files[0].id; // Dossier trouve
+  }
 
-  // Creer le dossier
-  var meta = { name: name, mimeType: 'application/vnd.google-apps.folder' };
-  if (parentId) meta.parents = [parentId];
+  // Pas trouve — creer dans le bon parent
+  var meta = {
+    name: name,
+    mimeType: 'application/vnd.google-apps.folder',
+    parents: [parent]
+  };
   var res = await fetch('https://www.googleapis.com/drive/v3/files?fields=id,name', {
     method: 'POST',
     headers: { Authorization: 'Bearer ' + driveToken, 'Content-Type': 'application/json' },
