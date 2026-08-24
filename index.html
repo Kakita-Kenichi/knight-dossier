@@ -20,6 +20,42 @@
   --txt3:   #555a62;
   --mono:   'Courier New', monospace;
 }
+[data-theme="noir-or"] {
+  --bg:#0a0c0f; --bg2:#111318; --bg3:#181c23;
+  --bd:#2a2f3a; --bd2:#3a4050;
+  --gold:#c8a84b; --gold2:#e8c96a;
+  --txt:#d4cfc5; --txt2:#9a9590; --txt3:#6a6e76;
+  --red:#c0392b; --green:#27ae60;
+}
+[data-theme="ardoise"] {
+  --bg:#14181f; --bg2:#1c2230; --bg3:#222a3a;
+  --bd:#2e3a50; --bd2:#3e4e66;
+  --gold:#7eb8d4; --gold2:#a8d8ee;
+  --txt:#cdd6e8; --txt2:#8896b0; --txt3:#5a6880;
+  --red:#e05050; --green:#40b880;
+}
+[data-theme="craie"] {
+  --bg:#f4f2ee; --bg2:#eceae4; --bg3:#e2dfd8;
+  --bd:#c8c4bc; --bd2:#b0aca4;
+  --gold:#8b5e2a; --gold2:#a87040;
+  --txt:#2a2620; --txt2:#5a5650; --txt3:#8a8680;
+  --red:#c0392b; --green:#1e7a40;
+}
+[data-theme="sang"] {
+  --bg:#0f0a0a; --bg2:#180e0e; --bg3:#201414;
+  --bd:#3a2020; --bd2:#502a2a;
+  --gold:#c84040; --gold2:#e86060;
+  --txt:#d8ccc8; --txt2:#9a8880; --txt3:#6a5858;
+  --red:#ff4040; --green:#40c870;
+}
+[data-theme="foret"] {
+  --bg:#090e0a; --bg2:#0f1610; --bg3:#151e16;
+  --bd:#1e2e20; --bd2:#2a3e2c;
+  --gold:#7ab84a; --gold2:#9ad860;
+  --txt:#ccd8c8; --txt2:#7a9878; --txt3:#4a6848;
+  --red:#d05040; --green:#50c860;
+}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Arial, sans-serif; font-size: 15px; min-height: 100vh; }
 
@@ -435,6 +471,47 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
   background:rgba(200,168,75,.04); border:1px solid rgba(200,168,75,.12);
 }
 .drv-config-note a { color:var(--accent,var(--gold)); }
+
+/* ── THEME PICKER ── */
+#theme-btn {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 3000;
+  background: var(--bg3);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 5px 10px;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+#theme-btn:hover { background: var(--gold); color: var(--bg); }
+#theme-panel {
+  display: none;
+  position: fixed;
+  top: 40px;
+  right: 10px;
+  z-index: 3000;
+  background: var(--bg2);
+  border: 1px solid var(--gold);
+  min-width: 160px;
+  flex-direction: column;
+}
+#theme-panel.on { display: flex; }
+.theme-opt {
+  padding: 9px 14px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--txt2);
+  cursor: pointer;
+  border-bottom: 1px solid var(--bd);
+  letter-spacing: 1px;
+}
+.theme-opt:last-child { border-bottom: none; }
+.theme-opt:hover { background: var(--bg3); color: var(--gold); }
+.theme-opt.active { color: var(--gold); font-weight: bold; }
 </style>
 </head>
 <body>
@@ -2609,6 +2686,36 @@ function saveAction() {
   }
 }
 
+
+// ── Sélecteur de thème ────────────────────────────────────────────
+function setTheme(tid) {
+  document.documentElement.setAttribute('data-theme', tid);
+  localStorage.setItem('knight_theme', tid);
+  document.querySelectorAll('.theme-opt').forEach(function(o) {
+    o.classList.toggle('active', o.dataset.tid === tid);
+  });
+  document.getElementById('theme-panel').classList.remove('on');
+}
+
+function toggleThemePanel() {
+  document.getElementById('theme-panel').classList.toggle('on');
+}
+
+// Fermer si clic dehors
+document.addEventListener('click', function(e) {
+  var panel = document.getElementById('theme-panel');
+  var btn   = document.getElementById('theme-btn');
+  if (panel && !panel.contains(e.target) && e.target !== btn) {
+    panel.classList.remove('on');
+  }
+});
+
+// Appliquer le thème sauvegardé au démarrage
+(function() {
+  var saved = localStorage.getItem('knight_theme');
+  if (saved) setTheme(saved);
+})();
+
 // ════════════════════════════════════════════════════
 //  BOOT
 // ════════════════════════════════════════════════════
@@ -2805,6 +2912,16 @@ window.addEventListener('DOMContentLoaded', init);
     </div><!-- /drv-body -->
   </div>
 </div><!-- /drive-overlay -->
+
+<!-- ── THEME PICKER ── -->
+<button id="theme-btn" onclick="toggleThemePanel()" title="Changer le thème">🎨</button>
+<div id="theme-panel">
+    <div class="theme-opt" data-tid="noir-or" onclick="setTheme('noir-or')">◼ Noir & Or</div>
+    <div class="theme-opt" data-tid="ardoise" onclick="setTheme('ardoise')">◈ Ardoise</div>
+    <div class="theme-opt" data-tid="craie" onclick="setTheme('craie')">◻ Craie</div>
+    <div class="theme-opt" data-tid="sang" onclick="setTheme('sang')">◆ Sang & Acier</div>
+    <div class="theme-opt" data-tid="foret" onclick="setTheme('foret')">◉ Forêt</div>
+</div>
 
 </body>
 </html>
