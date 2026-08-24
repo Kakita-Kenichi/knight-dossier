@@ -2204,7 +2204,7 @@ function markUnsaved() {
 function saveStorage() {
   collectFields();
   try {
-    localStorage.setItem('knight_dossier_v9', JSON.stringify(D));
+    localStorage.setItem('knight_dossier_v9', JSON.stringify(cleanDataForExport()));
     var ind = document.getElementById('save-ind');
     ind.textContent = '✓ SAUVEGARDÉ';
     ind.className = 'saved';
@@ -2241,12 +2241,59 @@ function setupAutoSave() {
   document.addEventListener('change', function() { markUnsaved(); });
 }
 
+function cleanDataForExport() {
+  // Champs fields requis (liste canonique)
+  var FIELDS = [
+    'nom_chev','vrai_nom','section','origine','blason_txt','voeu',
+    'pg_act','pg_tot','px_act','px_tot',
+    'defense','reaction','initiative','ps_val',
+    'lum_act','lum_max','omb_act','omb_max','bio',
+    'meta_nom','meta_pa','meta_pe','meta_cdf','meta_ia','meta_notes',
+    'slot_bg','slot_bg_mod','slot_jg','slot_jg_mod',
+    'slot_to','slot_to_mod','slot_te','slot_te_mod',
+    'slot_bd','slot_bd_mod','slot_jd','slot_jd_mod'
+  ];
+  // Aspects requis
+  var ASPECTS = ['corp','puis','esp','grace','sub',
+                 'end','for','dep','com','har','ins',
+                 'tec','sav','tir','aur','par','cf',
+                 'dis','dex','per'];
+
+  var cleanFields = {};
+  FIELDS.forEach(function(k) {
+    cleanFields[k] = D.fields[k] !== undefined ? D.fields[k] : '';
+  });
+
+  var cleanAspects = {};
+  ASPECTS.forEach(function(id) {
+    var a = D.aspects[id] || {};
+    cleanAspects[id] = { val: a.val || '', od: a.od || '', max: a.max || '' };
+  });
+
+  return {
+    fields:        cleanFields,
+    aspects:       cleanAspects,
+    cs:            D.cs            || [],
+    arsenal:       D.arsenal       || [],
+    caps:          (D.caps         || [{},{}]).slice(0,2),
+    mods:          (D.mods         || []).slice(0,5),
+    heroisme:      (D.heroisme     || []).slice(0,6),
+    nods:          D.nods          || {sante:[false,false,false],armure:[false,false,false],energie:[false,false,false]},
+    grenades:      D.grenades      || {count:Array(6).fill(false),types:{}},
+    images:        D.images        || {portrait:null,illustration:null,blason:null},
+    illustrations: D.illustrations || [],
+    driveIds:      D.driveIds      || {},
+    driveUrls:     D.driveUrls     || {}
+  };
+}
+
 function exportJSON() {
   collectFields();
-  var name = (D.fields.nom_chev || 'knight').replace(/\s+/g,'_') + '_dossier.json';
-  var blob = new Blob([JSON.stringify(D, null, 2)], {type:'application/json'});
-  var url  = URL.createObjectURL(blob);
-  var a    = document.createElement('a');
+  var clean = cleanDataForExport();
+  var name  = (clean.fields.nom_chev || 'knight').replace(/\s+/g,'_') + '_dossier.json';
+  var blob  = new Blob([JSON.stringify(clean, null, 2)], {type:'application/json'});
+  var url   = URL.createObjectURL(blob);
+  var a     = document.createElement('a');
   a.href = url; a.download = name; a.click();
   URL.revokeObjectURL(url);
 }
@@ -2669,11 +2716,11 @@ async function driveGetOrCreateFolder(name, parentId) {
 async function driveSave() {
   if (!driveToken) { driveSetStatus('drv-save-status', 'Non connecte. Clique Se connecter.', 'err'); return; }
   collectFields();
-
+  var clean   = cleanDataForExport();
   var nomPerso = (D.fields.nom_chev || 'Inconnu').trim().replace(/[<>:"/\\|?*]/g, '') || 'Inconnu';
   var filename  = document.getElementById('drv-filename').value.trim()
     || (nomPerso.replace(/\s+/g, '_') + '_dossier.json');
-  var json = JSON.stringify(D, null, 2);
+  var json  = JSON.stringify(clean, null, 2);
 
   driveSetStatus('drv-save-status', 'Recherche dossier Knight...', 'inf');
   try {
