@@ -447,8 +447,9 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
   </div>
   <div class="hdr-right">
     <span id="save-ind">● EN ATTENTE</span>
+    <button class="btn btn-p" id="btn-save-main" onclick="saveAction()" title="Sauvegarder">💾 Sauvegarder</button>
     <button class="btn btn-p" id="btn-drive-main" onclick="openDrivePanel()">☁ Drive</button>
-    <button class="btn btn-p" onclick="exportJSON()">⬇ JSON</button>
+    <button class="btn" onclick="exportJSON()">⬇ Export JSON</button>
     <label class="btn" style="cursor:pointer">⬆ Importer<input type="file" accept=".json" onchange="importJSON(event)" style="display:none"></label>
     <button class="btn btn-d" onclick="clearAll()">✕ Reset</button>
     <button class="btn" onclick="openGuide()" title="Guide d'utilisation">? Guide</button>
@@ -2976,6 +2977,32 @@ function addIllustration() {
   D.illustrations.push({ label:'', data:null, driveUrl:'', driveId:null });
   buildIllList();
   markUnsaved();
+}
+
+
+// ── Bouton Sauvegarder : Drive si connecté, sinon localStorage ──
+function saveAction() {
+  var btn = document.getElementById('btn-save-main');
+  if (driveToken) {
+    // Connecté à Drive → sauvegarder sur Drive
+    openDrivePanel();
+    // Lancer la sauvegarde Drive directement
+    setTimeout(function() { driveSave(); }, 100);
+  } else {
+    // Pas connecté → sauvegarder dans le cache (localStorage)
+    saveStorage();
+    if (btn) {
+      var orig = btn.textContent;
+      btn.textContent = '✓ Sauvegardé';
+      btn.style.borderColor = 'var(--green)';
+      btn.style.color = 'var(--green)';
+      setTimeout(function() {
+        btn.textContent = orig;
+        btn.style.borderColor = '';
+        btn.style.color = '';
+      }, 2000);
+    }
+  }
 }
 
 // ════════════════════════════════════════════════════
