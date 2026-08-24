@@ -603,6 +603,24 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
   .guide-tabs { overflow-x: auto; flex-wrap: nowrap; }
   .guide-tab { white-space: nowrap; flex-shrink: 0; }
   #theme-panel { position: fixed !important; top: 44px !important; right: 0 !important; z-index: 5000; }
+  /* ── Dossier mobile spécifique ── */
+  /* Masquer le blason dans le dossier */
+  #p-dossier .d-bla-img,
+  #p-dossier [style*="d-bla-img"],
+  #p-dossier > #dossier-wrap > div:first-of-type > div:last-child { display: none !important; }
+
+  /* En-tête dossier : portrait + identité seulement (sans blason) */
+  #p-dossier [style*="grid-template-columns:auto 1fr auto"] {
+    grid-template-columns: auto 1fr !important;
+  }
+
+  /* Portrait plus grand */
+  #p-dossier .d-portrait {
+    width: 120px !important;
+    height: 170px !important;
+    cursor: default !important;
+  }
+
 }
 @media screen and (max-width: 480px) {
   .grid2, .grid3, .grid4, .grid5 { grid-template-columns: 1fr !important; }
@@ -2912,6 +2930,10 @@ var carouselSlides = [];
 var carouselIdx = 0;
 
 function openCarousel() {
+  // Désactivé sur mobile
+  var isMobile = window.innerWidth <= 1024 && 'ontouchstart' in window;
+  if (isMobile) return;
+  if (isMobile) return;
   // Construire la liste des slides depuis D.images + D.driveIds
   carouselSlides = [];
   var imgKeys = [
