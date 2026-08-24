@@ -2781,6 +2781,8 @@ async function driveLoadFile(fileId, fileName) {
     var text = await res.text();
     var parsed = JSON.parse(text);
     djmApplyData(parsed, null);
+    if (typeof updateMetaDisplay === 'function') updateMetaDisplay();
+    if (typeof initSlotTotals    === 'function') initSlotTotals();
     localStorage.setItem('knight_drive_file_id', fileId);
     driveSetStatus('drv-load-status','✓ "' + fileName + '" chargé !','ok');
     // Mettre à jour le nom de fichier dans l'input sauvegarde
@@ -2793,6 +2795,54 @@ async function driveLoadFile(fileId, fileName) {
 // Garder aussi la compatibilité avec l'ancien openDJM si référencé ailleurs
 function openDJM() { openDrivePanel(); }
 function closeDJM() { closeDrivePanel(); }
+
+
+// ── updateMetaDisplay : affichage lecture seule dans Identite ────
+function updateMetaDisplay() {
+  var mapping = {
+    'meta_nom': 'disp_meta_nom',
+    'meta_pa':  'disp_meta_pa',
+    'meta_pe':  'disp_meta_pe',
+    'meta_cdf': 'disp_meta_cdf',
+    'meta_ia':  'disp_meta_ia'
+  };
+  Object.keys(mapping).forEach(function(srcId) {
+    var src  = document.getElementById(srcId);
+    var disp = document.getElementById(mapping[srcId]);
+    if (src && disp) disp.textContent = src.value || '—';
+  });
+}
+
+function setupMetaListeners() {
+  document.addEventListener('input', function(e) {
+    var ids = ['meta_nom','meta_pa','meta_pe','meta_cdf','meta_ia'];
+    if (e.target && ids.indexOf(e.target.id) >= 0) updateMetaDisplay();
+  });
+}
+
+// ── djmApplyData : appliquer les donnees JSON chargees ────────────
+function djmApplyData(parsed, raw) {
+  D.fields        = parsed.fields        || {};
+  D.aspects       = parsed.aspects       || {};
+  D.cs            = parsed.cs            || [];
+  D.arsenal       = parsed.arsenal       || [];
+  D.caps          = parsed.caps          || [{},{}];
+  D.mods          = parsed.mods          || Array.from({length:5}, function(){ return {}; });
+  D.heroisme      = parsed.heroisme      || Array(6).fill(false);
+  D.nods          = parsed.nods          || {sante:Array(3).fill(false),armure:Array(3).fill(false),energie:Array(3).fill(false)};
+  D.grenades      = parsed.grenades      || {count:Array(6).fill(false),types:{}};
+  D.images        = parsed.images        || {portrait:null,illustration:null,blason:null};
+  D.illustrations = parsed.illustrations || [];
+  D.driveIds      = parsed.driveIds      || {};
+  D.driveUrls     = parsed.driveUrls     || {};
+  buildAspects(); buildCS(); buildArsenal(); buildCaps(); buildMods();
+  buildHeroisme(); buildNods(); buildGrenades();
+  fillFields(); fillImages();
+  if (typeof buildIllList       === 'function') buildIllList();
+  if (typeof updateMetaDisplay  === 'function') updateMetaDisplay();
+  if (typeof initSlotTotals     === 'function') initSlotTotals();
+  saveStorage();
+}
 
 // ════════════════════════════════════════════════════
 //  BOOT
