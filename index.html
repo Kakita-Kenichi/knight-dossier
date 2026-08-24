@@ -829,96 +829,54 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
   <div class="blk mb14">
     <div class="blk-title">▸ Slots</div>
     <div class="blk-body">
-      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;font-size:11px">
-        <div>
-          <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:6px">Bras G.</div>
-          <div class="f" style="margin-bottom:4px">
-            <label style="text-align:center">Slots</label>
-            <input id="slot_bg" type="number" style="text-align:center" oninput="calcSlotTotal('slot_bg')">
-          </div>
-          <div class="f" style="margin-bottom:4px">
-            <label style="text-align:center">Modif.</label>
-            <input id="slot_bg_mod" type="number" style="text-align:center" oninput="calcSlotTotal('slot_bg')">
-          </div>
-          <div class="f">
-            <label style="text-align:center">Total</label>
-            <div id="slot_bg_tot" style="font-family:var(--mono);font-size:14px;font-weight:bold;color:var(--gold);background:var(--bg);border:1px solid var(--gold);padding:5px;text-align:center;min-height:30px">—</div>
-          </div>
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px">
+        <div style="text-align:center">
+          <span style="font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--txt3);text-align:center;margin-bottom:3px;display:block">Bras G.</span>
+          <input id="slot_bg" type="number" min="0" max="99" style="width:100%;background:var(--bg);border:1px solid var(--bd);color:var(--txt);font-family:var(--mono);font-size:13px;padding:3px 2px;text-align:center;box-sizing:border-box;outline:none" oninput="calcSlotTotal('slot_bg')">
+          <span style="font-family:var(--mono);font-size:9px;color:var(--txt3);text-align:center;margin:4px 0 2px;display:block">Mod.</span>
+          <input id="slot_bg_mod" type="number" min="-99" max="99" style="width:100%;background:var(--bg);border:1px solid var(--bd);color:var(--txt);font-family:var(--mono);font-size:13px;padding:3px 2px;text-align:center;box-sizing:border-box;outline:none" oninput="calcSlotTotal('slot_bg')">
+          <span style="font-family:var(--mono);font-size:9px;color:var(--txt3);text-align:center;margin:4px 0 2px;display:block">Total</span>
+          <div id="slot_bg_tot" style="font-family:var(--mono);font-size:14px;font-weight:bold;color:var(--gold);background:var(--bg);border:1px solid var(--gold);padding:3px 2px;text-align:center;margin-top:3px">—</div>
         </div>
-        <div>
-          <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:6px">Jambe G.</div>
-          <div class="f" style="margin-bottom:4px">
-            <label style="text-align:center">Slots</label>
-            <input id="slot_jg" type="number" style="text-align:center" oninput="calcSlotTotal('slot_jg')">
-          </div>
-          <div class="f" style="margin-bottom:4px">
-            <label style="text-align:center">Modif.</label>
-            <input id="slot_jg_mod" type="number" style="text-align:center" oninput="calcSlotTotal('slot_jg')">
-          </div>
-          <div class="f">
-            <label style="text-align:center">Total</label>
-            <div id="slot_jg_tot" style="font-family:var(--mono);font-size:14px;font-weight:bold;color:var(--gold);background:var(--bg);border:1px solid var(--gold);padding:5px;text-align:center;min-height:30px">—</div>
-          </div>
+        <div style="text-align:center">
+          <span style="font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--txt3);text-align:center;margin-bottom:3px;display:block">Jambe G.</span>
+          <input id="slot_jg" type="number" min="0" max="99" style="width:100%;background:var(--bg);border:1px solid var(--bd);color:var(--txt);font-family:var(--mono);font-size:13px;padding:3px 2px;text-align:center;box-sizing:border-box;outline:none" oninput="calcSlotTotal('slot_jg')">
+          <span style="font-family:var(--mono);font-size:9px;color:var(--txt3);text-align:center;margin:4px 0 2px;display:block">Mod.</span>
+          <input id="slot_jg_mod" type="number" min="-99" max="99" style="width:100%;background:var(--bg);border:1px solid var(--bd);color:var(--txt);font-family:var(--mono);font-size:13px;padding:3px 2px;text-align:center;box-sizing:border-box;outline:none" oninput="calcSlotTotal('slot_jg')">
+          <span style="font-family:var(--mono);font-size:9px;color:var(--txt3);text-align:center;margin:4px 0 2px;display:block">Total</span>
+          <div id="slot_jg_tot" style="font-family:var(--mono);font-size:14px;font-weight:bold;color:var(--gold);background:var(--bg);border:1px solid var(--gold);padding:3px 2px;text-align:center;margin-top:3px">—</div>
         </div>
-        <div>
-          <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:6px">Torse</div>
-          <div class="f" style="margin-bottom:4px">
-            <label style="text-align:center">Slots</label>
-            <input id="slot_to" type="number" style="text-align:center" oninput="calcSlotTotal('slot_to')">
-          </div>
-          <div class="f" style="margin-bottom:4px">
-            <label style="text-align:center">Modif.</label>
-            <input id="slot_to_mod" type="number" style="text-align:center" oninput="calcSlotTotal('slot_to')">
-          </div>
-          <div class="f">
-            <label style="text-align:center">Total</label>
-            <div id="slot_to_tot" style="font-family:var(--mono);font-size:14px;font-weight:bold;color:var(--gold);background:var(--bg);border:1px solid var(--gold);padding:5px;text-align:center;min-height:30px">—</div>
-          </div>
+        <div style="text-align:center">
+          <span style="font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--txt3);text-align:center;margin-bottom:3px;display:block">Torse</span>
+          <input id="slot_to" type="number" min="0" max="99" style="width:100%;background:var(--bg);border:1px solid var(--bd);color:var(--txt);font-family:var(--mono);font-size:13px;padding:3px 2px;text-align:center;box-sizing:border-box;outline:none" oninput="calcSlotTotal('slot_to')">
+          <span style="font-family:var(--mono);font-size:9px;color:var(--txt3);text-align:center;margin:4px 0 2px;display:block">Mod.</span>
+          <input id="slot_to_mod" type="number" min="-99" max="99" style="width:100%;background:var(--bg);border:1px solid var(--bd);color:var(--txt);font-family:var(--mono);font-size:13px;padding:3px 2px;text-align:center;box-sizing:border-box;outline:none" oninput="calcSlotTotal('slot_to')">
+          <span style="font-family:var(--mono);font-size:9px;color:var(--txt3);text-align:center;margin:4px 0 2px;display:block">Total</span>
+          <div id="slot_to_tot" style="font-family:var(--mono);font-size:14px;font-weight:bold;color:var(--gold);background:var(--bg);border:1px solid var(--gold);padding:3px 2px;text-align:center;margin-top:3px">—</div>
         </div>
-        <div>
-          <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:6px">Tête</div>
-          <div class="f" style="margin-bottom:4px">
-            <label style="text-align:center">Slots</label>
-            <input id="slot_te" type="number" style="text-align:center" oninput="calcSlotTotal('slot_te')">
-          </div>
-          <div class="f" style="margin-bottom:4px">
-            <label style="text-align:center">Modif.</label>
-            <input id="slot_te_mod" type="number" style="text-align:center" oninput="calcSlotTotal('slot_te')">
-          </div>
-          <div class="f">
-            <label style="text-align:center">Total</label>
-            <div id="slot_te_tot" style="font-family:var(--mono);font-size:14px;font-weight:bold;color:var(--gold);background:var(--bg);border:1px solid var(--gold);padding:5px;text-align:center;min-height:30px">—</div>
-          </div>
+        <div style="text-align:center">
+          <span style="font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--txt3);text-align:center;margin-bottom:3px;display:block">Tête</span>
+          <input id="slot_te" type="number" min="0" max="99" style="width:100%;background:var(--bg);border:1px solid var(--bd);color:var(--txt);font-family:var(--mono);font-size:13px;padding:3px 2px;text-align:center;box-sizing:border-box;outline:none" oninput="calcSlotTotal('slot_te')">
+          <span style="font-family:var(--mono);font-size:9px;color:var(--txt3);text-align:center;margin:4px 0 2px;display:block">Mod.</span>
+          <input id="slot_te_mod" type="number" min="-99" max="99" style="width:100%;background:var(--bg);border:1px solid var(--bd);color:var(--txt);font-family:var(--mono);font-size:13px;padding:3px 2px;text-align:center;box-sizing:border-box;outline:none" oninput="calcSlotTotal('slot_te')">
+          <span style="font-family:var(--mono);font-size:9px;color:var(--txt3);text-align:center;margin:4px 0 2px;display:block">Total</span>
+          <div id="slot_te_tot" style="font-family:var(--mono);font-size:14px;font-weight:bold;color:var(--gold);background:var(--bg);border:1px solid var(--gold);padding:3px 2px;text-align:center;margin-top:3px">—</div>
         </div>
-        <div>
-          <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:6px">Bras D.</div>
-          <div class="f" style="margin-bottom:4px">
-            <label style="text-align:center">Slots</label>
-            <input id="slot_bd" type="number" style="text-align:center" oninput="calcSlotTotal('slot_bd')">
-          </div>
-          <div class="f" style="margin-bottom:4px">
-            <label style="text-align:center">Modif.</label>
-            <input id="slot_bd_mod" type="number" style="text-align:center" oninput="calcSlotTotal('slot_bd')">
-          </div>
-          <div class="f">
-            <label style="text-align:center">Total</label>
-            <div id="slot_bd_tot" style="font-family:var(--mono);font-size:14px;font-weight:bold;color:var(--gold);background:var(--bg);border:1px solid var(--gold);padding:5px;text-align:center;min-height:30px">—</div>
-          </div>
+        <div style="text-align:center">
+          <span style="font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--txt3);text-align:center;margin-bottom:3px;display:block">Bras D.</span>
+          <input id="slot_bd" type="number" min="0" max="99" style="width:100%;background:var(--bg);border:1px solid var(--bd);color:var(--txt);font-family:var(--mono);font-size:13px;padding:3px 2px;text-align:center;box-sizing:border-box;outline:none" oninput="calcSlotTotal('slot_bd')">
+          <span style="font-family:var(--mono);font-size:9px;color:var(--txt3);text-align:center;margin:4px 0 2px;display:block">Mod.</span>
+          <input id="slot_bd_mod" type="number" min="-99" max="99" style="width:100%;background:var(--bg);border:1px solid var(--bd);color:var(--txt);font-family:var(--mono);font-size:13px;padding:3px 2px;text-align:center;box-sizing:border-box;outline:none" oninput="calcSlotTotal('slot_bd')">
+          <span style="font-family:var(--mono);font-size:9px;color:var(--txt3);text-align:center;margin:4px 0 2px;display:block">Total</span>
+          <div id="slot_bd_tot" style="font-family:var(--mono);font-size:14px;font-weight:bold;color:var(--gold);background:var(--bg);border:1px solid var(--gold);padding:3px 2px;text-align:center;margin-top:3px">—</div>
         </div>
-        <div>
-          <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:6px">Jambe D.</div>
-          <div class="f" style="margin-bottom:4px">
-            <label style="text-align:center">Slots</label>
-            <input id="slot_jd" type="number" style="text-align:center" oninput="calcSlotTotal('slot_jd')">
-          </div>
-          <div class="f" style="margin-bottom:4px">
-            <label style="text-align:center">Modif.</label>
-            <input id="slot_jd_mod" type="number" style="text-align:center" oninput="calcSlotTotal('slot_jd')">
-          </div>
-          <div class="f">
-            <label style="text-align:center">Total</label>
-            <div id="slot_jd_tot" style="font-family:var(--mono);font-size:14px;font-weight:bold;color:var(--gold);background:var(--bg);border:1px solid var(--gold);padding:5px;text-align:center;min-height:30px">—</div>
-          </div>
+        <div style="text-align:center">
+          <span style="font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--txt3);text-align:center;margin-bottom:3px;display:block">Jambe D.</span>
+          <input id="slot_jd" type="number" min="0" max="99" style="width:100%;background:var(--bg);border:1px solid var(--bd);color:var(--txt);font-family:var(--mono);font-size:13px;padding:3px 2px;text-align:center;box-sizing:border-box;outline:none" oninput="calcSlotTotal('slot_jd')">
+          <span style="font-family:var(--mono);font-size:9px;color:var(--txt3);text-align:center;margin:4px 0 2px;display:block">Mod.</span>
+          <input id="slot_jd_mod" type="number" min="-99" max="99" style="width:100%;background:var(--bg);border:1px solid var(--bd);color:var(--txt);font-family:var(--mono);font-size:13px;padding:3px 2px;text-align:center;box-sizing:border-box;outline:none" oninput="calcSlotTotal('slot_jd')">
+          <span style="font-family:var(--mono);font-size:9px;color:var(--txt3);text-align:center;margin:4px 0 2px;display:block">Total</span>
+          <div id="slot_jd_tot" style="font-family:var(--mono);font-size:14px;font-weight:bold;color:var(--gold);background:var(--bg);border:1px solid var(--gold);padding:3px 2px;text-align:center;margin-top:3px">—</div>
         </div>
       </div>
     </div>
