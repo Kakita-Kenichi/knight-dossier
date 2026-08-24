@@ -2957,11 +2957,16 @@ window.addEventListener('DOMContentLoaded', init);
       <div>
         <div class="drv-section">Configuration OAuth (une seule fois)</div>
         <div class="drv-config-note">
-          Nécessite un <b>Client ID Google</b>.<br>
-          1. <a href="https://console.cloud.google.com" target="_blank">console.cloud.google.com</a> → Nouveau projet<br>
-          2. APIs → activer <b>Google Drive API</b><br>
-          3. Identifiants → OAuth 2.0 → Application Web → ajouter <code>http://localhost</code> comme origine<br>
-          4. Lancer le fichier via <code>python -m http.server 8080</code> et ouvrir <code>http://localhost:8080/...</code>
+          Nécessite un <b>Client ID Google</b> (à faire une seule fois).<br><br>
+          1. <a href="https://console.cloud.google.com" target="_blank">console.cloud.google.com</a> → <b>Nouveau projet</b> (ex: Knight Dossier)<br>
+          2. Menu → APIs et services → Bibliothèque → chercher <b>Google Drive API</b> → Activer<br>
+          3. APIs et services → <b>Écran d'autorisation OAuth</b> → Type : Externe → Créer<br>
+          4. Remplir le nom de l'app → Sauvegarder<br>
+          5. Section <b>Utilisateurs test</b> → + Add users → ajouter ton adresse Gmail<br>
+          6. APIs et services → Identifiants → <b>+ Créer des identifiants</b> → ID client OAuth<br>
+          7. Type : <b>Application Web</b> → Origines JS autorisées → ajouter ton URL GitHub Pages :<br>
+          &nbsp;&nbsp;&nbsp;<code>https://ton-pseudo.github.io</code><br>
+          8. Cliquer <b>Créer</b> → copier le <b>Client ID</b> → le coller dans le champ ci-dessous
         </div>
         <div class="drv-row" style="margin-top:6px">
           <input type="text" id="drv-client-id" placeholder="XXXXXXX.apps.googleusercontent.com">
