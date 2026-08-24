@@ -33,7 +33,7 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
 #save-ind.unsaved { color: var(--gold); }
 
 /* TABS */
-#tabs { display: flex; background: var(--bg2); border-bottom: 1px solid var(--bd); padding: 0 20px; }
+#tabs { display: flex; background: var(--bg2); border-bottom: 1px solid var(--bd); padding: 0 20px; position: sticky; top: 52px; z-index: 99; }
 .tab { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; padding: 11px 18px; border: none; background: transparent; color: var(--txt3); cursor: pointer; border-bottom: 2px solid transparent; position: relative; top: 1px; }
 .tab:hover { color: var(--txt2); }
 .tab.on { color: var(--gold); border-bottom-color: var(--gold); }
@@ -2679,10 +2679,10 @@ async function driveApiGet(url) {
 }
 
 async function driveGetOrCreateFolder(name, parentId) {
-  // Construire la query sans encodage manuel — fetch encode l'URL automatiquement
+  // Recherche insensible a la casse : on recupere tous les dossiers
+  // du parent et on filtre cote JS
   var qParts = [
     "mimeType='application/vnd.google-apps.folder'",
-    "name='" + name.replace(/\\/g,'\\\\').replace(/'/g,"\\'") + "'",
     "trashed=false"
   ];
   if (parentId) qParts.push("'" + parentId + "' in parents");
@@ -2692,23 +2692,27 @@ async function driveGetOrCreateFolder(name, parentId) {
   url.searchParams.set('q', q);
   url.searchParams.set('fields', 'files(id,name)');
   url.searchParams.set('spaces', 'drive');
+  url.searchParams.set('pageSize', '200');
 
   var data = await driveApiGet(url.toString());
-  if (data.files && data.files.length > 0) {
-    return data.files[0].id; // Dossier existant
-  }
+  // Comparaison insensible a la casse
+  var nameLower = name.trim().toLowerCase();
+  var existing = (data.files || []).find(function(f) {
+    return f.name.trim().toLowerCase() === nameLower;
+  });
+  if (existing) return existing.id;
 
   // Creer le dossier
   var meta = { name: name, mimeType: 'application/vnd.google-apps.folder' };
   if (parentId) meta.parents = [parentId];
-  var res = await fetch('https://www.googleapis.com/drive/v3/files?fields=id', {
+  var res = await fetch('https://www.googleapis.com/drive/v3/files?fields=id,name', {
     method: 'POST',
     headers: { Authorization: 'Bearer ' + driveToken, 'Content-Type': 'application/json' },
     body: JSON.stringify(meta)
   });
   if (!res.ok) {
     var txt = await res.text();
-    throw new Error('Creation dossier HTTP ' + res.status + ' — ' + txt.slice(0, 120));
+    throw new Error('Creation dossier HTTP ' + res.status + ' : ' + txt.slice(0, 120));
   }
   return (await res.json()).id;
 }
@@ -2717,7 +2721,12 @@ async function driveSave() {
   if (!driveToken) { driveSetStatus('drv-save-status', 'Non connecte. Clique Se connecter.', 'err'); return; }
   collectFields();
   var clean   = cleanDataForExport();
-  var nomPerso = (D.fields.nom_chev || 'Inconnu').trim().replace(/[<>:"/\\|?*]/g, '') || 'Inconnu';
+  var nomChev  = (D.fields.nom_chev  || '').trim();
+  var vraiNom  = (D.fields.vrai_nom  || '').trim();
+  var nomPerso = (nomChev && vraiNom)
+    ? nomChev + ' - ' + vraiNom
+    : (nomChev || vraiNom || 'Inconnu');
+  nomPerso = nomPerso.replace(/[<>:"\\|?*]/g, '').trim() || 'Inconnu';
   var filename  = document.getElementById('drv-filename').value.trim()
     || (nomPerso.replace(/\s+/g, '_') + '_dossier.json');
   var json  = JSON.stringify(clean, null, 2);
