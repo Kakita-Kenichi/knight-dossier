@@ -561,7 +561,7 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
 }
 .mnav-btn .mnav-icon { font-size: 20px; line-height: 1; }
 .mnav-btn.on { color: var(--gold); }
-@media (max-width: 768px) {
+@media screen and (max-width: 1024px) {
   html, body { overflow-x: hidden; }
   body { position: relative; }
   #hdr { flex-wrap: nowrap; overflow: visible; padding: 0 10px; min-height: 44px; }
@@ -604,10 +604,24 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
   .guide-tab { white-space: nowrap; flex-shrink: 0; }
   #theme-panel { position: fixed !important; top: 44px !important; right: 0 !important; z-index: 5000; }
 }
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
   .grid2, .grid3, .grid4, .grid5 { grid-template-columns: 1fr !important; }
   [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
   .d-slots-grid { grid-template-columns: repeat(2,1fr) !important; }
+}
+
+/* Forcer portrait sur mobile */
+@media screen and (max-width: 1024px) and (orientation: landscape) {
+  html {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    height: 100vw;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
 }
 </style>
 </head>
@@ -2995,6 +3009,49 @@ document.addEventListener('click', function(e) {
     menu.classList.remove('on');
   }
 });
+
+
+// ── Forcer l'orientation portrait sur mobile ─────────────────────
+(function() {
+  // Screen Orientation API (Chrome Android, Safari 16.4+)
+  if (screen.orientation && screen.orientation.lock) {
+    screen.orientation.lock('portrait').catch(function(){});
+  }
+  // Fallback : détection et message utilisateur si paysage
+  function checkOrientation() {
+    var isMobile = window.innerWidth <= 1024 || 
+                   ('ontouchstart' in window && window.innerWidth < 1200);
+    if (!isMobile) return;
+    if (window.innerWidth > window.innerHeight) {
+      // Paysage sur mobile : afficher un message
+      var existing = document.getElementById('rotate-overlay');
+      if (!existing) {
+        var ov = document.createElement('div');
+        ov.id = 'rotate-overlay';
+        ov.style.cssText = [
+          'position:fixed','inset:0','background:var(--bg2)',
+          'z-index:99999','display:flex','flex-direction:column',
+          'align-items:center','justify-content:center','gap:16px',
+          'font-family:var(--mono)','color:var(--txt)'
+        ].join(';');
+        ov.innerHTML = '<div style="font-size:48px">↩️</div>'
+          + '<div style="font-size:14px;letter-spacing:2px;text-align:center">'
+          + 'RETOURNE TON TÉLÉPHONE<br>'
+          + '<span style="color:var(--txt3);font-size:11px;letter-spacing:1px">Mode portrait recommandé</span>'
+          + '</div>';
+        document.body.appendChild(ov);
+      }
+    } else {
+      var ov = document.getElementById('rotate-overlay');
+      if (ov) ov.remove();
+    }
+  }
+  window.addEventListener('orientationchange', function() {
+    setTimeout(checkOrientation, 300);
+  });
+  window.addEventListener('resize', checkOrientation);
+  document.addEventListener('DOMContentLoaded', checkOrientation);
+})();
 
 // ════════════════════════════════════════════════════
 //  BOOT
