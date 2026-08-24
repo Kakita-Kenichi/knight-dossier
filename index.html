@@ -1254,60 +1254,80 @@ function buildAspects() {
   var c = document.getElementById('asp-container');
   c.innerHTML = '';
   ASPECTS.forEach(function(asp) {
-    var card = document.createElement('div');
-    card.className = 'asp-card';
     var amx = (D.aspects[asp.id] || {}).max || '';
-    // Header row: NOM | Max [input]
-    var hrow = document.createElement('div');
-    hrow.className = 'asp-header-row';
+    var block = document.createElement('div');
+    block.style.cssText = 'background:var(--bg3);border:1px solid var(--bd);margin-bottom:8px;';
+
+    // En-tête aspect
+    var hdr = document.createElement('div');
+    hdr.className = 'asp-header-row';
     var ntxt = document.createElement('span');
-    ntxt.className = 'asp-name-txt';
-    ntxt.textContent = asp.name;
+    ntxt.className = 'asp-name-txt'; ntxt.textContent = asp.name;
     var mlbl = document.createElement('span');
-    mlbl.className = 'asp-max-label';
-    mlbl.textContent = 'Max';
+    mlbl.className = 'asp-max-label'; mlbl.textContent = 'Max';
     var minp = document.createElement('input');
     minp.type = 'number'; minp.min = '1'; minp.max = '5';
-    minp.className = 'asp-max-inp';
-    minp.value = amx;
+    minp.className = 'asp-max-inp'; minp.value = amx;
     minp.id = 'amx-' + asp.id;
     minp.oninput = (function(aid){ return function(){ saveAsp(aid,'max',this.value); }; })(asp.id);
-    hrow.appendChild(ntxt); hrow.appendChild(mlbl); hrow.appendChild(minp);
-    card.appendChild(hrow);
-    asp.subs.forEach(function(sub) {
+    hdr.appendChild(ntxt); hdr.appendChild(mlbl); hdr.appendChild(minp);
+    block.appendChild(hdr);
+
+    // Grille sous-aspects horizontale
+    var grid = document.createElement('div');
+    grid.style.cssText = 'display:grid;grid-template-columns:repeat(' + asp.subs.length + ',1fr);border-top:1px solid var(--bd);';
+
+    asp.subs.forEach(function(sub, si) {
       var sv = (D.aspects[sub.id] || {}).val || '';
-      var so = (D.aspects[sub.id] || {}).od || '';
-      // Sub row: NOM | Val [input] OD [input]
-      var srow = document.createElement('div');
-      srow.className = 'sub-header-row';
-      var snm = document.createElement('span');
-      snm.className = 'sub-name-txt'; snm.textContent = sub.name;
-      var vlbl = document.createElement('span');
-      vlbl.className = 'sub-score-lbl'; vlbl.textContent = 'Val';
-      var vinp = document.createElement('input');
-      vinp.type = 'number'; vinp.min = '1'; vinp.max = '5';
-      vinp.className = 'sub-score-inp'; vinp.value = sv;
-      vinp.id = 'av-' + sub.id;
-      vinp.oninput = (function(sid){ return function(){ saveAsp(sid,'val',this.value); }; })(sub.id);
-      var olbl = document.createElement('span');
-      olbl.className = 'sub-score-lbl'; olbl.textContent = 'OD';
-      var oinp = document.createElement('input');
-      oinp.type = 'number'; oinp.className = 'sub-score-inp'; oinp.value = so;
-      oinp.id = 'ao-' + sub.id;
-      oinp.oninput = (function(sid){ return function(){ saveAsp(sid,'od',this.value); }; })(sub.id);
-      srow.appendChild(snm); srow.appendChild(vlbl); srow.appendChild(vinp);
-      srow.appendChild(olbl); srow.appendChild(oinp);
-      card.appendChild(srow);
+      var so = (D.aspects[sub.id] || {}).od  || '';
+      var col = document.createElement('div');
+      col.style.cssText = 'padding:6px 4px 8px;display:flex;flex-direction:column;gap:3px;'
+        + (si < asp.subs.length-1 ? 'border-right:1px solid var(--bd);' : '');
+
+      // Nom sous-aspect
+      var snm = document.createElement('div');
+      snm.style.cssText = 'font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--txt2);text-align:center;margin-bottom:3px;';
+      snm.textContent = sub.name;
+      col.appendChild(snm);
+
+      // Val + OD
+      ['val','od'].forEach(function(type) {
+        var val = type === 'val' ? sv : so;
+        var row = document.createElement('div');
+        row.style.cssText = 'display:flex;align-items:center;gap:3px;justify-content:center;';
+        var lbl = document.createElement('span');
+        lbl.style.cssText = 'font-family:var(--mono);font-size:9px;color:var(--txt3);min-width:18px;';
+        lbl.textContent = type === 'val' ? 'Val' : 'OD';
+        var inp = document.createElement('input');
+        inp.type = 'number';
+        if (type === 'val') { inp.min = '1'; inp.max = '5'; }
+        inp.id = (type === 'val' ? 'av-' : 'ao-') + sub.id;
+        inp.value = val;
+        inp.style.cssText = 'width:40px;background:var(--bg);border:1px solid var(--bd);color:var(--txt);font-family:var(--mono);font-size:13px;padding:3px 2px;text-align:center;outline:none;box-sizing:border-box;';
+        inp.oninput = (function(sid,t){ return function(){ saveAsp(sid,t,this.value); }; })(sub.id, type);
+        row.appendChild(lbl); row.appendChild(inp);
+        col.appendChild(row);
+      });
+
+      // Capacités de rang
       sub.ab.forEach(function(a, i) {
         if (a && a !== '—') {
           var rrow = document.createElement('div');
-          rrow.className = 'rank-row';
-          rrow.innerHTML = '<span class="rank-n">' + (i+1) + '</span><span>' + a + '</span>';
-          card.appendChild(rrow);
+          rrow.style.cssText = 'display:flex;gap:3px;font-size:10px;color:var(--txt2);padding-top:3px;border-top:1px solid var(--bd);margin-top:2px;line-height:1.3;';
+          var rn = document.createElement('span');
+          rn.style.cssText = 'font-family:var(--mono);color:var(--gold);font-size:9px;font-weight:bold;flex-shrink:0;';
+          rn.textContent = (i+1);
+          var rt = document.createElement('span');
+          rt.textContent = a;
+          rrow.appendChild(rn); rrow.appendChild(rt);
+          col.appendChild(rrow);
         }
       });
+
+      grid.appendChild(col);
     });
-    c.appendChild(card);
+    block.appendChild(grid);
+    c.appendChild(block);
   });
 }
 
