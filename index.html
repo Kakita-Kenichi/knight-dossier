@@ -2621,41 +2621,72 @@ function driveSetStatus(id, msg, cls) {
 }
 
 // ── Sauvegarder sur Drive ────────────────────────────────────────
+// ── Utilitaire : trouver ou créer un dossier Drive ──────────────
+async function driveGetOrCreateFolder(name, parentId) {
+  var q = "mimeType='application/vnd.google-apps.folder'+and+name='" + name.replace(/'/g,"\'") + "'+and+trashed=false";
+  if (parentId) q += "+and+'" + parentId + "'+in+parents";
+  var res = await fetch(
+    'https://www.googleapis.com/drive/v3/files?q=' + encodeURIComponent(q) + '&fields=files(id,name)',
+    { headers: { Authorization: 'Bearer ' + driveToken } }
+  );
+  if (!res.ok) throw new Error('Erreur recherche dossier HTTP ' + res.status);
+  var data = await res.json();
+  if (data.files && data.files.length > 0) return data.files[0].id;
+  // Créer le dossier
+  var meta = { name: name, mimeType: 'application/vnd.google-apps.folder' };
+  if (parentId) meta.parents = [parentId];
+  var createRes = await fetch('https://www.googleapis.com/drive/v3/files?fields=id', {
+    method: 'POST',
+    headers: { Authorization: 'Bearer ' + driveToken, 'Content-Type': 'application/json' },
+    body: JSON.stringify(meta)
+  });
+  if (!createRes.ok) throw new Error('Erreur creation dossier HTTP ' + createRes.status);
+  var created = await createRes.json();
+  return created.id;
+}
+
 async function driveSave() {
-  if (!driveToken) { driveSetStatus('drv-save-status','Non connecté. Clique "Se connecter".','err'); return; }
+  if (!driveToken) { driveSetStatus('drv-save-status','Non connecte. Clique Se connecter.','err'); return; }
   collectFields();
-  var filename = document.getElementById('drv-filename').value.trim() || 'knight_dossier.json';
+  var nomPerso = (D.fields.nom_chev || 'inconnu').replace(/[^a-zA-Z0-9_À-ɏ\s-]/g,'').trim() || 'inconnu';
+  var filename  = document.getElementById('drv-filename').value.trim() || (nomPerso.replace(/\s+/g,'_') + '_dossier.json');
   var json = JSON.stringify(D, null, 2);
-  driveSetStatus('drv-save-status','⟳ Recherche du fichier existant…','inf');
+
+  driveSetStatus('drv-save-status','Preparation arborescence Drive...','inf');
   try {
-    // Chercher si le fichier existe déjà
+    // 1. Dossier racine Knight (dans Mon Drive)
+    driveSetStatus('drv-save-status','⟳ Dossier Knight…','inf');
+    var knightId = await driveGetOrCreateFolder('Knight', null);
+
+    // 2. Sous-dossier du personnage
+    driveSetStatus('drv-save-status','⟳ Dossier ' + nomPerso + '…','inf');
+    var persoId = await driveGetOrCreateFolder(nomPerso, knightId);
+
+    // 3. Chercher si le fichier existe déjà dans ce dossier
+    driveSetStatus('drv-save-status','⟳ Recherche du fichier…','inf');
+    var q = "name='" + filename.replace(/'/g,"\'") + "'+and+'" + persoId + "'+in+parents+and+trashed=false";
     var searchRes = await fetch(
-      "https://www.googleapis.com/drive/v3/files?q=name%3D'" + encodeURIComponent(filename) + "'+and+trashed%3Dfalse&spaces=drive&fields=files(id,name,modifiedTime)",
+      'https://www.googleapis.com/drive/v3/files?q=' + encodeURIComponent(q) + '&fields=files(id,name)',
       { headers: { Authorization: 'Bearer ' + driveToken } }
     );
-    if (!searchRes.ok) throw new Error('Recherche échouée : HTTP ' + searchRes.status);
+    if (!searchRes.ok) throw new Error('Erreur recherche fichier HTTP ' + searchRes.status);
     var searchData = await searchRes.json();
-    var existing = searchData.files && searchData.files[0];
+    var existing   = searchData.files && searchData.files[0];
 
     if (existing) {
-      // Mettre à jour le fichier existant
-      driveSetStatus('drv-save-status','⟳ Mise à jour en cours…','inf');
-      var updateRes = await fetch(
+      // Mettre à jour le contenu du fichier existant
+      driveSetStatus('drv-save-status','⟳ Mise à jour…','inf');
+      var upRes = await fetch(
         'https://www.googleapis.com/upload/drive/v3/files/' + existing.id + '?uploadType=media',
-        {
-          method: 'PATCH',
-          headers: { Authorization: 'Bearer ' + driveToken, 'Content-Type': 'application/json' },
-          body: json
-        }
+        { method: 'PATCH', headers: { Authorization: 'Bearer ' + driveToken, 'Content-Type': 'application/json' }, body: json }
       );
-      if (!updateRes.ok) throw new Error('Mise à jour échouée : HTTP ' + updateRes.status);
-      var upData = await updateRes.json();
-      localStorage.setItem('knight_drive_file_id', upData.id);
-      driveSetStatus('drv-save-status','✓ Mis à jour : ' + filename,'ok');
+      if (!upRes.ok) throw new Error('Erreur mise a jour HTTP ' + upRes.status);
+      localStorage.setItem('knight_drive_file_id', existing.id);
+      driveSetStatus('drv-save-status','OK mis a jour : Knight / ' + nomPerso + ' / ' + filename,'ok');
     } else {
-      // Créer un nouveau fichier
-      driveSetStatus('drv-save-status','⟳ Création du fichier…','inf');
-      var meta = { name: filename, mimeType: 'application/json' };
+      // Créer le fichier dans le dossier du perso
+      driveSetStatus('drv-save-status','Creation du fichier...','inf');
+      var meta = { name: filename, mimeType: 'application/json', parents: [persoId] };
       var form = new FormData();
       form.append('metadata', new Blob([JSON.stringify(meta)], { type: 'application/json' }));
       form.append('file',     new Blob([json],                  { type: 'application/json' }));
@@ -2663,16 +2694,16 @@ async function driveSave() {
         'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name',
         { method: 'POST', headers: { Authorization: 'Bearer ' + driveToken }, body: form }
       );
-      if (!createRes.ok) throw new Error('Création échouée : HTTP ' + createRes.status);
+      if (!createRes.ok) throw new Error('Erreur creation fichier HTTP ' + createRes.status);
       var createData = await createRes.json();
       localStorage.setItem('knight_drive_file_id', createData.id);
-      driveSetStatus('drv-save-status','✓ Créé : ' + (createData.name || filename),'ok');
+      driveSetStatus('drv-save-status','OK cree : Knight / ' + nomPerso + ' / ' + filename,'ok');
     }
   } catch(e) {
     if (e.message.includes('401')) {
       driveToken = null;
-      driveSetAuthStatus('Session expirée. Reconnecte-toi.','error');
-      driveSetStatus('drv-save-status','❌ Session expirée — reconnecte-toi.','err');
+      driveSetAuthStatus('Session expiree - reconnecte-toi.','error');
+      driveSetStatus('drv-save-status','Erreur session expiree.','err');
     } else {
       driveSetStatus('drv-save-status','❌ ' + e.message,'err');
     }
@@ -2685,7 +2716,7 @@ async function driveListFiles() {
   driveSetStatus('drv-load-status','⟳ Recherche des fichiers Knight…','inf');
   try {
     var res = await fetch(
-      "https://www.googleapis.com/drive/v3/files?q=name+contains+'knight'+and+mimeType%3D'application%2Fjson'+and+trashed%3Dfalse&spaces=drive&fields=files(id,name,modifiedTime)&orderBy=modifiedTime+desc",
+      "https://www.googleapis.com/drive/v3/files?q=mimeType%3D'application%2Fjson'+and+trashed%3Dfalse&spaces=drive&fields=files(id,name,modifiedTime)&orderBy=modifiedTime+desc",
       { headers: { Authorization: 'Bearer ' + driveToken } }
     );
     if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -2694,7 +2725,7 @@ async function driveListFiles() {
     var list = document.getElementById('drv-file-list');
     list.innerHTML = '';
     if (!files.length) {
-      list.innerHTML = '<div class="drv-file-item" style="cursor:default;color:var(--txt3)">Aucun fichier knight*.json trouvé sur Drive.</div>';
+      list.innerHTML = '<div class="drv-file-item" style="cursor:default;color:var(--txt3)">Aucun fichier .json trouvé sur Drive.</div>';
     } else {
       files.forEach(function(f) {
         var item = document.createElement('div');
@@ -2924,7 +2955,8 @@ window.addEventListener('DOMContentLoaded', init);
       <!-- Charger -->
       <div id="drv-load-section">
         <div class="drv-section">⬇ Charger depuis Drive</div>
-        <button class="btn btn-p" onclick="driveListFiles()" style="font-size:9px;margin-bottom:8px">↻ Lister mes fichiers Knight</button>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--txt3);margin-bottom:6px">Liste tous les fichiers .json de ton Drive</div>
+        <button class="btn btn-p" onclick="driveListFiles()" style="font-size:9px;margin-bottom:8px">↻ Lister mes fichiers JSON</button>
         <div id="drv-file-list" class="drv-file-list" style="display:none"></div>
         <div id="drv-load-status" class="drv-status" style="margin-top:5px">—</div>
       </div>
