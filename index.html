@@ -328,72 +328,6 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
 .guide-note.warn { border-color: var(--red); background: rgba(192,57,43,.05); }
 .guide-badge.green { border-color: var(--green); color: var(--green); background: rgba(39,174,96,.08); }
 .guide-toc-item:hover { border-color: var(--gold); color: var(--gold); }
-
-/* ── DRIVE PANEL ── */
-#drive-overlay {
-  display:none; position:fixed; inset:0; background:rgba(0,0,0,.82);
-  z-index:1500; align-items:flex-start; justify-content:center;
-  padding:18px 14px; overflow-y:auto;
-}
-#drive-overlay.on { display:flex; }
-#drive-box {
-  background:var(--bg2); border:1px solid var(--gold);
-  width:600px; max-width:100%; font-family:var(--mono); margin:auto;
-}
-.drv-hdr {
-  background:var(--bg3); border-bottom:1px solid var(--bd);
-  padding:14px 14px; display:flex; align-items:center; justify-content:space-between;
-  position:sticky; top:0; z-index:10;
-}
-.drv-hdr h3 { font-size:14px; letter-spacing:3px; color:var(--gold); text-transform:uppercase; margin:0; }
-.drv-body { padding:15px; display:flex; flex-direction:column; gap:14px; }
-.drv-section { font-size:14px; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:6px; }
-.drv-note {
-  font-size:14px; line-height:1.6; color:var(--txt2); padding:14px 14px;
-  background:rgba(200,168,75,.05); border:1px solid rgba(200,168,75,.14);
-}
-.drv-note b { color:var(--gold2); }
-.drv-status {
-  font-size:14px; padding:6px 14px; border:1px solid var(--bd);
-  color:var(--txt3); background:var(--bg3); min-height:27px; line-height:1.4;
-}
-.drv-status.ok  { color:var(--green); border-color:var(--green); }
-.drv-status.err { color:var(--red);   border-color:var(--red); }
-.drv-status.inf { color:var(--gold);  border-color:var(--gold); }
-.drv-row { display:flex; gap:6px; }
-.drv-row input {
-  flex:1; background:var(--bg); border:1px solid var(--bd);
-  color:var(--txt); font-family:var(--mono); font-size:14px;
-  padding:6px 14px; outline:none;
-}
-.drv-row input:focus { border-color:var(--gold); }
-.drv-sep { border:none; border-top:1px solid var(--bd); }
-.drv-auth-bar {
-  display:flex; align-items:center; gap:14px; padding:14px 14px;
-  background:var(--bg3); border:1px solid var(--bd);
-}
-.drv-auth-dot { width:14px; height:14px; border-radius:50%; background:var(--txt3); flex-shrink:0; }
-.drv-auth-dot.connected { background:var(--green); }
-.drv-auth-dot.error     { background:var(--red); }
-.drv-auth-txt { font-size:14px; color:var(--txt2); flex:1; letter-spacing:.5px; }
-.drv-file-list {
-  max-height:160px; overflow-y:auto; border:1px solid var(--bd);
-  background:var(--bg);
-}
-.drv-file-item {
-  display:flex; align-items:center; gap:14px; padding:6px 14px;
-  border-bottom:1px solid var(--bd); cursor:pointer; font-size:14px; color:var(--txt2);
-}
-.drv-file-item:last-child { border-bottom:none; }
-.drv-file-item:hover { background:rgba(200,168,75,.06); color:var(--txt); }
-.drv-file-item .drv-file-name { flex:1; }
-.drv-file-item .drv-file-date { font-size:14px; color:var(--txt3); }
-.drv-config-note {
-  font-size:14px; color:var(--txt3); line-height:1.5; padding:14px;
-  background:rgba(200,168,75,.04); border:1px solid rgba(200,168,75,.12);
-}
-.drv-config-note a { color:var(--accent,var(--gold)); }
-
 /* ── THEME PICKER ── */
 #theme-btn {
   background: var(--bg3);
@@ -598,8 +532,8 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
   .d-portrait { width: 80px !important; height: 113px !important; }
   .d-bla-img { width: 60px !important; height: 85px !important; }
   .d-name { font-size: 20px !important; }
-  #drive-box, #guide-box { width: 100% !important; max-width: 100%; margin: 0; }
-  #drive-overlay, #guide-overlay { padding: 0; align-items: flex-end; }
+  #guide-box { width: 100% !important; max-width: 100%; margin: 0; }
+  #guide-overlay { padding: 0; align-items: flex-end; }
   .guide-tabs { overflow-x: auto; flex-wrap: nowrap; }
   .guide-tab { white-space: nowrap; flex-shrink: 0; }
   #theme-panel { position: fixed !important; top: 44px !important; right: 0 !important; z-index: 5000; }
@@ -641,6 +575,50 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
     left: 100%;
   }
 }
+
+/* ══ ÉCRAN AGENTS ══ */
+
+
+/* ══ BASE D'AGENTS : fenêtre popup + dossiers ══ */
+#agents-screen { display:none; position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,.72); align-items:center; justify-content:center; padding:16px; }
+#agents-screen.on { display:flex; }
+.ag-modal { background:var(--bg2); border:1px solid var(--gold); width:min(980px,100%); max-height:90vh; overflow-y:auto; -webkit-overflow-scrolling:touch; box-shadow:0 24px 64px rgba(0,0,0,.65); }
+.ag-top { position:sticky; top:0; z-index:2; background:var(--bg2); display:flex; justify-content:space-between; align-items:center; padding:12px 16px; border-bottom:2px solid var(--gold); }
+.ag-logo { font-family:var(--mono); font-size:18px; letter-spacing:5px; color:var(--gold); }
+.ag-sub { font-family:var(--mono); font-size:11px; letter-spacing:2px; color:var(--txt3); text-transform:uppercase; margin-top:2px; }
+.ag-content { padding:14px 16px 22px; }
+.ag-tools { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+.ag-folder { background:var(--bg3); border:1px solid var(--bd); border-left:3px solid var(--gold); padding:10px 14px; margin-bottom:12px; }
+.ag-folder summary { cursor:pointer; font-family:var(--mono); font-size:12px; letter-spacing:1px; color:var(--gold); }
+.ag-folder summary span { color:var(--txt2); letter-spacing:0; margin-left:6px; }
+#ag-folder-status { font-family:var(--mono); font-size:12px; color:var(--txt); margin:10px 0 8px; word-break:break-word; }
+#ag-folder-note { font-size:12px; color:var(--txt2); margin-top:8px; line-height:1.5; }
+.ag-mode { display:flex; align-items:center; gap:8px; margin-top:10px; font-family:var(--mono); font-size:11px; color:var(--txt2); flex-wrap:wrap; }
+.ag-mode select { background:var(--bg); border:1px solid var(--bd2); color:var(--txt); font-family:var(--mono); font-size:12px; padding:4px 6px; }
+#ag-msg { font-family:var(--mono); font-size:12px; color:var(--gold2); min-height:18px; margin-bottom:6px; }
+#ag-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:30px 16px; padding-top:18px; }
+.ag-card, .ag-new { position:relative; cursor:pointer; }
+.ag-tab { position:absolute; top:-15px; left:0; max-width:68%; height:15px; line-height:15px; padding:0 12px; background:var(--bd2); border:1px solid var(--bd2); border-bottom:none; border-radius:7px 7px 0 0; font-family:var(--mono); font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--txt); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.ag-body { background:var(--bg3); border:1px solid var(--bd2); border-radius:0 8px 8px 8px; padding:12px 12px 36px; display:flex; gap:12px; min-height:118px; transition:border-color .15s; }
+.ag-card:hover .ag-body, .ag-new:hover .ag-body { border-color:var(--gold); }
+.ag-card.active .ag-tab { background:var(--gold); border-color:var(--gold); color:var(--bg); font-weight:bold; }
+.ag-card.active .ag-body { border-color:var(--gold); }
+.ag-new .ag-tab { background:transparent; border-style:dashed; border-color:var(--bd2); color:var(--txt3); }
+.ag-new .ag-body { border-style:dashed; align-items:center; justify-content:center; padding:12px; color:var(--txt2); font-family:var(--mono); font-size:13px; letter-spacing:1px; }
+.ag-thumb { width:66px; aspect-ratio:3/4; flex-shrink:0; background:var(--bg); border:1px solid var(--bd2); display:flex; align-items:center; justify-content:center; color:var(--txt3); font-size:22px; overflow:hidden; }
+.ag-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+.ag-info { min-width:0; }
+.ag-nom { font-family:var(--mono); font-size:15px; font-weight:bold; letter-spacing:2px; color:var(--gold2); text-transform:uppercase; overflow:hidden; text-overflow:ellipsis; }
+.ag-vrai { font-size:13px; color:var(--txt); margin-top:2px; }
+.ag-meta { font-family:var(--mono); font-size:11px; color:var(--txt2); margin-top:4px; }
+.ag-tag { font-family:var(--mono); font-size:10px; letter-spacing:1px; color:var(--green); margin-top:6px; }
+.ag-mini { position:absolute; right:8px; bottom:8px; display:flex; gap:4px; }
+.ag-mini .btn { padding:2px 9px; min-height:26px; font-size:13px; }
+@media screen and (max-width: 1024px) {
+  #agents-screen { padding:8px; }
+  .ag-modal { max-height:94vh; }
+  #ag-grid { grid-template-columns:1fr; }
+}
 </style>
 </head>
 <body>
@@ -655,9 +633,9 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
   <div class="hdr-right">
     <span id="save-ind">● EN ATTENTE</span>
     <button class="btn btn-p" id="btn-save-main" onclick="saveAction()" title="Sauvegarder">💾 Sauvegarder</button>
-    <button class="btn btn-p" id="btn-drive-main" onclick="openDrivePanel()">☁ Drive</button>
+    <button class="btn btn-p" id="btn-agents-main" onclick="openAgents()" title="Ouvrir la base d'agents">🗂 Base d'agents</button>
     <button class="btn" onclick="exportJSON()">⬇ Export JSON</button>
-    <label class="btn" style="cursor:pointer">⬆ Importer<input type="file" accept=".json" onchange="importJSON(event)" style="display:none"></label>
+    <label class="btn" style="cursor:pointer">⬆ Importer<input type="file" accept=".json,application/json" multiple onchange="importJSON(event)" style="display:none"></label>
     <button class="btn btn-d" onclick="clearAll()">✕ Reset</button>
     <button class="btn" onclick="openGuide()" title="Aide">? Aide</button>
     <div style="position:relative">
@@ -674,8 +652,9 @@ body { background: var(--bg); color: var(--txt); font-family: 'Arial Narrow', Ar
 </header>
 <!-- ══ MENU MOBILE DÉROULANT ══ -->
 <div id="mobile-menu">
+  <button class="mmenu-item" onclick="openAgents();closeMobileMenu()"><span class="mmenu-icon">🗂</span>Base d'agents</button>
   <button class="mmenu-item" onclick="exportJSON();closeMobileMenu()"><span class="mmenu-icon">⬇️</span>Export JSON</button>
-  <label class="mmenu-item"><span class="mmenu-icon">⬆️</span>Importer JSON<input type="file" accept=".json" onchange="importJSON(event);closeMobileMenu()" style="display:none"></label>
+  <label class="mmenu-item"><span class="mmenu-icon">⬆️</span>Importer JSON<input type="file" accept=".json,application/json" multiple onchange="importJSON(event);closeMobileMenu()" style="display:none"></label>
   <button class="mmenu-item" onclick="openGuide();closeMobileMenu()"><span class="mmenu-icon">❓</span>Aide</button>
   <button class="mmenu-item" onclick="clearAll();closeMobileMenu()"><span class="mmenu-icon">🗑️</span>Réinitialiser</button>
 </div>
@@ -1361,7 +1340,6 @@ let D = {
 //  INIT
 // ════════════════════════════════════════════════════
 function init() {
-  loadStorage();
   buildAspects();
   buildCS();
   buildArsenal();
@@ -1736,25 +1714,11 @@ function dzLoad(type, event) {
   reader.readAsDataURL(file);
 }
 
-function setLocalImg(type, dataUrl) {
-  D.images[type] = dataUrl;
-  // Clear any Drive reference for this slot
-  delete D.driveIds[type];
-  delete D.driveUrls[type];
-  var inp = document.getElementById('drv-' + type);
-  if (inp) { inp.value = ''; inp.classList.remove('url-ok','url-err'); }
-  showImgInZone(type, dataUrl, false);
+function setLocalImg(type, dataUrl) {  showImgInZone(type, dataUrl, false);
   markUnsaved();
 }
 
-function dzRemove(type, event) {
-  event.stopPropagation();
-  D.images[type] = null;
-  delete D.driveIds[type];
-  delete D.driveUrls[type];
-  var inp = document.getElementById('drv-' + type);
-  if (inp) { inp.value = ''; inp.classList.remove('url-ok','url-err'); }
-  clearImgZone(type);
+function dzRemove(type, event) {  clearImgZone(type);
   markUnsaved();
 }
 
@@ -1851,12 +1815,7 @@ function showDriveBadgeOnly(type, id) {
   if (!zone.querySelector('.dz-badge')) zone.appendChild(badge);
 }
 
-function dzDriveClear(type) {
-  delete D.driveIds[type];
-  delete D.driveUrls[type];
-  var inp = document.getElementById('drv-' + type);
-  if (inp) { inp.value = ''; inp.classList.remove('url-ok','url-err'); }
-  if (!D.images[type]) clearImgZone(type);
+function dzDriveClear(type) {  if (!D.images[type]) clearImgZone(type);
   markUnsaved();
 }
 
@@ -1864,10 +1823,7 @@ function fillImages() {
   ['portrait','illustration','illustration2','illustration3','blason'].forEach(function(type) {
     if (D.images[type]) {
       showImgInZone(type, D.images[type], false);
-    } else if (D.driveIds[type]) {
-      var inp = document.getElementById('drv-' + type);
-      if (inp) { inp.value = D.driveUrls[type] || ''; inp.classList.add('url-ok'); }
-      loadDriveImg(type, D.driveIds[type], 0);
+    } else if (D.driveIds[type]) {      loadDriveImg(type, D.driveIds[type], 0);
     }
   });
 }
@@ -2067,46 +2023,34 @@ function markUnsaved() {
 }
 
 function saveStorage() {
+  clearTimeout(saveTimer);
+  var ind = document.getElementById('save-ind');
+  var rec = AGENTS.filter(function(a) { return a.id === ACTIVE_ID; })[0];
+  if (!rec) return Promise.resolve(false);
   collectFields();
-  try {
-    localStorage.setItem('knight_dossier_v9', JSON.stringify(cleanDataForExport()));
-    var ind = document.getElementById('save-ind');
-    ind.textContent = '✓ SAUVEGARDÉ';
-    ind.className = 'saved';
-    setTimeout(function() { ind.textContent = '● EN VEILLE'; ind.className = ''; }, 2500);
-  } catch(e) {}
+  rec.data = cleanDataForExport();
+  rec.updated = Date.now();
+  return dbPut(rec).then(function() {
+    if (ind) {
+      ind.textContent = '✓ SAUVEGARDÉ'; ind.className = 'saved';
+      setTimeout(function() { ind.textContent = '● EN VEILLE'; ind.className = ''; }, 2500);
+    }
+    return true;
+  }).catch(function() {
+    if (ind) { ind.textContent = '⚠ ÉCHEC SAUVEGARDE'; ind.className = 'unsaved'; }
+    return false;
+  });
 }
 
-function loadStorage() {
-  try {
-    // Cherche la sauvegarde dans toutes les clés connues (migration entre versions)
-    var raw = localStorage.getItem('knight_dossier_v9')
-           || localStorage.getItem('knight_dossier_v3')
-           || localStorage.getItem('knight_dossier');
-    if (raw) {
-      var parsed = JSON.parse(raw);
-      D.fields   = parsed.fields   || {};
-      D.aspects  = parsed.aspects  || {};
-      D.cs       = parsed.cs       || [];
-      D.arsenal  = parsed.arsenal  || [];
-      D.caps     = parsed.caps     || [{},{}];
-      D.mods     = parsed.mods     || Array.from({length:5},function(){return{};});
-      D.heroisme = parsed.heroisme || Array(6).fill(false);
-      D.nods     = parsed.nods     || {sante:Array(3).fill(false),armure:Array(3).fill(false),energie:Array(3).fill(false)};
-      D.grenades = parsed.grenades || {count:Array(6).fill(false),types:{}};
-      D.images   = parsed.images   || {portrait:null,illustration:null,illustration2:null,illustration3:null,blason:null};
-      D.driveIds = parsed.driveIds || {};
-      D.driveUrls= parsed.driveUrls|| {};
-    }
-  } catch(e) {}
-}
+
 
 function setupAutoSave() {
   document.addEventListener('input',  function() { markUnsaved(); });
   document.addEventListener('change', function() { markUnsaved(); });
 }
 
-function cleanDataForExport() {
+function cleanDataForExport(src) {
+  src = src || D;
   // Champs fields requis (liste canonique)
   var FIELDS = [
     'nom_chev','vrai_nom','section','origine','blason_txt','voeu',
@@ -2126,85 +2070,45 @@ function cleanDataForExport() {
 
   var cleanFields = {};
   FIELDS.forEach(function(k) {
-    cleanFields[k] = D.fields[k] !== undefined ? D.fields[k] : '';
+    cleanFields[k] = src.fields[k] !== undefined ? src.fields[k] : '';
   });
 
   var cleanAspects = {};
   ASPECTS.forEach(function(id) {
-    var a = D.aspects[id] || {};
+    var a = src.aspects[id] || {};
     cleanAspects[id] = { val: a.val || '', od: a.od || '', max: a.max || '' };
   });
 
   return {
     fields:        cleanFields,
     aspects:       cleanAspects,
-    cs:            D.cs            || [],
-    arsenal:       D.arsenal       || [],
-    caps:          (D.caps         || [{},{}]).slice(0,2),
-    mods:          (D.mods         || []).slice(0,5),
-    heroisme:      (D.heroisme     || []).slice(0,6),
-    nods:          D.nods          || {sante:[false,false,false],armure:[false,false,false],energie:[false,false,false]},
-    grenades:      D.grenades      || {count:Array(6).fill(false),types:{}},
-    images:        D.images        || {portrait:null,illustration:null,illustration2:null,illustration3:null,blason:null},
-    illustrations: D.illustrations || [],
-    driveIds:      D.driveIds      || {},
-    driveUrls:     D.driveUrls     || {}
+    cs:            src.cs            || [],
+    arsenal:       src.arsenal       || [],
+    caps:          (src.caps         || [{},{}]).slice(0,2),
+    mods:          (src.mods         || []).slice(0,5),
+    heroisme:      (src.heroisme     || []).slice(0,6),
+    nods:          src.nods          || {sante:[false,false,false],armure:[false,false,false],energie:[false,false,false]},
+    grenades:      src.grenades      || {count:Array(6).fill(false),types:{}},
+    images:        src.images        || {portrait:null,illustration:null,illustration2:null,illustration3:null,blason:null},
+    illustrations: src.illustrations || [],
+    driveIds:      src.driveIds      || {},
+    driveUrls:     src.driveUrls     || {}
   };
 }
 
 function exportJSON() {
   collectFields();
-  var clean = cleanDataForExport();
-  var name  = (clean.fields.nom_chev || 'knight').replace(/\s+/g,'_') + '_dossier.json';
-  var blob  = new Blob([JSON.stringify(clean, null, 2)], {type:'application/json'});
-  var url   = URL.createObjectURL(blob);
-  var a     = document.createElement('a');
-  a.href = url; a.download = name; a.click();
-  URL.revokeObjectURL(url);
+  var clean = Object.assign({ id: ACTIVE_ID }, cleanDataForExport());
+  downloadJSON(clean, safeName(clean.fields.nom_chev) + '_dossier.json');
 }
 
-function importJSON(event) {
-  var file = event.target.files[0];
-  if (!file) return;
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    try {
-      var parsed = JSON.parse(e.target.result);
-      D.fields   = parsed.fields   || {};
-      D.aspects  = parsed.aspects  || {};
-      D.cs       = parsed.cs       || [];
-      D.arsenal  = parsed.arsenal  || [];
-      D.caps     = parsed.caps     || [{},{},{}];
-      D.mods     = parsed.mods     || Array.from({length:5},function(){return{};});
-      D.heroisme = parsed.heroisme || Array(9).fill(false);
-      D.nods     = parsed.nods     || {sante:Array(3).fill(false),armure:Array(3).fill(false),energie:Array(3).fill(false)};
-      D.grenades = parsed.grenades || {count:Array(6).fill(false),types:{}};
-      D.images   = parsed.images   || {portrait:null,illustration:null,illustration2:null,illustration3:null,blason:null};
-      D.driveIds = parsed.driveIds || {};
-      D.driveUrls= parsed.driveUrls|| {};
-      buildAspects(); buildCS(); buildArsenal(); buildCaps(); buildMods();
-      buildHeroisme(); buildNods(); buildGrenades(); fillFields(); fillImages();
-      saveStorage();
-    } catch(err) { alert('Fichier JSON invalide : ' + err.message); }
-  };
-  reader.readAsText(file);
-  event.target.value = '';
-}
+
 
 function clearAll() {
-  if (!confirm('Réinitialiser tout le dossier ?')) return;
-  localStorage.removeItem('knight_dossier_v3');
-  D = {
-    fields:{}, aspects:{}, cs:[], arsenal:[],
-    caps:[{},{}], mods:Array.from({length:5},function(){return{};}),
-    heroisme:Array(6).fill(false),
-    nods:{sante:Array(3).fill(false),armure:Array(3).fill(false),energie:Array(3).fill(false)},
-    grenades:{count:Array(6).fill(false),types:{}},
-    images:{portrait:null,illustration:null,illustration2:null,illustration3:null,blason:null},
-    driveIds:{}, driveUrls:{},
-  };
-  buildAspects(); buildCS(); buildArsenal(); buildCaps(); buildMods();
-  buildHeroisme(); buildNods(); buildGrenades(); fillFields(); fillImages();
+  if (!confirm('Réinitialiser cet agent ?\n(les autres agents ne sont pas touchés)')) return;
+  D = blankData();
+  rebuildUI();
+  saveStorage();
 }
 
 // ════════════════════════════════════════════════════
@@ -2413,7 +2317,7 @@ function gTab(id, btn) {
   document.getElementById('guide-' + id).classList.add('on');
 }
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') { closeGuide(); closeDJM(); }
+  if (e.key === 'Escape') { closeGuide(); closeAgents(); }
 });
 
 
@@ -2428,293 +2332,6 @@ function scrollGuide(id) {
   var el = document.getElementById(id);
   if (el) { el.scrollIntoView({behavior:'smooth', block:'start'}); }
 }
-
-
-// ════════════════════════════════════════════════════
-//  GOOGLE DRIVE — OAuth + Drive API v3
-// ════════════════════════════════════════════════════
-var driveToken = null;
-var driveTokenClient = null;
-var driveGapiLoaded = false;
-
-// Charger GSI (Google Sign-In)
-(function() {
-  var s = document.createElement('script');
-  s.src = 'https://accounts.google.com/gsi/client';
-  s.async = true; s.defer = true;
-  s.onload = function() { initDriveTokenClient(); };
-  document.head.appendChild(s);
-})();
-
-function getDriveClientId() {
-  return localStorage.getItem('knight_drive_client_id') || '';
-}
-
-function saveDriveClientId() {
-  var v = document.getElementById('drv-client-id').value.trim();
-  if (!v) { driveSetStatus('drv-client-status','Colle ton Client ID.',''); return; }
-  localStorage.setItem('knight_drive_client_id', v);
-  driveSetStatus('drv-client-status','✓ Client ID enregistré.','ok');
-  initDriveTokenClient();
-}
-
-function initDriveTokenClient() {
-  var cid = getDriveClientId();
-  if (!cid || typeof google === 'undefined' || !google.accounts) {
-    setTimeout(initDriveTokenClient, 500);
-    return;
-  }
-  driveTokenClient = google.accounts.oauth2.initTokenClient({
-    client_id: cid,
-    scope: 'https://www.googleapis.com/auth/drive.file',
-    callback: function(resp) {
-      if (resp.error) {
-        driveSetAuthStatus('Erreur : ' + resp.error, 'error');
-        return;
-      }
-      driveToken = resp.access_token;
-      driveSetAuthStatus('✓ Connecté à Google Drive', 'connected');
-    }
-  });
-  driveSetAuthStatus('Client ID configuré. Clique "Se connecter".', '');
-}
-
-function driveSignIn() {
-  if (!driveTokenClient) {
-    driveSetAuthStatus('Client ID manquant. Configure-le ci-dessous.', 'error');
-    return;
-  }
-  driveTokenClient.requestAccessToken({ prompt: 'consent' });
-}
-
-function driveSignOut() {
-  if (driveToken) google.accounts.oauth2.revoke(driveToken, function(){});
-  driveToken = null;
-  driveSetAuthStatus('Déconnecté.', '');
-}
-
-function openDrivePanel() {
-  var cid = getDriveClientId();
-  if (cid) document.getElementById('drv-client-id').value = cid;
-  document.getElementById('drive-overlay').classList.add('on');
-  // Mettre à jour le nom de fichier
-  var nom = (D.fields && D.fields.nom_chev) ? D.fields.nom_chev.replace(/\s+/g,'_').toLowerCase() : 'knight';
-  document.getElementById('drv-filename').value = nom + '_dossier.json';
-}
-
-function closeDrivePanel() {
-  document.getElementById('drive-overlay').classList.remove('on');
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  var ov = document.getElementById('drive-overlay');
-  if (ov) ov.addEventListener('click', function(e) {
-    if (e.target === ov) closeDrivePanel();
-  });
-});
-
-function driveSetAuthStatus(msg, state) {
-  var dot = document.getElementById('drv-dot');
-  var txt = document.getElementById('drv-auth-txt');
-  var btnIn  = document.getElementById('drv-btn-login');
-  var btnOut = document.getElementById('drv-btn-logout');
-  if (!dot || !txt) return;
-  dot.className = 'drv-auth-dot' + (state ? ' ' + state : '');
-  txt.textContent = msg;
-  if (btnIn)  btnIn.style.display  = state === 'connected' ? 'none' : 'block';
-  if (btnOut) btnOut.style.display = state === 'connected' ? 'block' : 'none';
-}
-
-function driveSetStatus(id, msg, cls) {
-  var el = document.getElementById(id);
-  if (!el) return;
-  el.textContent = msg;
-  el.className = 'drv-status' + (cls ? ' ' + cls : '');
-}
-
-// ── Sauvegarder sur Drive ────────────────────────────────────────
-// ── Utilitaire : trouver ou créer un dossier Drive ──────────────
-async function driveApiGet(url) {
-  var res = await fetch(url, { headers: { Authorization: 'Bearer ' + driveToken } });
-  if (!res.ok) {
-    var txt = await res.text();
-    throw new Error('HTTP ' + res.status + ' — ' + txt.slice(0, 120));
-  }
-  return res.json();
-}
-
-async function driveGetOrCreateFolder(name, parentId) {
-  // parentId null = chercher dans 'root' explicitement
-  var parent = parentId || 'root';
-
-  // Chercher le dossier par nom exact ET parent exact
-  var q = "mimeType='application/vnd.google-apps.folder'"
-        + " and name='" + name.replace(/'/g, "\'") + "'"
-        + " and '" + parent + "' in parents"
-        + " and trashed=false";
-
-  var url = new URL('https://www.googleapis.com/drive/v3/files');
-  url.searchParams.set('q', q);
-  url.searchParams.set('fields', 'files(id,name)');
-  url.searchParams.set('spaces', 'drive');
-
-  var data = await driveApiGet(url.toString());
-  if (data.files && data.files.length > 0) {
-    return data.files[0].id; // Dossier trouve
-  }
-
-  // Pas trouve — creer dans le bon parent
-  var meta = {
-    name: name,
-    mimeType: 'application/vnd.google-apps.folder',
-    parents: [parent]
-  };
-  var res = await fetch('https://www.googleapis.com/drive/v3/files?fields=id,name', {
-    method: 'POST',
-    headers: { Authorization: 'Bearer ' + driveToken, 'Content-Type': 'application/json' },
-    body: JSON.stringify(meta)
-  });
-  if (!res.ok) {
-    var txt = await res.text();
-    throw new Error('Creation dossier HTTP ' + res.status + ' : ' + txt.slice(0, 120));
-  }
-  return (await res.json()).id;
-}
-
-async function driveSave() {
-  if (!driveToken) { driveSetStatus('drv-save-status', 'Non connecte. Clique Se connecter.', 'err'); return; }
-  collectFields();
-  var clean   = cleanDataForExport();
-  var nomChev  = (D.fields.nom_chev  || '').trim();
-  var vraiNom  = (D.fields.vrai_nom  || '').trim();
-  var nomPerso = (nomChev && vraiNom)
-    ? nomChev + ' - ' + vraiNom
-    : (nomChev || vraiNom || 'Inconnu');
-  nomPerso = nomPerso.replace(/[<>:"\\|?*]/g, '').trim() || 'Inconnu';
-  var filename  = document.getElementById('drv-filename').value.trim()
-    || (nomPerso.replace(/\s+/g, '_') + '_dossier.json');
-  var json  = JSON.stringify(clean, null, 2);
-
-  driveSetStatus('drv-save-status', 'Recherche dossier Knight...', 'inf');
-  try {
-    // 1. Dossier Knight a la racine
-    var knightId = await driveGetOrCreateFolder('Knight', null);
-    driveSetStatus('drv-save-status', 'Dossier Knight OK — ' + nomPerso + '...', 'inf');
-
-    // 2. Sous-dossier du personnage
-    var persoId = await driveGetOrCreateFolder(nomPerso, knightId);
-    driveSetStatus('drv-save-status', 'Dossier ' + nomPerso + ' OK — recherche fichier...', 'inf');
-
-    // 3. Chercher le fichier JSON existant dans ce dossier
-    var fq = "name='" + filename.replace(/'/g, "\\'") + "' and '" + persoId + "' in parents and trashed=false";
-    var furl = new URL('https://www.googleapis.com/drive/v3/files');
-    furl.searchParams.set('q', fq);
-    furl.searchParams.set('fields', 'files(id,name)');
-    var fdata = await driveApiGet(furl.toString());
-    var existing = fdata.files && fdata.files[0];
-
-    if (existing) {
-      // Mise a jour du contenu
-      driveSetStatus('drv-save-status', 'Mise a jour en cours...', 'inf');
-      var upRes = await fetch(
-        'https://www.googleapis.com/upload/drive/v3/files/' + existing.id + '?uploadType=media',
-        { method: 'PATCH', headers: { Authorization: 'Bearer ' + driveToken, 'Content-Type': 'application/json' }, body: json }
-      );
-      if (!upRes.ok) throw new Error('Mise a jour HTTP ' + upRes.status);
-      localStorage.setItem('knight_drive_file_id', existing.id);
-      driveSetStatus('drv-save-status', 'OK — Knight / ' + nomPerso + ' / ' + filename, 'ok');
-    } else {
-      // Creation du fichier
-      driveSetStatus('drv-save-status', 'Creation du fichier...', 'inf');
-      var meta = { name: filename, mimeType: 'application/json', parents: [persoId] };
-      var form = new FormData();
-      form.append('metadata', new Blob([JSON.stringify(meta)], { type: 'application/json' }));
-      form.append('file',     new Blob([json],                  { type: 'application/json' }));
-      var cRes = await fetch(
-        'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name',
-        { method: 'POST', headers: { Authorization: 'Bearer ' + driveToken }, body: form }
-      );
-      if (!cRes.ok) throw new Error('Creation fichier HTTP ' + cRes.status);
-      var cData = await cRes.json();
-      localStorage.setItem('knight_drive_file_id', cData.id);
-      driveSetStatus('drv-save-status', 'OK cree — Knight / ' + nomPerso + ' / ' + filename, 'ok');
-    }
-  } catch(e) {
-    if (e.message.includes('401')) {
-      driveToken = null;
-      driveSetAuthStatus('Session expiree - reconnecte-toi.', 'error');
-    }
-    driveSetStatus('drv-save-status', 'Erreur : ' + e.message, 'err');
-  }
-}
-
-// ── Lister les fichiers Knight sur Drive ─────────────────────────
-async function driveListFiles() {
-  if (!driveToken) { driveSetStatus('drv-load-status','Non connecté.','err'); return; }
-  driveSetStatus('drv-load-status','⟳ Recherche des fichiers Knight…','inf');
-  try {
-    var res = await fetch(
-      (function(){
-      var u = new URL('https://www.googleapis.com/drive/v3/files');
-      u.searchParams.set('q', "mimeType='application/json' and trashed=false");
-      u.searchParams.set('fields', 'files(id,name,modifiedTime)');
-      u.searchParams.set('spaces', 'drive');
-      u.searchParams.set('orderBy', 'modifiedTime desc');
-      return u.toString();
-    })(),
-      { headers: { Authorization: 'Bearer ' + driveToken } }
-    );
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    var data = await res.json();
-    var files = data.files || [];
-    var list = document.getElementById('drv-file-list');
-    list.innerHTML = '';
-    if (!files.length) {
-      list.innerHTML = '<div class="drv-file-item" style="cursor:default;color:var(--txt3)">Aucun fichier .json trouvé sur Drive.</div>';
-    } else {
-      files.forEach(function(f) {
-        var item = document.createElement('div');
-        item.className = 'drv-file-item';
-        var date = f.modifiedTime ? new Date(f.modifiedTime).toLocaleDateString('fr-FR') : '';
-        item.innerHTML = '<span class="drv-file-name">📄 ' + f.name + '</span><span class="drv-file-date">' + date + '</span>';
-        item.onclick = function() { driveLoadFile(f.id, f.name); };
-        list.appendChild(item);
-      });
-    }
-    list.style.display = 'block';
-    driveSetStatus('drv-load-status', files.length + ' fichier(s) trouvé(s).', files.length ? 'ok' : '');
-  } catch(e) {
-    driveSetStatus('drv-load-status','❌ ' + e.message,'err');
-  }
-}
-
-// ── Charger un fichier depuis Drive ─────────────────────────────
-async function driveLoadFile(fileId, fileName) {
-  if (!driveToken) return;
-  driveSetStatus('drv-load-status','⟳ Chargement de "' + fileName + '"…','inf');
-  try {
-    var res = await fetch(
-      'https://www.googleapis.com/drive/v3/files/' + fileId + '?alt=media',
-      { headers: { Authorization: 'Bearer ' + driveToken } }
-    );
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    var text = await res.text();
-    var parsed = JSON.parse(text);
-    djmApplyData(parsed, null);
-    if (typeof updateMetaDisplay === 'function') updateMetaDisplay();
-    if (typeof initSlotTotals    === 'function') initSlotTotals();
-    localStorage.setItem('knight_drive_file_id', fileId);
-    driveSetStatus('drv-load-status','✓ "' + fileName + '" chargé !','ok');
-    // Mettre à jour le nom de fichier dans l'input sauvegarde
-    document.getElementById('drv-filename').value = fileName;
-  } catch(e) {
-    driveSetStatus('drv-load-status','❌ ' + e.message,'err');
-  }
-}
-
-// Garder aussi la compatibilité avec l'ancien openDJM si référencé ailleurs
-function openDJM() { openDrivePanel(); }
-function closeDJM() { closeDrivePanel(); }
 
 
 // ── updateMetaDisplay : affichage lecture seule dans Identite ────
@@ -2740,29 +2357,7 @@ function setupMetaListeners() {
   });
 }
 
-// ── djmApplyData : appliquer les donnees JSON chargees ────────────
-function djmApplyData(parsed, raw) {
-  D.fields        = parsed.fields        || {};
-  D.aspects       = parsed.aspects       || {};
-  D.cs            = parsed.cs            || [];
-  D.arsenal       = parsed.arsenal       || [];
-  D.caps          = parsed.caps          || [{},{}];
-  D.mods          = parsed.mods          || Array.from({length:5}, function(){ return {}; });
-  D.heroisme      = parsed.heroisme      || Array(6).fill(false);
-  D.nods          = parsed.nods          || {sante:Array(3).fill(false),armure:Array(3).fill(false),energie:Array(3).fill(false)};
-  D.grenades      = parsed.grenades      || {count:Array(6).fill(false),types:{}};
-  D.images        = parsed.images        || {portrait:null,illustration:null,blason:null};
-  D.illustrations = parsed.illustrations || [];
-  D.driveIds      = parsed.driveIds      || {};
-  D.driveUrls     = parsed.driveUrls     || {};
-  buildAspects(); buildCS(); buildArsenal(); buildCaps(); buildMods();
-  buildHeroisme(); buildNods(); buildGrenades();
-  fillFields(); fillImages();
-  if (typeof buildIllList       === 'function') buildIllList();
-  if (typeof updateMetaDisplay  === 'function') updateMetaDisplay();
-  if (typeof initSlotTotals     === 'function') initSlotTotals();
-  saveStorage();
-}
+
 
 
 // ── Calcul des totaux de slots ────────────────────────────────────
@@ -2847,26 +2442,20 @@ function addIllustration() {
 // ── Bouton Sauvegarder : Drive si connecté, sinon localStorage ──
 function saveAction() {
   var btn = document.getElementById('btn-save-main');
-  if (driveToken) {
-    // Connecté à Drive → sauvegarder sur Drive
-    openDrivePanel();
-    // Lancer la sauvegarde Drive directement
-    setTimeout(function() { driveSave(); }, 100);
-  } else {
-    // Pas connecté → sauvegarder dans le cache (localStorage)
-    saveStorage();
-    if (btn) {
-      var orig = btn.textContent;
-      btn.textContent = '✓ Sauvegardé';
-      btn.style.borderColor = 'var(--green)';
-      btn.style.color = 'var(--green)';
-      setTimeout(function() {
-        btn.textContent = orig;
-        btn.style.borderColor = '';
-        btn.style.color = '';
-      }, 2000);
-    }
-  }
+  saveStorage().then(function(ok) {
+    if (!ok) return false;
+    if (!ROOT_HANDLE) return null;
+    return saveToFolder(false, true);
+  }).then(function(folderOk) {
+    if (!btn) return;
+    var orig = btn.getAttribute('data-label') || btn.textContent;
+    btn.setAttribute('data-label', orig);
+    var good = folderOk !== false;
+    btn.textContent = good ? (folderOk ? '✓ Sauvegardé + dossier' : '✓ Sauvegardé') : '⚠ Dossier non écrit';
+    btn.style.borderColor = good ? 'var(--green)' : 'var(--red)';
+    btn.style.color = good ? 'var(--green)' : 'var(--red)';
+    setTimeout(function() { btn.textContent = orig; btn.style.borderColor = ''; btn.style.color = ''; }, 2200);
+  });
 }
 
 
@@ -3057,11 +2646,835 @@ document.addEventListener('click', function(e) {
 })();
 
 
+
+// ════════════════════════════════════════════════════
+//  AGENTS — bibliothèque locale (IndexedDB) + import/export JSON
+// ════════════════════════════════════════════════════
+var ACTIVE_ID = null;
+var AGENTS = [];
+var _db = null;
+var LS_FALLBACK_KEY = 'knight_agents_v1';
+
+function newId() { return 'ag_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+
+function blankData() {
+  return {
+    fields: {}, aspects: {}, cs: [], arsenal: [],
+    caps: [{}, {}], mods: Array.from({length: 5}, function() { return {}; }),
+    heroisme: Array(6).fill(false),
+    nods: { sante: Array(3).fill(false), armure: Array(3).fill(false), energie: Array(3).fill(false) },
+    grenades: { count: Array(6).fill(false), types: {} },
+    images: { portrait: null, illustration: null, illustration2: null, illustration3: null, blason: null },
+    illustrations: [], driveIds: {}, driveUrls: {}
+  };
+}
+
+// Accepte un JSON complet ou partiel (anciennes versions comprises)
+function normalizeData(p) {
+  var src = JSON.parse(JSON.stringify(p || {}));
+  var caps = (src.caps || []).slice(0, 2);   while (caps.length < 2) caps.push({});
+  var mods = (src.mods || []).slice(0, 5);   while (mods.length < 5) mods.push({});
+  var hero = (src.heroisme || []).slice(0, 6); while (hero.length < 6) hero.push(false);
+  var nods = src.nods || {};
+  ['sante', 'armure', 'energie'].forEach(function(t) {
+    var arr = (nods[t] || []).slice(0, 3); while (arr.length < 3) arr.push(false); nods[t] = arr;
+  });
+  var gren = src.grenades || {};
+  var gc = (gren.count || []).slice(0, 6); while (gc.length < 6) gc.push(false);
+  return {
+    fields: src.fields || {}, aspects: src.aspects || {}, cs: src.cs || [], arsenal: src.arsenal || [],
+    caps: caps, mods: mods, heroisme: hero, nods: nods,
+    grenades: { count: gc, types: gren.types || {} },
+    images: Object.assign({ portrait: null, illustration: null, illustration2: null, illustration3: null, blason: null }, src.images || {}),
+    illustrations: src.illustrations || [],
+    driveIds: src.driveIds || {}, driveUrls: src.driveUrls || {}
+  };
+}
+
+function makeRecord(id, data) { return { id: id, updated: Date.now(), data: data }; }
+
+function agentKey(data) {
+  var f = (data && data.fields) || {};
+  var k = (f.nom_chev || '').trim().toLowerCase() + '|' + (f.vrai_nom || '').trim().toLowerCase();
+  return k === '|' ? '' : k;
+}
+
+function readLegacy() {
+  try {
+    var raw = localStorage.getItem('knight_dossier_v9') || localStorage.getItem('knight_dossier_v3') || localStorage.getItem('knight_dossier');
+    if (raw) { var p = JSON.parse(raw); if (p && p.fields) return p; }
+  } catch (e) {}
+  return null;
+}
+
+// ── Stockage : IndexedDB, avec repli sur localStorage ────────────
+function dbOpen() {
+  return new Promise(function(resolve) {
+    if (!window.indexedDB) { resolve(null); return; }
+    var req;
+    try { req = indexedDB.open('knight_dossier', 2); } catch (e) { resolve(null); return; }
+    req.onupgradeneeded = function() {
+      var db = req.result;
+      if (!db.objectStoreNames.contains('agents')) db.createObjectStore('agents', { keyPath: 'id' });
+      if (!db.objectStoreNames.contains('meta')) db.createObjectStore('meta', { keyPath: 'key' });
+    };
+    req.onsuccess = function() { resolve(req.result); };
+    req.onerror = function() { resolve(null); };
+    req.onblocked = function() { resolve(null); };
+  });
+}
+function lsAll() { try { return JSON.parse(localStorage.getItem(LS_FALLBACK_KEY) || '[]'); } catch (e) { return []; } }
+function lsWrite(list) { localStorage.setItem(LS_FALLBACK_KEY, JSON.stringify(list)); }
+
+function dbAll() {
+  return new Promise(function(resolve) {
+    if (!_db) { resolve(lsAll()); return; }
+    var r = _db.transaction('agents', 'readonly').objectStore('agents').getAll();
+    r.onsuccess = function() { resolve(r.result || []); };
+    r.onerror = function() { resolve([]); };
+  });
+}
+function dbPut(rec) {
+  return new Promise(function(resolve, reject) {
+    if (!_db) {
+      try {
+        var list = lsAll().filter(function(a) { return a.id !== rec.id; });
+        list.push(rec); lsWrite(list); resolve();
+      } catch (e) { reject(e); }
+      return;
+    }
+    var tx = _db.transaction('agents', 'readwrite');
+    tx.objectStore('agents').put(rec);
+    tx.oncomplete = function() { resolve(); };
+    tx.onerror = tx.onabort = function() { reject(tx.error || new Error('écriture impossible')); };
+  });
+}
+function dbDelete(id) {
+  return new Promise(function(resolve, reject) {
+    if (!_db) {
+      try { lsWrite(lsAll().filter(function(a) { return a.id !== id; })); resolve(); } catch (e) { reject(e); }
+      return;
+    }
+    var tx = _db.transaction('agents', 'readwrite');
+    tx.objectStore('agents').delete(id);
+    tx.oncomplete = function() { resolve(); };
+    tx.onerror = tx.onabort = function() { reject(tx.error || new Error('suppression impossible')); };
+  });
+}
+
+// ── Interface : reconstruction complète depuis D ─────────────────
+function resetImageZones() {
+  ['portrait', 'illustration', 'illustration2', 'illustration3', 'blason'].forEach(function(t) {
+    if (typeof clearImgZone === 'function') clearImgZone(t);
+    var inp = document.getElementById('drv-' + t);
+    if (inp) { inp.value = ''; inp.classList.remove('url-ok', 'url-err'); }
+  });
+}
+function rebuildUI() {
+  resetImageZones();
+  buildAspects(); buildCS(); buildArsenal(); buildCaps(); buildMods();
+  buildHeroisme(); buildNods(); buildGrenades(); fillFields(); fillImages();
+  if (typeof buildIllList === 'function') buildIllList();
+  var pd = document.getElementById('p-dossier');
+  if (pd && pd.classList.contains('on')) buildDossier();
+  var pf = document.getElementById('p-fiche');
+  if (pf && pf.classList.contains('on')) buildFiche();
+}
+function showTab(id) {
+  var btn = document.querySelector('#tabs .tab[onclick*="\'' + id + '\'"]');
+  if (btn) goTab(id, btn);
+}
+
+// ── Gestion des agents ───────────────────────────────────────────
+function persistNow() { clearTimeout(saveTimer); return saveStorage(); }
+
+function setActive(rec) {
+  ACTIVE_ID = rec.id;
+  try { localStorage.setItem('knight_active_id', rec.id); } catch (e) {}
+  D = normalizeData(rec.data);
+  rebuildUI();
+}
+
+async function openAgent(id) {
+  await persistNow();
+  var rec = AGENTS.filter(function(a) { return a.id === id; })[0];
+  if (!rec) return;
+  setActive(rec);
+  closeAgents();
+  showTab('dossier');
+  window.scrollTo(0, 0);
+}
+
+async function newAgent() {
+  await persistNow();
+  var rec = makeRecord(newId(), blankData());
+  AGENTS.push(rec);
+  try { await dbPut(rec); } catch (e) {}
+  setActive(rec);
+  closeAgents();
+  showTab('identite');
+}
+
+async function deleteAgent(id) {
+  var rec = AGENTS.filter(function(a) { return a.id === id; })[0];
+  if (!rec) return;
+  var d = (id === ACTIVE_ID) ? D : rec.data;
+  var nom = ((d.fields || {}).nom_chev || 'cet agent');
+  if (!confirm('Supprimer « ' + nom + ' » de cet appareil ?\nPense à l\'exporter avant si tu veux le garder.')) return;
+  clearTimeout(saveTimer);
+  AGENTS = AGENTS.filter(function(a) { return a.id !== id; });
+  try { await dbDelete(id); } catch (e) {}
+  if (id === ACTIVE_ID) {
+    if (!AGENTS.length) {
+      var fresh = makeRecord(newId(), blankData());
+      AGENTS.push(fresh);
+      try { await dbPut(fresh); } catch (e) {}
+    }
+    setActive(AGENTS[0]);
+  }
+  renderAgents();
+}
+
+function exportAgent(id) {
+  var rec = AGENTS.filter(function(a) { return a.id === id; })[0];
+  if (!rec) return;
+  if (id === ACTIVE_ID) collectFields();
+  var clean = Object.assign({ id: id }, cleanDataForExport(id === ACTIVE_ID ? D : rec.data));
+  downloadJSON(clean, safeName(clean.fields.nom_chev) + '_dossier.json');
+}
+
+function exportAllAgents() {
+  collectFields();
+  var list = AGENTS.map(function(a) { return Object.assign({ id: a.id }, cleanDataForExport(a.id === ACTIVE_ID ? D : a.data)); });
+  downloadJSON({ format: 'knight-agents', version: 1, agents: list }, 'knight_agents.json');
+  agentsMsg(list.length + ' agent(s) exporté(s) dans un seul fichier.');
+}
+
+// ── Téléchargements ──────────────────────────────────────────────
+function safeName(s) { return (s || 'knight').replace(/[^\w\u00C0-\u024F-]+/g, '_').replace(/^_+|_+$/g, '') || 'knight'; }
+function downloadBlob(blob, name) {
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+}
+function downloadJSON(obj, name) {
+  downloadBlob(new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json' }), name);
+}
+function downloadApp() {
+  if (location.protocol === 'file:') { agentsMsg('Tu utilises déjà la version locale du fichier.'); return; }
+  var url = location.href.split('#')[0].split('?')[0];
+  fetch(url, { cache: 'no-store' })
+    .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.blob(); })
+    .then(function(b) { downloadBlob(b, 'Knight_Dossier_Agent.html'); agentsMsg('Fichier téléchargé : ouvre-le par double-clic, il fonctionne sans connexion.'); })
+    .catch(function(e) { agentsMsg('Téléchargement impossible : ' + e.message); });
+}
+
+// ── Import : un ou plusieurs JSON, un dossier, ou un fichier groupé ─
+function readFileText(file) {
+  return new Promise(function(resolve, reject) {
+    var r = new FileReader();
+    r.onload = function() { resolve(r.result); };
+    r.onerror = function() { reject(r.error); };
+    r.readAsText(file);
+  });
+}
+
+async function importFiles(all) {
+  var relMap = {};
+  all.forEach(function(f) { if (f.webkitRelativePath) relMap[f.webkitRelativePath] = f; });
+  var files = all.filter(function(f) { return /\.json$/i.test(f.name) || f.type === 'application/json'; });
+  if (!files.length) { openAgents(); agentsMsg('Aucun fichier .json trouvé.'); return; }
+  await persistNow();
+  var added = 0, replaced = 0, missing = 0, skipped = [];
+  for (var i = 0; i < files.length; i++) {
+    var parsed;
+    try { parsed = JSON.parse(await readFileText(files[i])); }
+    catch (e) { skipped.push(files[i].name); continue; }
+    if (parsed && parsed.format === 'knight-index') continue;
+    var dir = (files[i].webkitRelativePath || '').replace(/[^\/]*$/, '');
+    var list = (parsed && Array.isArray(parsed.agents)) ? parsed.agents : [parsed];
+    for (var k = 0; k < list.length; k++) {
+      var p = list[k];
+      if (!p || typeof p !== 'object' || !p.fields) { skipped.push(files[i].name); continue; }
+      missing += await resolveImages(p, function(r) { return Promise.resolve(relMap[dir + r] || null); });
+      var res = await ingestAgent(p, 'ask');
+      if (res === 'added') added++; else if (res === 'replaced') replaced++;
+    }
+  }
+  await pruneBlankPlaceholder();
+  var msg = added + ' agent(s) ajouté(s)';
+  if (replaced) msg += ', ' + replaced + ' remplacé(s)';
+  if (missing) msg += ' — ' + missing + ' image(s) introuvable(s)';
+  if (skipped.length) msg += ' — ignoré(s) : ' + skipped.join(', ');
+  openAgents();
+  agentsMsg(msg + '.');
+}
+
+function importJSON(event) {
+  var files = Array.prototype.slice.call(event.target.files || []);
+  event.target.value = '';
+  return importFiles(files);
+}
+
+// ── Écran de sélection ───────────────────────────────────────────
+function agentsMsg(t) { var m = document.getElementById('ag-msg'); if (m) m.textContent = t || ''; }
+
+function agentThumb(d) {
+  var th = document.createElement('div');
+  th.className = 'ag-thumb';
+  var img = null;
+  if (d.images && d.images.portrait) {
+    img = document.createElement('img'); img.src = d.images.portrait;
+  } else if (d.driveIds && d.driveIds.portrait) {
+    var u = driveImgUrls(d.driveIds.portrait);
+    img = document.createElement('img'); img.src = u[0];
+    img.onerror = function() { this.onerror = null; this.src = u[2]; };
+  }
+  if (img) th.appendChild(img); else th.textContent = '◈';
+  return th;
+}
+
+function renderAgents() {
+  var grid = document.getElementById('ag-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  var rows = AGENTS.map(function(rec) { return { rec: rec, d: (rec.id === ACTIVE_ID ? D : rec.data) }; });
+  rows.sort(function(a, b) {
+    return ((a.d.fields || {}).nom_chev || '~').localeCompare((b.d.fields || {}).nom_chev || '~');
+  });
+  rows.forEach(function(row) {
+    var rec = row.rec, d = row.d, f = d.fields || {};
+    var card = document.createElement('div');
+    card.className = 'ag-card' + (rec.id === ACTIVE_ID ? ' active' : '');
+    card.title = 'Ouvrir ' + (f.nom_chev || 'cet agent');
+    card.onclick = function() { openAgent(rec.id); };
+
+    var tab = document.createElement('div');
+    tab.className = 'ag-tab';
+    tab.textContent = f.nom_chev || 'SANS NOM';
+    card.appendChild(tab);
+
+    var body = document.createElement('div');
+    body.className = 'ag-body';
+    body.appendChild(agentThumb(d));
+    var info = document.createElement('div');
+    info.className = 'ag-info';
+    var vrai = document.createElement('div'); vrai.className = 'ag-vrai'; vrai.textContent = f.vrai_nom || '—';
+    var meta = document.createElement('div'); meta.className = 'ag-meta';
+    meta.textContent = [f.section, f.origine].filter(Boolean).join(' · ');
+    info.appendChild(vrai); info.appendChild(meta);
+    if (rec.id === ACTIVE_ID) {
+      var tag = document.createElement('div'); tag.className = 'ag-tag'; tag.textContent = '● OUVERT';
+      info.appendChild(tag);
+    }
+    body.appendChild(info);
+    card.appendChild(body);
+
+    var mini = document.createElement('div');
+    mini.className = 'ag-mini';
+    [['⬇', 'Exporter cet agent (JSON)', function() { exportAgent(rec.id); }],
+     ['🗑', 'Supprimer cet agent', function() { deleteAgent(rec.id); }]].forEach(function(b) {
+      var btn = document.createElement('button');
+      btn.className = 'btn'; btn.textContent = b[0]; btn.title = b[1];
+      btn.onclick = function(ev) { ev.stopPropagation(); b[2](); };
+      mini.appendChild(btn);
+    });
+    card.appendChild(mini);
+    grid.appendChild(card);
+  });
+
+  var nw = document.createElement('div');
+  nw.className = 'ag-new';
+  nw.onclick = function() { newAgent(); };
+  var ntab = document.createElement('div'); ntab.className = 'ag-tab'; ntab.textContent = 'Nouveau';
+  var nbody = document.createElement('div'); nbody.className = 'ag-body'; nbody.textContent = '＋ Nouvel agent';
+  nw.appendChild(ntab); nw.appendChild(nbody);
+  grid.appendChild(nw);
+}
+
+function openAgents() {
+  collectFields();
+  renderAgents();
+  agentsMsg('');
+  var fb = document.getElementById('ag-folder-btn');
+  if (fb && (!('webkitdirectory' in document.createElement('input')) || ('ontouchstart' in window))) fb.style.display = 'none';
+  updateFolderStatus();
+  document.getElementById('agents-screen').classList.add('on');
+}
+function closeAgents() {
+  var s = document.getElementById('agents-screen');
+  if (s) s.classList.remove('on');
+}
+
+// ── Démarrage ────────────────────────────────────────────────────
+async function boot() {
+  try {
+    _db = await dbOpen();
+    await loadRootHandle();
+    AGENTS = await dbAll();
+    if (!AGENTS.length) {
+      var first = makeRecord(newId(), normalizeData(readLegacy() || blankData()));
+      AGENTS = [first];
+      try { await dbPut(first); } catch (e) {}
+    }
+    var last = null;
+    try { last = localStorage.getItem('knight_active_id'); } catch (e) {}
+    var active = AGENTS.filter(function(a) { return a.id === last; })[0] || AGENTS[0];
+    ACTIVE_ID = active.id;
+    D = normalizeData(active.data);
+  } catch (e) {
+    D = normalizeData(blankData());
+    AGENTS = [makeRecord(newId(), D)]; ACTIVE_ID = AGENTS[0].id;
+  }
+  init();
+  if (AGENTS.length > 1) openAgents();
+}
+
+// Sauvegarde de sécurité quand la page se ferme ou passe en arrière-plan
+document.addEventListener('visibilitychange', function() {
+  if (document.visibilityState === 'hidden' && ACTIVE_ID) saveStorage();
+});
+window.addEventListener('pagehide', function() { if (ACTIVE_ID) saveStorage(); });
+
+
+// ════════════════════════════════════════════════════
+//  STRUCTURE DE DOSSIERS — un dossier par agent + index.json
+// ════════════════════════════════════════════════════
+var ROOT_HANDLE = null;
+var IMG_BASENAME = { portrait: 'portrait', illustration: 'illustration_1', illustration2: 'illustration_2', illustration3: 'illustration_3', blason: 'blason' };
+var MIME_EXT = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/jpg': 'jpg', 'image/webp': 'webp', 'image/gif': 'gif', 'image/svg+xml': 'svg', 'image/avif': 'avif', 'image/bmp': 'bmp' };
+var EXT_MIME = { png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', webp: 'image/webp', gif: 'image/gif', svg: 'image/svg+xml', avif: 'image/avif', bmp: 'image/bmp' };
+
+// Mémorisation du dossier choisi (le handle se stocke dans IndexedDB)
+function dbMetaGet(key) {
+  return new Promise(function(resolve) {
+    if (!_db || !_db.objectStoreNames.contains('meta')) { resolve(null); return; }
+    var r = _db.transaction('meta', 'readonly').objectStore('meta').get(key);
+    r.onsuccess = function() { resolve(r.result || null); };
+    r.onerror = function() { resolve(null); };
+  });
+}
+function dbMetaPut(key, handle) {
+  return new Promise(function(resolve, reject) {
+    if (!_db || !_db.objectStoreNames.contains('meta')) { resolve(); return; }
+    var tx = _db.transaction('meta', 'readwrite');
+    tx.objectStore('meta').put({ key: key, handle: handle });
+    tx.oncomplete = function() { resolve(); };
+    tx.onerror = tx.onabort = function() { reject(tx.error); };
+  });
+}
+async function loadRootHandle() { try { var r = await dbMetaGet('rootHandle'); if (r && r.handle) ROOT_HANDLE = r.handle; } catch (e) {} }
+async function saveRootHandle(h) { try { await dbMetaPut('rootHandle', h); } catch (e) {} }
+
+// ── Accès fichiers (File System Access API) ──────────────────────
+async function fsEnsurePermission(handle) {
+  var opts = { mode: 'readwrite' };
+  try {
+    if (handle.queryPermission && (await handle.queryPermission(opts)) === 'granted') return true;
+    if (handle.requestPermission) return (await handle.requestPermission(opts)) === 'granted';
+  } catch (e) { return false; }
+  return true;
+}
+async function fsReadJSON(dir, name) {
+  try { var fh = await dir.getFileHandle(name); var f = await fh.getFile(); return JSON.parse(await readFileText(f)); }
+  catch (e) { return null; }
+}
+async function fsWritePath(root, path, data) {
+  var parts = path.split('/'), dir = root;
+  for (var i = 0; i < parts.length - 1; i++) dir = await dir.getDirectoryHandle(parts[i], { create: true });
+  var fh = await dir.getFileHandle(parts[parts.length - 1], { create: true });
+  var w = await fh.createWritable();
+  await w.write(data);
+  await w.close();
+}
+async function fsGetFileByPath(dir, rel) {
+  var parts = String(rel).split('/');
+  if (parts.some(function(p) { return !p || p === '..' || p === '.'; })) return null;
+  try {
+    for (var i = 0; i < parts.length - 1; i++) dir = await dir.getDirectoryHandle(parts[i]);
+    var fh = await dir.getFileHandle(parts[parts.length - 1]);
+    return await fh.getFile();
+  } catch (e) { return null; }
+}
+async function removeStaleImages(dir, images) {
+  try {
+    var imgDir = await dir.getDirectoryHandle('images');
+    var keep = {}; images.forEach(function(im) { keep[im.name] = 1; });
+    var stale = [];
+    for await (var ent of imgDir.entries()) {
+      if (!keep[ent[0]] && /^(portrait|illustration_\d|blason|galerie_\d+)\./.test(ent[0])) stale.push(ent[0]);
+    }
+    for (var i = 0; i < stale.length; i++) await imgDir.removeEntry(stale[i]);
+  } catch (e) {}
+}
+
+// ── Construction de la structure ─────────────────────────────────
+function isBlankAgent(d) {
+  var f = (d && d.fields) || {};
+  return !(f.nom_chev || '').trim() && !(f.vrai_nom || '').trim();
+}
+function getFolderMode() { try { return localStorage.getItem('knight_folder_mode') || 'anon'; } catch (e) { return 'anon'; } }
+function setFolderMode(m) { try { localStorage.setItem('knight_folder_mode', m); } catch (e) {} }
+function sanitizeFolder(s) {
+  return String(s || '').replace(/[<>:"\/\\|?*\u0000-\u001f]/g, '').replace(/[. ]+$/, '').trim();
+}
+// Anonyme (défaut) : Agent 01, Agent 02… — index.json fait le lien avec le personnage
+function allocFolder(d, id, taken) {
+  var f = d.fields || {}, mode = getFolderMode(), base = '';
+  var nom = (f.nom_chev || '').trim(), vrai = (f.vrai_nom || '').trim();
+  if (mode === 'full' && nom && vrai) base = nom + ' - ' + vrai;
+  else if (mode === 'nom' || mode === 'full') base = nom || vrai;
+  base = sanitizeFolder(base);
+  if (!base) {
+    var n = 1;
+    while (taken[('agent ' + (n < 10 ? '0' : '') + n).toLowerCase()]) n++;
+    base = 'Agent ' + (n < 10 ? '0' : '') + n;
+  }
+  return uniqueFolder(base, taken);
+}
+function uniqueFolder(base, taken) {
+  var name = base, n = 2;
+  while (taken[name.toLowerCase()]) { name = base + ' (' + n + ')'; n++; }
+  taken[name.toLowerCase()] = 1;
+  return name;
+}
+function makeIndex(agents) {
+  return {
+    format: 'knight-index', version: 1, updated: new Date().toISOString(),
+    agents: agents.slice().sort(function(a, b) { return (a.nom || '').localeCompare(b.nom || ''); })
+  };
+}
+function indexEntry(id, d, folder, images) {
+  var f = d.fields || {};
+  return {
+    id: id, nom: f.nom_chev || '', vrai_nom: f.vrai_nom || '', section: f.section || '',
+    dossier: folder, fichier: 'agent.json',
+    images: images.map(function(im) { return 'images/' + im.name; }),
+    updated: new Date().toISOString()
+  };
+}
+function dataUrlToBytes(u) {
+  var m = /^data:([^;,]*)(;base64)?,([\s\S]*)$/.exec(u || '');
+  if (!m) return null;
+  var mime = m[1] || 'application/octet-stream', bytes;
+  try {
+    if (m[2]) {
+      var bin = atob(m[3]);
+      bytes = new Uint8Array(bin.length);
+      for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    } else {
+      bytes = new TextEncoder().encode(decodeURIComponent(m[3]));
+    }
+  } catch (e) { return null; }
+  return { bytes: bytes, mime: mime, ext: MIME_EXT[mime.toLowerCase()] || 'img' };
+}
+// Renvoie le JSON de l'agent (images remplacées par des chemins) + les fichiers image
+function buildAgentFiles(id, d) {
+  var clean = JSON.parse(JSON.stringify(cleanDataForExport(d)));   // copie : on ne touche pas aux données vivantes
+  var imgs = [];
+  function take(dataUrl, base) {
+    var b = dataUrlToBytes(dataUrl);
+    if (!b) return dataUrl;
+    var name = base + '.' + b.ext;
+    imgs.push({ name: name, bytes: b.bytes, mime: b.mime });
+    return 'images/' + name;
+  }
+  Object.keys(IMG_BASENAME).forEach(function(k) {
+    var v = clean.images && clean.images[k];
+    if (v && /^data:/i.test(v)) clean.images[k] = take(v, IMG_BASENAME[k]);
+  });
+  (clean.illustrations || []).forEach(function(ill, i) {
+    if (ill && ill.data && /^data:/i.test(ill.data)) ill.data = take(ill.data, 'galerie_' + (i + 1));
+  });
+  return { json: Object.assign({ id: id }, clean), images: imgs };
+}
+
+// ── Écriture dans le dossier lié ─────────────────────────────────
+async function writeAgentToFolder(rec) {
+  var isActive = rec.id === ACTIVE_ID;
+  if (isActive) collectFields();
+  var d = isActive ? D : rec.data;
+  var idx = await fsReadJSON(ROOT_HANDLE, 'index.json');
+  if (!idx || typeof idx !== 'object' || !Array.isArray(idx.agents)) idx = makeIndex([]);
+  var entry = idx.agents.filter(function(e) { return e.id === rec.id; })[0];
+  var taken = {};
+  idx.agents.forEach(function(e) { if (e.id !== rec.id && e.dossier) taken[e.dossier.toLowerCase()] = 1; });
+  if (!entry || !entry.dossier) {
+    // ne jamais réutiliser un dossier déjà présent sur le disque mais absent de l'index
+    try { for await (var ent of ROOT_HANDLE.entries()) taken[ent[0].toLowerCase()] = 1; } catch (e) {}
+  }
+  var folder = (entry && entry.dossier) ? entry.dossier : allocFolder(d, rec.id, taken);
+  var built = buildAgentFiles(rec.id, d);
+  var dir = await ROOT_HANDLE.getDirectoryHandle(folder, { create: true });
+  for (var i = 0; i < built.images.length; i++) await fsWritePath(dir, 'images/' + built.images[i].name, built.images[i].bytes);
+  await removeStaleImages(dir, built.images);
+  await fsWritePath(dir, 'agent.json', JSON.stringify(built.json, null, 2));
+  var info = indexEntry(rec.id, d, folder, built.images);
+  var rest = idx.agents.filter(function(e) { return e.id !== rec.id; });
+  await fsWritePath(ROOT_HANDLE, 'index.json', JSON.stringify(makeIndex(rest.concat([info])), null, 2));
+  return folder;
+}
+
+async function saveToFolder(all, silent) {
+  if (!ROOT_HANDLE) { if (!silent) agentsMsg('Choisis d\'abord un dossier de sauvegarde.'); return false; }
+  if (!(await fsEnsurePermission(ROOT_HANDLE))) { agentsMsg('Autorisation d\'écriture refusée.'); return false; }
+  await persistNow();
+  var recs = all ? AGENTS.slice() : AGENTS.filter(function(a) { return a.id === ACTIVE_ID; });
+  var done = [];
+  try {
+    for (var i = 0; i < recs.length; i++) {
+      var d = recs[i].id === ACTIVE_ID ? D : recs[i].data;
+      if (isBlankAgent(d)) continue;
+      done.push(await writeAgentToFolder(recs[i]));
+    }
+    if (!done.length && !(await fsReadJSON(ROOT_HANDLE, 'index.json'))) {
+      await fsWritePath(ROOT_HANDLE, 'index.json', JSON.stringify(makeIndex([]), null, 2));
+    }
+  } catch (e) { agentsMsg('Erreur d\'écriture : ' + e.message); return false; }
+  agentsMsg(done.length
+    ? done.length + ' agent(s) enregistré(s) dans « ' + ROOT_HANDLE.name + ' » (index.json mis à jour).'
+    : 'Rien à enregistrer : donne d\'abord un nom au chevalier de l\'agent ouvert.');
+  updateFolderStatus();
+  return done.length > 0;
+}
+
+// Créateur de structure : choix du dossier racine, création d'index.json et du dossier du premier agent
+async function linkFolder() {
+  if (!window.showDirectoryPicker) { agentsMsg('Ce navigateur ne peut pas écrire dans un dossier (Chrome ou Edge sur ordinateur).'); return; }
+  var h;
+  try { h = await window.showDirectoryPicker({ mode: 'readwrite' }); }
+  catch (e) { return; }
+  ROOT_HANDLE = h;
+  await saveRootHandle(h);
+  var idx = await fsReadJSON(h, 'index.json');
+  var count = (idx && Array.isArray(idx.agents)) ? idx.agents.length : 0;
+  if (count && confirm('Ce dossier contient déjà ' + count + ' agent(s).\n\nOK = les charger maintenant\nAnnuler = seulement lier le dossier')) {
+    await loadFromFolder();
+  }
+  var ok = await saveToFolder(false, true);
+  updateFolderStatus();
+  if (!idx) {
+    agentsMsg(ok ? 'Structure créée dans « ' + h.name + ' » : index.json + dossier de l\'agent ouvert.'
+                 : 'Dossier « ' + h.name + ' » lié, index.json créé. Donne un nom au chevalier puis clique « Enregistrer l\'agent ouvert ».');
+  }
+}
+
+// ── Lecture depuis le dossier lié ────────────────────────────────
+function fileToDataURL(f) {
+  return new Promise(function(resolve, reject) {
+    var r = new FileReader();
+    r.onload = function() {
+      var res = String(r.result || '');
+      if (/^data:(;|,|application\/octet-stream)/.test(res)) {
+        var ext = (f.name || '').split('.').pop().toLowerCase();
+        if (EXT_MIME[ext]) res = res.replace(/^data:[^,]*,/, 'data:' + EXT_MIME[ext] + ';base64,');
+      }
+      resolve(res);
+    };
+    r.onerror = function() { reject(r.error); };
+    r.readAsDataURL(f);
+  });
+}
+// Remplace les chemins d'images (images/xxx.png) par leur contenu ; renvoie le nombre d'images introuvables
+async function resolveImages(p, readRel) {
+  var missing = 0;
+  async function conv(v) {
+    if (!v || typeof v !== 'string') return null;
+    if (/^(data:|https?:)/i.test(v)) return v;
+    var f = null;
+    try { f = await readRel(v); } catch (e) {}
+    if (!f) { missing++; return null; }
+    return await fileToDataURL(f);
+  }
+  if (p.images && typeof p.images === 'object') {
+    for (var k in p.images) p.images[k] = await conv(p.images[k]);
+  }
+  if (Array.isArray(p.illustrations)) {
+    for (var i = 0; i < p.illustrations.length; i++) {
+      var ill = p.illustrations[i];
+      if (ill && typeof ill === 'object' && ill.data) ill.data = await conv(ill.data);
+    }
+  }
+  return missing;
+}
+
+function findExisting(p) {
+  // L'identifiant fait foi quand il est présent ; le nom ne sert qu'aux anciens fichiers sans id
+  if (p.id) return AGENTS.filter(function(a) { return a.id === p.id; })[0] || null;
+  var key = agentKey(p);
+  return key ? AGENTS.filter(function(a) { return agentKey(a.id === ACTIVE_ID ? D : a.data) === key; })[0] : null;
+}
+
+// mode : 'ask' (confirmation), 'replace' ou 'skip' pour les agents déjà présents
+async function ingestAgent(p, mode) {
+  var data = normalizeData(p);
+  var existing = findExisting(p);
+  if (existing) {
+    if (mode === 'skip') return 'skipped';
+    var replace = (mode === 'replace') || confirm('« ' + (data.fields.nom_chev || '?') + ' » existe déjà.\n\nOK = remplacer la version actuelle\nAnnuler = garder les deux');
+    if (replace) {
+      existing.data = data; existing.updated = Date.now();
+      try { await dbPut(existing); } catch (e) {}
+      if (existing.id === ACTIVE_ID) { D = normalizeData(data); rebuildUI(); }
+      return 'replaced';
+    }
+  }
+  var id = (p.id && !AGENTS.some(function(a) { return a.id === p.id; })) ? p.id : newId();
+  var rec = makeRecord(id, data);
+  AGENTS.push(rec);
+  try { await dbPut(rec); } catch (e) {}
+  return 'added';
+}
+
+// Retire la fiche vide créée au tout premier lancement une fois de vrais agents chargés
+async function pruneBlankPlaceholder() {
+  if (AGENTS.length < 2 || !isBlankAgent(D)) return;
+  var rec = AGENTS.filter(function(a) { return a.id === ACTIVE_ID; })[0];
+  if (!rec) return;
+  clearTimeout(saveTimer);
+  AGENTS = AGENTS.filter(function(a) { return a.id !== rec.id; });
+  try { await dbDelete(rec.id); } catch (e) {}
+  setActive(AGENTS[0]);
+}
+
+async function loadFromFolder() {
+  if (!ROOT_HANDLE) { agentsMsg('Choisis d\'abord un dossier de sauvegarde.'); return; }
+  if (!(await fsEnsurePermission(ROOT_HANDLE))) { agentsMsg('Autorisation de lecture refusée.'); return; }
+  await persistNow();
+  var idx = await fsReadJSON(ROOT_HANDLE, 'index.json');
+  var entries = (idx && Array.isArray(idx.agents)) ? idx.agents.slice() : [];
+  if (!entries.length) {
+    try { for await (var ent of ROOT_HANDLE.entries()) if (ent[1].kind === 'directory') entries.push({ dossier: ent[0], fichier: 'agent.json' }); } catch (e) {}
+  }
+  var items = [], failed = [];
+  for (var i = 0; i < entries.length; i++) {
+    var e = entries[i];
+    try {
+      var dir = await ROOT_HANDLE.getDirectoryHandle(e.dossier);
+      var p = await fsReadJSON(dir, e.fichier || 'agent.json');
+      if (!p || !p.fields) { failed.push(e.dossier); continue; }
+      if (!p.id && e.id) p.id = e.id;
+      items.push({ p: p, dir: dir });
+    } catch (err) { failed.push(e.dossier); }
+  }
+  var conflicts = items.filter(function(it) { return findExisting(it.p); }).length;
+  var mode = 'replace';
+  if (conflicts) {
+    mode = confirm(conflicts + ' agent(s) existent déjà sur cet appareil.\n\nOK = les remplacer par les versions du dossier\nAnnuler = ne pas toucher aux existants') ? 'replace' : 'skip';
+  }
+  var added = 0, replaced = 0, missing = 0;
+  for (var j = 0; j < items.length; j++) {
+    var it = items[j];
+    if (mode === 'skip' && findExisting(it.p)) continue;
+    missing += await resolveImages(it.p, (function(dd) { return function(r) { return fsGetFileByPath(dd, r); }; })(it.dir));
+    var res = await ingestAgent(it.p, mode);
+    if (res === 'added') added++; else if (res === 'replaced') replaced++;
+  }
+  await pruneBlankPlaceholder();
+  renderAgents();
+  var msg = added + ' agent(s) chargé(s)';
+  if (replaced) msg += ', ' + replaced + ' remplacé(s)';
+  if (missing) msg += ' — ' + missing + ' image(s) introuvable(s)';
+  if (failed.length) msg += ' — illisible(s) : ' + failed.join(', ');
+  agentsMsg(msg + '.');
+}
+
+// ── Statut du dossier lié ────────────────────────────────────────
+async function updateFolderStatus() {
+  var st = document.getElementById('ag-folder-status');
+  var note = document.getElementById('ag-folder-note');
+  var sum = document.getElementById('ag-folder-sum');
+  var sel = document.getElementById('ag-folder-mode');
+  if (!st || !note) return;
+  if (sel) sel.value = getFolderMode();
+  var supported = !!window.showDirectoryPicker;
+  function vis(ids, on) { ids.forEach(function(id) { var el = document.getElementById(id); if (el) el.style.display = on ? '' : 'none'; }); }
+  vis(['ag-btn-link'], supported);
+  if (!supported) {
+    vis(['ag-btn-saveone', 'ag-btn-saveall', 'ag-btn-load'], false);
+    if (sum) sum.textContent = '— indisponible sur ce navigateur';
+    st.textContent = 'Écriture directe dans un dossier indisponible sur ce navigateur.';
+    note.textContent = 'Chrome ou Edge sur ordinateur est nécessaire. Ici, utilise « Structure en ZIP » puis extrais-le dans ton dossier Drive.';
+    return;
+  }
+  if (!ROOT_HANDLE) {
+    vis(['ag-btn-saveone', 'ag-btn-saveall', 'ag-btn-load'], false);
+    if (sum) sum.textContent = '— aucun dossier lié';
+    st.textContent = 'Aucun dossier lié.';
+    note.textContent = 'Choisis un dossier vide (ou un dossier déjà créé par l\'app) : index.json et le dossier de l\'agent ouvert y sont créés.';
+    return;
+  }
+  var perm = 'prompt';
+  try { perm = await ROOT_HANDLE.queryPermission({ mode: 'readwrite' }); } catch (e) {}
+  vis(['ag-btn-saveone', 'ag-btn-saveall', 'ag-btn-load'], true);
+  if (sum) sum.textContent = '— ' + ROOT_HANDLE.name;
+  st.textContent = '📂 ' + ROOT_HANDLE.name + (perm === 'granted' ? ' — prêt' : ' — autorisation à confirmer au prochain enregistrement');
+  note.textContent = '💾 Sauvegarder (en haut) met aussi ce dossier à jour : agent.json, images et index.json.';
+}
+
+// ── Export ZIP de la structure (tous navigateurs) ────────────────
+function crc32(buf) {
+  var t = crc32.table;
+  if (!t) {
+    t = crc32.table = [];
+    for (var n = 0; n < 256; n++) { var c = n; for (var k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1); t[n] = c >>> 0; }
+  }
+  var crc = 0xFFFFFFFF;
+  for (var i = 0; i < buf.length; i++) crc = t[(crc ^ buf[i]) & 0xFF] ^ (crc >>> 8);
+  return (crc ^ 0xFFFFFFFF) >>> 0;
+}
+// ZIP sans compression (méthode "stockée"), noms de fichiers en UTF-8
+function buildZip(entries) {
+  var enc = new TextEncoder(), parts = [], central = [], offset = 0, d = new Date();
+  var dt = ((d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1)) & 0xFFFF;
+  var dd = (((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate()) & 0xFFFF;
+  entries.forEach(function(e) {
+    var name = enc.encode(e.path), data = e.data, crc = crc32(data);
+    var lh = new DataView(new ArrayBuffer(30));
+    lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0x0800, true); lh.setUint16(8, 0, true);
+    lh.setUint16(10, dt, true); lh.setUint16(12, dd, true); lh.setUint32(14, crc, true);
+    lh.setUint32(18, data.length, true); lh.setUint32(22, data.length, true);
+    lh.setUint16(26, name.length, true); lh.setUint16(28, 0, true);
+    parts.push(new Uint8Array(lh.buffer), name, data);
+    var ch = new DataView(new ArrayBuffer(46));
+    ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(8, 0x0800, true); ch.setUint16(10, 0, true);
+    ch.setUint16(12, dt, true); ch.setUint16(14, dd, true); ch.setUint32(16, crc, true);
+    ch.setUint32(20, data.length, true); ch.setUint32(24, data.length, true); ch.setUint16(28, name.length, true);
+    ch.setUint32(42, offset, true);
+    central.push(new Uint8Array(ch.buffer), name);
+    offset += 30 + name.length + data.length;
+  });
+  var csize = 0; central.forEach(function(p) { csize += p.length; });
+  var eo = new DataView(new ArrayBuffer(22));
+  eo.setUint32(0, 0x06054b50, true); eo.setUint16(8, entries.length, true); eo.setUint16(10, entries.length, true);
+  eo.setUint32(12, csize, true); eo.setUint32(16, offset, true);
+  return new Blob(parts.concat(central, [new Uint8Array(eo.buffer)]), { type: 'application/zip' });
+}
+function exportStructureZip() {
+  collectFields();
+  var enc = new TextEncoder(), taken = {}, entries = [], idxAgents = [];
+  AGENTS.forEach(function(rec) {
+    var d = rec.id === ACTIVE_ID ? D : rec.data;
+    if (isBlankAgent(d)) return;
+    var folder = allocFolder(d, rec.id, taken);
+    var built = buildAgentFiles(rec.id, d);
+    entries.push({ path: 'Knight/' + folder + '/agent.json', data: enc.encode(JSON.stringify(built.json, null, 2)) });
+    built.images.forEach(function(im) { entries.push({ path: 'Knight/' + folder + '/images/' + im.name, data: im.bytes }); });
+    idxAgents.push(indexEntry(rec.id, d, folder, built.images));
+  });
+  if (!idxAgents.length) { agentsMsg('Rien à exporter : aucun agent avec un nom.'); return; }
+  entries.unshift({ path: 'Knight/index.json', data: enc.encode(JSON.stringify(makeIndex(idxAgents), null, 2)) });
+  downloadBlob(buildZip(entries), 'Knight_agents.zip');
+  agentsMsg('Structure exportée (' + idxAgents.length + ' agent(s)) : extrais le ZIP dans ton dossier Drive.');
+}
+
 // ════════════════════════════════════════════════════
 //  BOOT
 // ════════════════════════════════════════════════════
 // ════════════════════════════════════════════════════
-window.addEventListener('DOMContentLoaded', init);
+window.addEventListener('DOMContentLoaded', boot);
 </script>
 <!-- ══════════════════ GUIDE ══════════════════ -->
 <div id="guide-overlay">
@@ -3074,14 +3487,14 @@ window.addEventListener('DOMContentLoaded', init);
       <button class="guide-tab on"  onclick="gTab('prise-en-main',this)">Prise en main</button>
       <button class="guide-tab"     onclick="gTab('onglets',this)">Les onglets</button>
       <button class="guide-tab"     onclick="gTab('images',this)">Images</button>
-      <button class="guide-tab"     onclick="gTab('drive',this)">Google Drive</button>
+      <button class="guide-tab"     onclick="gTab('agents',this)">Agents &amp; hors-ligne</button>
       <button class="guide-tab"     onclick="gTab('sync',this)">Sync & Sauvegarde</button>
     </div>
 
     <!-- PRISE EN MAIN -->
     <div id="guide-prise-en-main" class="guide-panel on">
       <div class="g-section">C'est quoi ce fichier ?</div>
-      <div class="g-note"><b>Knight Dossier Agent</b> est une application web offline — un seul fichier HTML qui fonctionne directement dans ton navigateur, sans installation ni connexion internet.<br><br>Les données sont sauvegardées automatiquement dans le navigateur (<b>localStorage</b>) et exportables en JSON pour Drive ou clé USB.</div>
+      <div class="g-note"><b>Knight Dossier Agent</b> est une application web offline — un seul fichier HTML qui fonctionne directement dans ton navigateur, sans installation ni connexion internet.<br><br>Les données sont sauvegardées automatiquement dans le navigateur (<b>base locale du navigateur</b>) et exportables en JSON pour les sauvegarder ou les partager.</div>
       <div class="g-section">Premier lancement</div>
       <div class="g-step"><div class="g-num">1</div><div>Double-clique sur <span class="g-code">Knight_Dossier_Agent.html</span> — s'ouvre dans Chrome ou Edge (recommandés).</div></div>
       <div class="g-step"><div class="g-num">2</div><div>L'onglet <b>◈ Dossier</b> s'affiche en premier, vide au démarrage.</div></div>
@@ -3091,11 +3504,11 @@ window.addEventListener('DOMContentLoaded', init);
       <div class="g-section">Boutons du header</div>
       <table class="g-table">
         <tr><th>Bouton</th><th>Action</th></tr>
-        <tr><td><b>💾 Sauvegarder</b></td><td>Sauvegarde sur Drive si connecté, sinon dans le cache</td></tr>
-        <tr><td><b>☁ Drive</b></td><td>Ouvrir le panneau Drive (connexion, sauvegarde, chargement)</td></tr>
-        <tr><td><b>⬇ Export JSON</b></td><td>Exporter toutes les données en fichier .json local</td></tr>
-        <tr><td><b>⬆ Importer</b></td><td>Charger un fichier .json exporté précédemment</td></tr>
-        <tr><td><b>✕ Reset</b></td><td>Effacer toutes les données (confirmation requise)</td></tr>
+        <tr><td><b>🗂 Base d'agents</b></td><td>Ouvrir la fenêtre des agents : chaque agent est un dossier à ouvrir, créer, importer, exporter, supprimer</td></tr>
+        <tr><td><b>💾 Sauvegarder</b></td><td>Enregistre en local ; si un dossier est lié, met aussi à jour agent.json, les images et index.json</td></tr>
+        <tr><td><b>⬇ Export JSON</b></td><td>Télécharger l'agent ouvert en fichier .json</td></tr>
+        <tr><td><b>⬆ Importer</b></td><td>Charger un ou plusieurs fichiers .json</td></tr>
+        <tr><td><b>✕ Reset</b></td><td>Vider l'agent ouvert (confirmation requise)</td></tr>
         <tr><td><b>? Aide</b></td><td>Cette fenêtre d'aide</td></tr>
       </table>
     </div>
@@ -3141,124 +3554,73 @@ window.addEventListener('DOMContentLoaded', init);
     </div>
 
     <!-- GOOGLE DRIVE -->
-    <div id="guide-drive" class="guide-panel">
-      <div class="g-section">Sauvegarder le dossier sur Drive</div>
-      <div class="g-step"><div class="g-num">1</div><div>Clique sur <span class="g-code">☁ Drive</span> dans le header.</div></div>
-      <div class="g-step"><div class="g-num">2</div><div>Modifie le nom du fichier si besoin, clique <span class="g-code">⬇ Télécharger</span> — le JSON se télécharge dans tes Téléchargements.</div></div>
-      <div class="g-step"><div class="g-num">3</div><div>Ouvre <b>drive.google.com</b> → glisse le fichier JSON dans Drive <b>ou</b> <b>+ Nouveau → Importer un fichier</b>.</div></div>
-      <div class="g-step"><div class="g-num">4</div><div>Clic droit sur le fichier JSON dans Drive → <b>Partager</b> → "Tout le monde avec le lien peut voir" → Copier le lien.</div></div>
-      <div class="g-step"><div class="g-num">5</div><div>Colle ce lien dans le champ <b>Charger depuis Drive</b> du modal et clique <span class="g-code">⬆ Charger</span>. Le lien est mémorisé pour les prochaines sessions.</div></div>
-      <div class="g-section">Charger depuis Drive (sessions suivantes)</div>
-      <div class="g-step"><div class="g-num">1</div><div>Clique sur <span class="g-code">☁ Drive</span>.</div></div>
-      <div class="g-step"><div class="g-num">2</div><div>Le lien mémorisé apparaît — clique directement sur <span class="g-code">⬆ Charger</span>.</div></div>
-      <div class="g-warn">⚠ Si Drive retourne une page HTML au lieu du JSON : le fichier n'est pas partagé correctement. Refais l'étape 4 ci-dessus.</div>
-      <div class="g-section">Workflow recommandé</div>
-      <div class="g-note">
-        <b>Début de session :</b> Ouvre le HTML → ☁ Drive → Charger.<br>
-        <b>Fin de session :</b> ☁ Drive → Télécharger → glisser dans Drive (remplace l'ancien fichier).<br><br>
-        <b>Conseil :</b> Garde le fichier <span class="g-code">.html</span> et le <span class="g-code">.json</span> dans le même dossier Drive. Tu peux tout télécharger et utiliser sur n'importe quel ordinateur.
-      </div>
+    <div id="guide-agents" class="guide-panel">
+      <div class="g-section">Plusieurs agents</div>
+      <div class="g-step"><div class="g-num">1</div><div>Le bouton <span class="g-code">🗂 Base d'agents</span> ouvre une fenêtre où chaque agent est un <b>dossier</b>. Elle s'ouvre aussi toute seule au démarrage dès qu'il y a plusieurs agents.</div></div>
+      <div class="g-step"><div class="g-num">2</div><div>Clique sur un dossier pour ouvrir l'agent. Les petits boutons du dossier permettent d'exporter (<span class="g-code">⬇</span>) ou de supprimer (<span class="g-code">🗑</span>).</div></div>
+      <div class="g-step"><div class="g-num">3</div><div>Le dossier en pointillés <span class="g-code">＋ Nouvel agent</span> crée une fiche vide et ouvre l'onglet Identité.</div></div>
+
+      <div class="g-section">Importer des agents</div>
+      <div class="g-step"><div class="g-num">1</div><div><span class="g-code">⬆ Importer des JSON</span> : sélectionne un ou plusieurs fichiers .json d'un coup.</div></div>
+      <div class="g-step"><div class="g-num">2</div><div><span class="g-code">📁 Importer un dossier</span> (ordinateur uniquement) : tous les .json du dossier sont chargés.</div></div>
+      <div class="g-step"><div class="g-num">3</div><div><span class="g-code">⬇ Tout exporter</span> crée un seul fichier <span class="g-code">knight_agents.json</span> avec tous les agents ; il se réimporte de la même façon.</div></div>
+      <div class="g-note">Si un agent du même nom existe déjà, l'app demande : <b>OK</b> pour remplacer la version actuelle, <b>Annuler</b> pour garder les deux.</div>
+
+      <div class="g-section">Où sont les données ?</div>
+      <div class="g-note">Les agents sont enregistrés automatiquement dans la <b>base locale du navigateur</b> (IndexedDB), sans limite pratique de taille.</div>
+      <div class="g-warn">⚠ Cette base est liée au <b>navigateur, à l'appareil et à l'adresse du site</b>. Vider les données de navigation l'efface. Fais un <b>⬇ Tout exporter</b> de temps en temps.</div>
+
+      <div class="g-section">Dossier de sauvegarde (un dossier par agent)</div>
+      <div class="g-note">Structure créée par l'app :
+<pre style="margin:8px 0 0;font-family:var(--mono);font-size:12px;line-height:1.5;color:var(--gold2);white-space:pre">Knight/
+├─ index.json                  liste des agents + dossiers
+├─ Agent 01/
+│  ├─ agent.json               la fiche
+│  └─ images/                  portrait, illustrations, blason
+└─ Agent 02/
+   └─ agent.json</pre></div>
+      <div class="g-step"><div class="g-num">1</div><div>Sur <b>Chrome ou Edge (ordinateur)</b>, dans la Base d'agents (section « Dossier de sauvegarde ») : <span class="g-code">📂 Choisir / créer le dossier</span>, puis sélectionne un dossier, par exemple <span class="g-code">Knight</span> dans ton dossier Google Drive.</div></div>
+      <div class="g-step"><div class="g-num">2</div><div>S'il est vide, l'app crée <span class="g-code">index.json</span> et le dossier de l'agent ouvert (le nom du chevalier doit être renseigné).</div></div>
+      <div class="g-step"><div class="g-num">3</div><div><span class="g-code">💾 Sauvegarder</span> (en haut) met à jour <span class="g-code">agent.json</span>, les images et <span class="g-code">index.json</span>. <span class="g-code">💾 Tout enregistrer</span> le fait pour tous les agents.</div></div>
+      <div class="g-step"><div class="g-num">4</div><div>Sur un autre ordinateur, choisis le même dossier (synchronisé par l'appli Google Drive), puis <span class="g-code">📥 Charger depuis le dossier</span>.</div></div>
+      <div class="g-note">Les dossiers sont <b>anonymes par défaut</b> (Agent 01, Agent 02…) : c'est <span class="g-code">index.json</span> qui indique à quel personnage correspond chaque dossier. Le réglage « Nom des dossiers » permet d'utiliser le nom du chevalier. Les images chargées depuis ton ordinateur sont enregistrées comme <b>fichiers</b> dans <span class="g-code">images/</span> (le JSON ne contient que leur chemin). Les images liées via Google Drive restent des liens. Le dossier d'un agent garde son nom initial même si tu renommes le chevalier.</div>
+      <div class="g-note"><b>Firefox, Safari, téléphone :</b> ces navigateurs ne peuvent pas écrire dans un dossier. Utilise <span class="g-code">🗜 Structure en ZIP</span> et extrais-le dans ton dossier. Pour recharger, utilise <span class="g-code">📁 Importer un dossier</span> (ordinateur) : les images sont retrouvées grâce aux chemins, <span class="g-code">index.json</span> est ignoré.</div>
+
+      <div class="g-section">Version hors ligne</div>
+      <div class="g-step"><div class="g-num">1</div><div>Dans la Base d'agents, clique <span class="g-code">💾 Version hors ligne</span> : le fichier HTML se télécharge.</div></div>
+      <div class="g-step"><div class="g-num">2</div><div>Ouvre-le par double-clic : il fonctionne sans connexion.</div></div>
+      <div class="g-warn">⚠ La copie locale a sa <b>propre base</b>, séparée de la version en ligne. Pour transférer tes agents : <b>⬇ Tout exporter</b> d'un côté, <b>⬆ Importer</b> de l'autre.</div>
     </div>
 
-    <!-- SYNC & SAUVEGARDE -->
     <div id="guide-sync" class="guide-panel">
-      <div class="g-section">Sauvegarde automatique (localStorage)</div>
+      <div class="g-section">Sauvegarde automatique</div>
       <div class="g-note">
-        Toute modification est sauvegardée automatiquement après 1,2 seconde. Indicateur en haut :<br><br>
+        Toute modification est enregistrée automatiquement après 1,2 seconde, et aussi quand tu quittes la page. Indicateur en haut :<br><br>
         <span style="color:var(--gold)">● NON SAUVEGARDÉ</span> — modification en cours<br>
-        <span style="color:var(--green)">✓ SAUVEGARDÉ</span> — données écrites dans le navigateur<br>
+        <span style="color:var(--green)">✓ SAUVEGARDÉ</span> — agent enregistré<br>
+        <span style="color:var(--red)">⚠ ÉCHEC SAUVEGARDE</span> — l'écriture a échoué : exporte le JSON par précaution<br>
         <span style="color:var(--txt3)">● EN VEILLE</span> — aucune modification récente
       </div>
-      <div class="g-warn">⚠ Le localStorage est lié au <b>navigateur et à l'ordinateur</b>. Sur une autre machine, utilise l'export JSON ou Google Drive pour retrouver tes données.</div>
-      <div class="g-section">Utiliser sur plusieurs machines</div>
+      <div class="g-section">Transférer ses agents</div>
       <table class="g-table">
         <tr><th>Scénario</th><th>Solution</th></tr>
-        <tr><td>Même machine, même navigateur</td><td>Automatique via localStorage</td></tr>
-        <tr><td>Machine différente</td><td>Export JSON → Drive ou clé USB → Import</td></tr>
-        <tr><td>Partage avec le MJ</td><td>Export JSON → envoyer → Import sur sa machine</td></tr>
-        <tr><td>Sauvegarde cloud</td><td>☁ Drive (voir onglet Google Drive)</td></tr>
+        <tr><td>Même appareil, même navigateur</td><td>Automatique</td></tr>
+        <tr><td>Autre appareil</td><td>⬇ Tout exporter, puis ⬆ Importer sur l'autre appareil</td></tr>
+        <tr><td>Version en ligne ↔ hors ligne</td><td>Même méthode : les deux bases sont séparées</td></tr>
+        <tr><td>Partage avec le MJ</td><td>⬇ JSON de l'agent, à envoyer tel quel</td></tr>
+        <tr><td>Sauvegarde dans le cloud</td><td>Enregistre les exports dans un dossier Google Drive synchronisé</td></tr>
       </table>
       <div class="g-section">Synchronisation entre onglets</div>
       <div class="g-note">
-        <b>Méta-Armure → Identité :</b> PA, PE, CdF, IA saisis dans l'onglet Méta-Armure s'affichent en lecture seule dans Identité, mis à jour en temps réel.<br><br>
-        <b>Dossier &amp; Feuille de Perso :</b> Ces deux vues se reconstruisent à chaque visite depuis les données en cours — toujours à jour.
+        <b>Méta-Armure → Identité :</b> PA, PE, CdF, IA saisis dans l'onglet Méta-Armure s'affichent en lecture seule dans Identité.<br><br>
+        <b>Dossier et Feuille de Perso :</b> ces vues se reconstruisent à chaque visite depuis l'agent ouvert.
       </div>
       <div class="g-section">Réinitialiser</div>
-      <div class="g-warn">⚠ Le bouton <span class="g-code">✕ Reset</span> efface <b>toutes les données</b> du localStorage et remet l'application à zéro. Une confirmation est demandée. Exporte ton JSON avant si tu veux conserver une sauvegarde.</div>
+      <div class="g-warn">⚠ <span class="g-code">✕ Reset</span> vide <b>uniquement l'agent ouvert</b>. Les autres agents ne sont pas touchés. Exporte-le avant si tu veux garder une copie.</div>
     </div>
 
   </div><!-- /guide-box -->
 </div><!-- /guide-overlay -->
-
-<!-- ══════════════════ DRIVE PANEL ══════════════════ -->
-<div id="drive-overlay">
-  <div id="drive-box">
-    <div class="drv-hdr">
-      <h3>☁ Google Drive</h3>
-      <button class="btn" onclick="closeDrivePanel()">✕</button>
-    </div>
-    <div class="drv-body">
-
-      <!-- Statut connexion -->
-      <div>
-        <div class="drv-section">Connexion</div>
-        <div class="drv-auth-bar">
-          <div class="drv-auth-dot" id="drv-dot"></div>
-          <span class="drv-auth-txt" id="drv-auth-txt">Non connecté</span>
-          <button class="btn btn-p" id="drv-btn-login" onclick="driveSignIn()" style="font-size:9px;padding:4px 12px">Se connecter</button>
-          <button class="btn btn-d"  id="drv-btn-logout" onclick="driveSignOut()" style="font-size:9px;padding:4px 12px;display:none">Déconnecter</button>
-        </div>
-      </div>
-
-      <!-- Config Client ID -->
-      <div>
-        <div class="drv-section">Configuration OAuth (une seule fois)</div>
-        <div class="drv-config-note">
-          Nécessite un <b>Client ID Google</b> (à faire une seule fois).<br><br>
-          1. <a href="https://console.cloud.google.com" target="_blank">console.cloud.google.com</a> → <b>Nouveau projet</b> (ex: Knight Dossier)<br>
-          2. Menu → APIs et services → Bibliothèque → chercher <b>Google Drive API</b> → Activer<br>
-          3. APIs et services → <b>Écran d'autorisation OAuth</b> → Type : Externe → Créer<br>
-          4. Remplir le nom de l'app → Sauvegarder<br>
-          5. Section <b>Utilisateurs test</b> → + Add users → ajouter ton adresse Gmail<br>
-          6. APIs et services → Identifiants → <b>+ Créer des identifiants</b> → ID client OAuth<br>
-          7. Type : <b>Application Web</b> → Origines JS autorisées → ajouter ton URL GitHub Pages :<br>
-          &nbsp;&nbsp;&nbsp;<code>https://ton-pseudo.github.io</code><br>
-          8. Cliquer <b>Créer</b> → copier le <b>Client ID</b> → le coller dans le champ ci-dessous
-        </div>
-        <div class="drv-row" style="margin-top:6px">
-          <input type="text" id="drv-client-id" placeholder="XXXXXXX.apps.googleusercontent.com">
-          <button class="btn btn-p" onclick="saveDriveClientId()" style="font-size:9px;flex-shrink:0">Enregistrer</button>
-        </div>
-        <div id="drv-client-status" class="drv-status" style="margin-top:4px">—</div>
-      </div>
-
-      <hr class="drv-sep">
-
-      <!-- Sauvegarder -->
-      <div id="drv-save-section">
-        <div class="drv-section">⬆ Sauvegarder le dossier</div>
-        <div class="drv-row">
-          <input type="text" id="drv-filename" value="knight_dossier.json">
-          <button class="btn btn-p" onclick="driveSave()" style="font-size:9px;flex-shrink:0">⬆ Sauver sur Drive</button>
-        </div>
-        <div id="drv-save-status" class="drv-status" style="margin-top:5px">—</div>
-      </div>
-
-      <hr class="drv-sep">
-
-      <!-- Charger -->
-      <div id="drv-load-section">
-        <div class="drv-section">⬇ Charger depuis Drive</div>
-        <div style="font-family:var(--mono);font-size:9px;color:var(--txt3);margin-bottom:6px">Liste tous les fichiers .json de ton Drive</div>
-        <button class="btn btn-p" onclick="driveListFiles()" style="font-size:9px;margin-bottom:8px">↻ Lister mes fichiers JSON</button>
-        <div id="drv-file-list" class="drv-file-list" style="display:none"></div>
-        <div id="drv-load-status" class="drv-status" style="margin-top:5px">—</div>
-      </div>
-
-    </div><!-- /drv-body -->
-  </div>
-</div><!-- /drive-overlay -->
-
 
 <!-- ── CARROUSEL ILLUSTRATIONS ── -->
 <div id="carousel-overlay" onclick="if(event.target===this)closeCarousel()">
@@ -3303,6 +3665,45 @@ window.addEventListener('DOMContentLoaded', init);
     </button>
   </div>
 </nav>
+
+<!-- ══ BASE D'AGENTS (fenêtre popup) ══ -->
+<div id="agents-screen" onclick="if(event.target===this)closeAgents()">
+  <div class="ag-modal" role="dialog" aria-label="Base d'agents">
+    <div class="ag-top">
+      <div><div class="ag-logo">BASE D'AGENTS</div><div class="ag-sub">Ouvre un dossier</div></div>
+      <button class="btn" onclick="closeAgents()">✕ Fermer</button>
+    </div>
+    <div class="ag-content">
+      <div class="ag-tools">
+        <label class="btn" style="cursor:pointer">⬆ Importer des JSON<input type="file" accept=".json,application/json" multiple onchange="importJSON(event)" style="display:none"></label>
+        <label class="btn" id="ag-folder-btn" style="cursor:pointer">📁 Importer un dossier<input type="file" webkitdirectory multiple onchange="importJSON(event)" style="display:none"></label>
+        <button class="btn" onclick="exportAllAgents()">⬇ Tout exporter</button>
+        <button class="btn" onclick="downloadApp()">💾 Version hors ligne</button>
+      </div>
+      <details class="ag-folder" id="ag-folder-box">
+        <summary>📂 Dossier de sauvegarde<span id="ag-folder-sum"></span></summary>
+        <div id="ag-folder-status">Aucun dossier lié.</div>
+        <div class="ag-tools" style="margin-bottom:0">
+          <button class="btn btn-p" id="ag-btn-link" onclick="linkFolder()">📂 Choisir / créer le dossier</button>
+          <button class="btn" id="ag-btn-saveone" onclick="saveToFolder(false)">💾 Enregistrer l'agent ouvert</button>
+          <button class="btn" id="ag-btn-saveall" onclick="saveToFolder(true)">💾 Tout enregistrer</button>
+          <button class="btn" id="ag-btn-load" onclick="loadFromFolder()">📥 Charger depuis le dossier</button>
+          <button class="btn" onclick="exportStructureZip()">🗜 Structure en ZIP</button>
+        </div>
+        <label class="ag-mode">Nom des dossiers :
+          <select id="ag-folder-mode" onchange="setFolderMode(this.value)">
+            <option value="anon">Anonyme (Agent 01, Agent 02…)</option>
+            <option value="nom">Nom du chevalier</option>
+            <option value="full">Nom du chevalier - Vrai nom</option>
+          </select>
+        </label>
+        <div id="ag-folder-note"></div>
+      </details>
+      <div id="ag-msg"></div>
+      <div id="ag-grid"></div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
